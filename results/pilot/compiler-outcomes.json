@@ -1,0 +1,31 @@
+{
+  "candidate_probes": 9984,
+  "case_count": 3328,
+  "certificate_kinds": {
+    "bad_entry": 416,
+    "bad_message": 416,
+    "nonopening": 416
+  },
+  "counted_elementary_obligations": 45344,
+  "families": {
+    "forged_complaint": 416,
+    "honest_delayed": 416,
+    "honest_valid": 416,
+    "invalid_message": 416,
+    "malformed_entry": 416,
+    "missing_bounded": 416,
+    "missing_censorable": 416,
+    "tag_only_unbound": 416
+  },
+  "invalid_certificate_mutations": 15392,
+  "max_public_encoding_bytes": 1572,
+  "model": "ideal signature/NIZK verification and bounded-delivery transcript; not a cryptographic implementation",
+  "producer_replay_comparisons": 26624,
+  "replay_imports": [
+    "__future__",
+    "hashlib",
+    "json",
+    "typing"
+  ],
+  "supported_certificates": 1248
+}

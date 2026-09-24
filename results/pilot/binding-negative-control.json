@@ -1,0 +1,38 @@
+{
+  "challenge_evaluations": 617,
+  "challenge_space": 251,
+  "ciphertext": 492722286254,
+  "ciphertext_message": 17,
+  "context": {
+    "context": {
+      "ceremony": "neg",
+      "message": "m",
+      "roster": [
+        1,
+        2,
+        3
+      ],
+      "round": 1,
+      "variant": "base"
+    },
+    "purpose": "encrypted-schnorr-response",
+    "round": 1,
+    "sender": 1
+  },
+  "counted_elementary_obligations": 620,
+  "expected_interpretation": "false statement accepted by toy transcript; production theorem must import a sound proof system",
+  "model": "deliberately insecure 251-value Fiat-Shamir challenge; conformance negative control",
+  "outer_index": 2,
+  "producer_accepts": true,
+  "proof": {
+    "a_group": 266,
+    "a_paillier": 983660260623,
+    "challenge": 114,
+    "response": 28183,
+    "response_randomness": 131095
+  },
+  "relation_holds": false,
+  "replay_accepts": true,
+  "tag": 365,
+  "tag_message": 18
+}

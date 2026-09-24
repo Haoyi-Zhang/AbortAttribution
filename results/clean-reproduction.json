@@ -1,0 +1,108 @@
+{
+  "scope": "clean extraction of the standalone repository and full project archives; the archives were rebuilt after this record was inserted and the documented commands were run again on the final packet",
+  "commands": [
+    "python3 -m unittest discover -s tests -v",
+    "python3 reproduce.py --out <fresh-empty-directory>",
+    "python3 compare_results.py results/pilot <fresh-empty-directory>",
+    "python3 audit_references.py --inventory reference_audit.csv",
+    "python3 paper/build.py"
+  ],
+  "unit_tests": {
+    "count": 53,
+    "exit_code": 0,
+    "status": "passed"
+  },
+  "runner": {
+    "exit_code": 0,
+    "status": "finite_checks_passed",
+    "boundary_cases": 84,
+    "compiler_cases": 3328,
+    "schnorr_bridge_cases": 4160,
+    "counted_elementary_obligations": 215497,
+    "failures": 0,
+    "retained_measurement_cpu_seconds": 5.828600855,
+    "retained_measurement_wall_seconds": 5.837847322000016,
+    "retained_measurement_peak_rss_kib": 134304,
+    "clean_reproduction_measurements_recorded": false,
+    "measurement_note": "clean-reproduction timing and RSS are intentionally not frozen because they are process metadata; only retained measurement metadata and deterministic scientific files are preserved"
+  },
+  "comparison": {
+    "exit_code": 0,
+    "deterministic_files_compared": 21,
+    "status": "byte_for_byte_agreement",
+    "measurements_excluded": true
+  },
+  "input_boundary_audit": {
+    "canonical_encoding_checks": 31,
+    "malformed_setup_mutations": 503,
+    "public_api_calls": 1380,
+    "exceptions": 0,
+    "unsafe_results": 0
+  },
+  "negative_control": {
+    "statement": "Paillier ciphertext of 17 paired with exponent tag g^18",
+    "exact_relation_holds": false,
+    "challenge_space": 251,
+    "challenge_evaluations": 617,
+    "producer_accepts": true,
+    "replay_accepts": true,
+    "interpretation": "expected falsification of toy-proof soundness; the attribution theorem instead assumes complete and sound verification of the exact bounded relation under the accepted real setup, while privacy states its additional simulation assumptions separately"
+  },
+  "reference_audit": {
+    "total_entries": 72,
+    "all_cited_in_manuscript": true,
+    "minimum_required": 55,
+    "primary_publisher_or_iacr_records_checked": 9,
+    "stable_identifier_structural_checks": 63,
+    "duplicate_keys_titles_or_identifiers": 0,
+    "nocite_used": false,
+    "status": "passed",
+    "qualification": "the deterministic build does not pretend to repeat live network metadata resolution for all 72 records"
+  },
+  "manuscript_build": {
+    "exit_code": 0,
+    "pages": 36,
+    "main_sections": 9,
+    "abstract_words": 243,
+    "keywords": 8,
+    "rendered_references": 72,
+    "source_references": 72,
+    "all_source_references_cited": true,
+    "overfull_boxes": 0,
+    "unresolved_references_or_citations": 0,
+    "missing_character_diagnostics": 0,
+    "visible_approved_authors": 2
+  },
+  "pdf_validation": {
+    "pages_rendered_at_200_dpi": 36,
+    "second_renderer_pages": 36,
+    "renderer_dimensions_agree": true,
+    "fonts_embedded": true,
+    "replacement_characters_in_extracted_text": 0,
+    "clean_build_text_identical": true,
+    "clean_build_changed_pages_at_100_dpi": 0,
+    "preflight_openable": true,
+    "visual_findings": "no clipping, overlap, black block, broken glyph, illegible table, or bibliography overflow observed"
+  },
+  "packaging": {
+    "full_project_single_root": "non-frameable-abort-attribution-for-exponent-vrf-ceremonies/",
+    "full_project_root_entries": [
+      "paper/",
+      "artifact/",
+      "research-plan.md",
+      "CURRENT-STATE.md"
+    ],
+    "standalone_single_root": "non-frameable-abort-attribution/",
+    "nested_archives": 0,
+    "bytecode_caches": 0,
+    "latex_intermediates": 0,
+    "zip_integrity": "passed"
+  },
+  "limitations": [
+    "This is deterministic hosted reproduction and a packet self-audit, not independent external review or mechanized proof.",
+    "The generic campaign uses ideal cryptographic verification bits.",
+    "The Schnorr bridge uses toy arithmetic, deliberately exposes an unsound tiny-challenge transcript, and imports the eVRF verification result.",
+    "The attribution theorem is relative to a production proof system and service interfaces that are not instantiated here; the privacy theorem additionally assumes the stated simulation interface.",
+    "Timing, RSS, PDF metadata, and PDF bytes are not claimed deterministic."
+  ]
+}

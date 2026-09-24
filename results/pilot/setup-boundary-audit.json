@@ -1,0 +1,25 @@
+{
+  "bad_value_classes": [
+    "null",
+    "true",
+    "false",
+    "zero",
+    "float",
+    "string",
+    "empty-list",
+    "list",
+    "empty-object",
+    "object",
+    "bytes",
+    "tuple"
+  ],
+  "compiler_mutations": 193,
+  "counted_elementary_obligations": 1380,
+  "exceptions": 0,
+  "failures": [],
+  "ideal_receipt_mutations": 181,
+  "model": "parser-boundary hardening for damaged trusted-context encodings; not a cryptographic security experiment",
+  "public_api_calls": 1380,
+  "schnorr_mutations": 129,
+  "unsafe_results": 0
+}

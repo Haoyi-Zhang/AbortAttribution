@@ -1,0 +1,76 @@
+{
+  "case_count": 84,
+  "certificate_kinds": {
+    "bad_opening": 25,
+    "nonopening": 5
+  },
+  "coefficient_target_evaluations": 85184,
+  "compiler_candidate_probes": 9984,
+  "compiler_case_count": 3328,
+  "compiler_certificate_kinds": {
+    "bad_entry": 416,
+    "bad_message": 416,
+    "nonopening": 416
+  },
+  "compiler_invalid_certificate_mutations": 15392,
+  "compiler_producer_replay_comparisons": 26624,
+  "compiler_supported_certificates": 1248,
+  "counted_elementary_obligations": 215497,
+  "deliberately_weak_judge_false_accusations": 10,
+  "failures": [],
+  "families": {
+    "all_honest": 4,
+    "censorable_after_accept": 10,
+    "censorable_before_accept": 10,
+    "commitment_mismatch": 5,
+    "foreign_context": 5,
+    "honest_delay": 20,
+    "late_prerequisite": 5,
+    "malformed_opening": 15,
+    "nonopening_reliable": 5,
+    "tag_mismatch": 5
+  },
+  "invalid_certificate_mutations": 485,
+  "max_public_encoding_bytes": 2348,
+  "max_receipt_records": 12,
+  "model": "ideal-receipt exponent-tag evidence model; not an exponent-VRF implementation",
+  "omission_probes": 410,
+  "paired_public_observations": 10,
+  "posterior_cells_checked": 45124,
+  "producer_replay_comparisons": 925,
+  "rank_distribution_comparisons": 64,
+  "replay_imports": [
+    "__future__",
+    "hashlib",
+    "json",
+    "typing"
+  ],
+  "schema_checks": 31,
+  "schema_invalid_vectors": 7,
+  "schema_valid_vectors": 8,
+  "schnorr_algebraic_consistency_checks": 8320,
+  "schnorr_case_count": 4160,
+  "schnorr_invalid_attribution_mutations": 9568,
+  "schnorr_producer_replay_comparisons": 13728,
+  "schnorr_tiny_challenge_negative_control": {
+    "challenge_evaluations": 617,
+    "challenge_space": 251,
+    "counted_elementary_obligations": 620,
+    "false_relation": true,
+    "producer_accepts": true,
+    "replay_accepts": true
+  },
+  "schnorr_verdicts": {
+    "bad_binding": 832,
+    "bad_response": 1248,
+    "none": 1664,
+    "qualified_nonopening": 416
+  },
+  "setup_boundary_api_calls": 1380,
+  "setup_boundary_exceptions": 0,
+  "setup_boundary_mutations": 503,
+  "setup_boundary_unsafe_results": 0,
+  "status": "finite_checks_passed",
+  "supported_certificates": 30,
+  "timing_histories": 1008
+}

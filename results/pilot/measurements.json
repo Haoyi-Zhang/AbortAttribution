@@ -1,0 +1,10 @@
+{
+  "address_space_limit_bytes": 3221225472,
+  "cpu_seconds": 5.828600855,
+  "enumeration_limit_this_run": 300000,
+  "measurement_scope": "pilot checks and raw-result writes, before final measurement serialization",
+  "peak_rss_kib": 134304,
+  "wall_limit_seconds": 180,
+  "wall_seconds": 5.837847322000016,
+  "workers": 1
+}
