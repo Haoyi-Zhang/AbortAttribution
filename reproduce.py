@@ -11,7 +11,10 @@ from collections import Counter, defaultdict
 from copy import deepcopy
 import json
 from pathlib import Path
-import resource
+try:
+    import resource
+except ImportError:  # native Windows has no Unix resource module
+    resource = None  # type: ignore[assignment]
 import signal
 import sys
 import time
@@ -23,12 +26,15 @@ from cases import generate
 from checker import accepted, extract, ready_record, verify
 from replay import replay
 from linear_oracle import run_disclosure_oracle, run_exponent_oracle, run_timing_oracle
-from compiler_cases import generate as generate_compiler_cases
+from compiler_cases import fixture as compiler_fixture, generate as generate_compiler_cases
 from compiler_checker import extract as extract_compiler, verify as verify_compiler
 from compiler_replay import replay as replay_compiler
 from schnorr_bridge import (GROUP_G as SCHNORR_G, GROUP_P as SCHNORR_P, PAILLIER_N,
+                            binding_verify as schnorr_binding_verify,
                             envelope_status as schnorr_status, generate_cases as generate_schnorr_cases,
-                            paillier_decrypt, response_equation as schnorr_equation,
+                            paillier_decrypt, proof_context as schnorr_proof_context,
+                            registered_share_substitution_case,
+                            response_equation as schnorr_equation,
                             tiny_challenge_negative_control,
                             verdict as schnorr_verdict)
 from schnorr_replay import binding as replay_binding, replay as replay_schnorr
@@ -107,6 +113,132 @@ def compiler_mutations(cert: dict[str, Any], env: dict[str, Any]) -> list[tuple[
     return out
 
 
+def _refresh_compiler_closures(env: dict[str, Any]) -> None:
+    """Recompute each closure from record times without trusting fixture names."""
+    context_id = env["context"]["id"]
+    for closure in env["closures"].values():
+        cutoff = closure["cutoff"]
+        closure["records"] = sorted(
+            name for name, record in env["records"].items()
+            if record.get("context") == context_id
+            and type(record.get("time")) is int
+            and record["time"] <= cutoff
+        )
+
+
+def run_compiler_regressions(out: Path, failures: list[dict[str, Any]]) -> dict[str, Any]:
+    """Focused semantic regressions kept separate from certificate-field mutations."""
+    rows: list[dict[str, Any]] = []
+    checks = 0
+
+    def record(name: str, env: dict[str, Any], expected_kinds: list[str]) -> list[dict[str, Any]]:
+        nonlocal checks
+        certs = extract_compiler(env)
+        observed = [cert["kind"] for cert in certs]
+        checks += 1
+        row: dict[str, Any] = {
+            "name": name, "expected_kinds": expected_kinds, "observed_kinds": observed,
+            "certificates": certs, "producer_accepts": [], "replay_accepts": [],
+        }
+        if observed != expected_kinds:
+            failures.append({"failure": "compiler_focused_regression", "name": name,
+                             "expected": expected_kinds, "observed": observed})
+        for cert in certs:
+            left, right = verify_compiler(env, cert), replay_compiler(env, cert)
+            checks += 2
+            row["producer_accepts"].append(left)
+            row["replay_accepts"].append(right)
+            if not left or not right:
+                failures.append({"failure": "compiler_focused_certificate_rejected",
+                                 "name": name, "certificate": cert})
+        rows.append(row)
+        return certs
+
+    exact = compiler_fixture(5, 2, 3, "honest_delayed")["public"]
+    record("correct-envelope-at-D", exact, [])
+
+    late = compiler_fixture(5, 2, 3, "honest_valid")["public"]
+    late["records"]["envelope"]["time"] = 13
+    _refresh_compiler_closures(late)
+    record("correct-envelope-at-D-plus-1-bounded", late, ["nonopening"])
+
+    censorable = deepcopy(late)
+    censorable["context"]["service"] = "censorable"
+    record("correct-envelope-at-D-plus-1-censorable", censorable, [])
+
+    late_ready = deepcopy(late)
+    late_ready["records"]["ready"]["time"] = 7
+    _refresh_compiler_closures(late_ready)
+    record("D-plus-1-with-late-readiness", late_ready, [])
+
+    missing = compiler_fixture(5, 2, 3, "missing_bounded")["public"]
+    record("genuine-qualified-missing", missing, ["nonopening"])
+
+    malformed_late = compiler_fixture(5, 2, 3, "malformed_entry")["public"]
+    malformed_late["records"]["envelope"]["time"] = 13
+    _refresh_compiler_closures(malformed_late)
+    record("late-malformed-content", malformed_late, ["bad_entry", "nonopening"])
+
+    bad_hash = compiler_fixture(5, 2, 3, "honest_valid")["public"]
+    bad_hash["records"]["envelope"]["body"]["entry_proof_statement"] = "0" * 64
+    record("statement-hash-mismatch", bad_hash, ["bad_entry"])
+
+    bad_proof = compiler_fixture(5, 2, 3, "honest_valid")["public"]
+    bad_proof["records"]["envelope"]["body"]["entry_proof_valid"] = False
+    record("entry-proof-bit-false", bad_proof, ["bad_entry"])
+
+    truncated = compiler_fixture(5, 2, 3, "missing_bounded")["public"]
+    truncated["closures"]["final"]["records"].remove("ready")
+    candidate = {"kind": "nonopening", "context": truncated["context"]["id"],
+                 "actor": 2, "accept": "accept", "ready": "ready", "closure": "final"}
+    left, right = verify_compiler(truncated, candidate), replay_compiler(truncated, candidate)
+    checks += 2
+    rows.append({"name": "truncated-closure-content", "expected_acceptance": False,
+                 "producer_accepts": left, "replay_accepts": right, "candidate": candidate})
+    if left or right:
+        failures.append({"failure": "compiler_truncated_closure_accepted"})
+
+    renamed = compiler_fixture(5, 2, 3, "missing_bounded")["public"]
+    renamed["records"]["a1"] = renamed["records"].pop("accept")
+    renamed["records"]["r1"] = renamed["records"].pop("ready")
+    renamed["records"]["r2"] = deepcopy(renamed["records"]["r1"])
+    renamed["records"]["r2"]["time"] = 5
+    renamed["closures"]["b1"] = renamed["closures"].pop("final")
+    renamed["closures"]["b2"] = deepcopy(renamed["closures"]["b1"])
+    _refresh_compiler_closures(renamed)
+    certs = record("renamed-references-and-multiple-candidates", renamed, ["nonopening"])
+    expected_refs = {"accept": "a1", "ready": "r1", "closure": "b1"}
+    observed_refs = {key: certs[0].get(key) for key in expected_refs} if len(certs) == 1 else {}
+    checks += 1
+    rows[-1]["expected_references"] = expected_refs
+    rows[-1]["observed_references"] = observed_refs
+    if observed_refs != expected_refs:
+        failures.append({"failure": "compiler_noncanonical_reference_selection",
+                         "expected": expected_refs, "observed": observed_refs})
+
+    valid_missing = compiler_fixture(5, 2, 3, "missing_bounded")["public"]
+    base_cert = extract_compiler(valid_missing)[0]
+    for label, value in (("list", []), ("object", {})):
+        mutant = deepcopy(base_cert)
+        mutant["closure"] = value
+        left, right = verify_compiler(valid_missing, mutant), replay_compiler(valid_missing, mutant)
+        checks += 2
+        rows.append({"name": f"nonstring-closure-reference-{label}",
+                     "expected_acceptance": False, "producer_accepts": left,
+                     "replay_accepts": right})
+        if left or right:
+            failures.append({"failure": "compiler_nonstring_closure_accepted", "kind": label})
+
+    result = {
+        "model": "focused semantic and parser regressions; separate from the Cartesian certificate-field mutation campaign",
+        "regression_count": len(rows),
+        "counted_elementary_obligations": checks,
+        "rows": rows,
+    }
+    dump(out / "compiler-regressions.json", result)
+    return result
+
+
 def run_compiler_campaign(out: Path, failures: list[dict[str, Any]]) -> dict[str, Any]:
     cases = generate_compiler_cases()
     if len(cases) != 3328:
@@ -118,6 +250,7 @@ def run_compiler_campaign(out: Path, failures: list[dict[str, Any]]) -> dict[str
     comparisons = 0
     max_encoding = 0
     cert_kinds: Counter[str] = Counter()
+    mutation_templates: set[str] = set()
     for case in cases:
         env = case["public"]
         max_encoding = max(max_encoding, len(json.dumps(env, sort_keys=True, separators=(",", ":")).encode("ascii")))
@@ -134,6 +267,7 @@ def run_compiler_campaign(out: Path, failures: list[dict[str, Any]]) -> dict[str
             if not left or not right:
                 failures.append({"case": case["case"], "failure": "compiler_valid_certificate_rejected"})
             for reason, mutant in compiler_mutations(cert, env):
+                mutation_templates.add(reason)
                 left, right = verify_compiler(env, mutant), replay_compiler(env, mutant)
                 comparisons += 1
                 mutation_results.append({"case": case["case"], "reason": reason,
@@ -167,7 +301,8 @@ def run_compiler_campaign(out: Path, failures: list[dict[str, Any]]) -> dict[str
             imports.append(node.module)
     if set(imports) & {"compiler_checker", "compiler_cases"}:
         failures.append({"failure": "compiler_replay_imports_producer"})
-    obligations = len(cases) + comparisons + len(mutation_results)
+    focused = run_compiler_regressions(out, failures)
+    obligations = len(cases) + comparisons + len(mutation_results) + focused["counted_elementary_obligations"]
     result = {
         "model": "ideal signature/NIZK verification and bounded-delivery transcript; not a cryptographic implementation",
         "case_count": len(cases),
@@ -175,6 +310,10 @@ def run_compiler_campaign(out: Path, failures: list[dict[str, Any]]) -> dict[str
         "supported_certificates": len(certificates),
         "certificate_kinds": dict(sorted(cert_kinds.items())),
         "invalid_certificate_mutations": len(mutation_results),
+        "certificate_mutation_template_count": len(mutation_templates),
+        "certificate_mutation_templates": sorted(mutation_templates),
+        "focused_regression_count": focused["regression_count"],
+        "focused_regression_checks": focused["counted_elementary_obligations"],
         "candidate_probes": len(probes),
         "producer_replay_comparisons": comparisons,
         "max_public_encoding_bytes": max_encoding,
@@ -281,6 +420,46 @@ def run_schnorr_campaign(out: Path, failures: list[dict[str, Any]]) -> dict[str,
     negative_obligations = negative_control["challenge_evaluations"] + 3
     negative_control["counted_elementary_obligations"] = negative_obligations
 
+    share_case = registered_share_substitution_case()
+    share_body = share_case["envelope"]["body"]
+    share_producer = _schnorr_producer(share_case)
+    share_replayed = replay_schnorr(share_case)
+    share_status = schnorr_status(share_case["context"], share_case["envelope"], share_case["auth_public"])
+    share_plaintext = paillier_decrypt(share_body["ciphertext"])
+    share_binding_context = schnorr_proof_context(share_case["context"], "encrypted-schnorr-response")
+    share_binding_accepts = schnorr_binding_verify(
+        share_binding_context, share_body["ciphertext"], share_body["response_tag"],
+        share_body["binding_proof"],
+    )
+    share_equation_accepts = schnorr_equation(share_body)
+    share_checks = 10
+    share_result = {
+        "case": share_case["case"],
+        **share_case["regression"],
+        "decrypted_scalar": share_plaintext,
+        "producer_status": share_status,
+        "producer_verdict": share_producer,
+        "replay_verdict": share_replayed,
+        "binding_proof_accepts": share_binding_accepts,
+        "registered_equation_accepts": share_equation_accepts,
+        "counted_elementary_obligations": share_checks,
+    }
+    expected_share_result = (
+        share_result["registered_verification_share"] == 62
+        and share_result["substituted_verification_share"] == 1
+        and share_result["nonce_scalar"] == 206
+        and share_result["nonce_tag"] == 285
+        and share_result["substituted_response_tag"] == 285
+        and share_result["registered_expected_response_tag"] == 402
+        and share_plaintext == 206 and share_binding_accepts is True
+        and share_equation_accepts is False
+        and share_status == share_producer == share_replayed == "bad_response"
+    )
+    if not expected_share_result:
+        failures.append({"failure": "registered_share_substitution_regression",
+                         "observed": share_result})
+    dump(out / "schnorr-share-substitution.json", share_result)
+
     tree = ast.parse((ROOT / "src" / "schnorr_replay.py").read_text(encoding="utf-8"))
     imports: list[str | None] = []
     for node in ast.walk(tree):
@@ -290,7 +469,8 @@ def run_schnorr_campaign(out: Path, failures: list[dict[str, Any]]) -> dict[str,
             imports.append(node.module)
     if "schnorr_bridge" in imports:
         failures.append({"failure": "schnorr_replay_imports_producer"})
-    obligations = len(cases) + comparisons + len(mutations_out) + algebraic_checks + negative_obligations
+    obligations = (len(cases) + comparisons + len(mutations_out) + algebraic_checks
+                   + negative_obligations + share_checks)
     result = {
         "model": "toy prime-order group and Paillier arithmetic; imported eVRF verification bit; honest-equation conformance plus an explicit tiny-challenge forgery negative control; not production cryptography",
         "case_count": len(cases),
@@ -299,6 +479,19 @@ def run_schnorr_campaign(out: Path, failures: list[dict[str, Any]]) -> dict[str,
         "invalid_attribution_mutations": len(mutations_out),
         "producer_replay_comparisons": comparisons,
         "algebraic_consistency_checks": algebraic_checks,
+        "registered_share_substitution": {
+            "registered_verification_share": share_result["registered_verification_share"],
+            "substituted_verification_share": share_result["substituted_verification_share"],
+            "nonce_scalar": share_result["nonce_scalar"],
+            "nonce_tag": share_result["nonce_tag"],
+            "substituted_response_tag": share_result["substituted_response_tag"],
+            "registered_expected_response_tag": share_result["registered_expected_response_tag"],
+            "binding_proof_accepts": share_result["binding_proof_accepts"],
+            "registered_equation_accepts": share_result["registered_equation_accepts"],
+            "producer_verdict": share_result["producer_verdict"],
+            "replay_verdict": share_result["replay_verdict"],
+            "counted_elementary_obligations": share_checks,
+        },
         "tiny_challenge_negative_control": {
             "challenge_space": negative_control["challenge_space"],
             "challenge_evaluations": negative_control["challenge_evaluations"],
@@ -451,6 +644,9 @@ def run(out: Path) -> dict[str, Any]:
                 "compiler_case_count": compiler["case_count"],
                 "compiler_supported_certificates": compiler["supported_certificates"],
                 "compiler_invalid_certificate_mutations": compiler["invalid_certificate_mutations"],
+                "compiler_certificate_mutation_template_count": compiler["certificate_mutation_template_count"],
+                "compiler_focused_regression_count": compiler["focused_regression_count"],
+                "compiler_focused_regression_checks": compiler["focused_regression_checks"],
                 "compiler_candidate_probes": compiler["candidate_probes"],
                 "compiler_producer_replay_comparisons": compiler["producer_replay_comparisons"],
                 "compiler_certificate_kinds": compiler["certificate_kinds"],
@@ -459,6 +655,7 @@ def run(out: Path) -> dict[str, Any]:
                 "schnorr_invalid_attribution_mutations": schnorr["invalid_attribution_mutations"],
                 "schnorr_producer_replay_comparisons": schnorr["producer_replay_comparisons"],
                 "schnorr_algebraic_consistency_checks": schnorr["algebraic_consistency_checks"],
+                "schnorr_registered_share_substitution": schnorr["registered_share_substitution"],
                 "schnorr_tiny_challenge_negative_control": schnorr["tiny_challenge_negative_control"],
                 "schema_valid_vectors": len(schema["valid_vectors"]),
                 "schema_invalid_vectors": len(schema["invalid_vectors"]),
@@ -490,6 +687,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", type=Path, required=True, help="new or empty local output directory")
     args = parser.parse_args()
+    if (not sys.platform.startswith("linux") or resource is None
+            or not hasattr(signal, "SIGALRM")):
+        parser.error("supported execution requires CPython on Linux (native or WSL2) with Unix resource limits and SIGALRM")
+    if sys.version_info < (3, 10):
+        parser.error("supported execution requires Python 3.10 or newer")
     out = args.out.resolve()
     if out.exists() and any(out.iterdir()):
         parser.error("output directory is nonempty; choose a new directory to avoid stale results")

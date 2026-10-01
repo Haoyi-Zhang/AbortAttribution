@@ -1,25 +1,714 @@
 {
-  "bad_value_classes": [
-    "null",
-    "true",
-    "false",
-    "zero",
-    "float",
-    "string",
-    "empty-list",
-    "list",
-    "empty-object",
-    "object",
-    "bytes",
-    "tuple"
-  ],
-  "compiler_mutations": 193,
-  "counted_elementary_obligations": 1380,
+  "compiler_mutations": 60,
+  "counted_elementary_obligations": 388,
   "exceptions": 0,
   "failures": [],
-  "ideal_receipt_mutations": 181,
-  "model": "parser-boundary hardening for damaged trusted-context encodings; not a cryptographic security experiment",
-  "public_api_calls": 1380,
-  "schnorr_mutations": 129,
+  "ideal_receipt_mutations": 48,
+  "manifest": [
+    {
+      "model": "compiler",
+      "schema_rule": "context must be a JSON object",
+      "vector": "top.context:null"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "context must be a JSON object",
+      "vector": "top.context:bool"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "context must be a JSON object",
+      "vector": "top.context:integer"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "context must be a JSON object",
+      "vector": "top.context:float"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "context must be a JSON object",
+      "vector": "top.context:string"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "context must be a JSON object",
+      "vector": "top.context:list"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "context must be a JSON object",
+      "vector": "top.context:bytes"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "context must be a JSON object",
+      "vector": "top.context:tuple"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "records must be a JSON object",
+      "vector": "top.records:null"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "records must be a JSON object",
+      "vector": "top.records:bool"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "records must be a JSON object",
+      "vector": "top.records:integer"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "records must be a JSON object",
+      "vector": "top.records:float"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "records must be a JSON object",
+      "vector": "top.records:string"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "records must be a JSON object",
+      "vector": "top.records:list"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "records must be a JSON object",
+      "vector": "top.records:bytes"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "records must be a JSON object",
+      "vector": "top.records:tuple"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "closures must be a JSON object",
+      "vector": "top.closures:null"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "closures must be a JSON object",
+      "vector": "top.closures:bool"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "closures must be a JSON object",
+      "vector": "top.closures:integer"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "closures must be a JSON object",
+      "vector": "top.closures:float"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "closures must be a JSON object",
+      "vector": "top.closures:string"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "closures must be a JSON object",
+      "vector": "top.closures:list"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "closures must be a JSON object",
+      "vector": "top.closures:bytes"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "closures must be a JSON object",
+      "vector": "top.closures:tuple"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "record identifiers must be strings",
+      "vector": "records.nonstring-key"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "record values must be objects",
+      "vector": "records.nondict-value"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "closure identifiers must be strings",
+      "vector": "closures.nonstring-key"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "closure values must be objects",
+      "vector": "closures.nondict-value"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "top-level object has an exact key set",
+      "vector": "top.unexpected-key"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "context id must be a nonempty canonical string",
+      "vector": "context.id:empty"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "context id must be canonical JSON",
+      "vector": "context.id:surrogate"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "roster must be a bounded list of positive exact integers",
+      "vector": "context.roster:null"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "roster must be a JSON list",
+      "vector": "context.roster:tuple"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "roster must be nonempty",
+      "vector": "context.roster:empty"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "roster members must be exact integers, not booleans",
+      "vector": "context.roster:boolean-member"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "roster members must be unique",
+      "vector": "context.roster:duplicate"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "roster members must be positive",
+      "vector": "context.roster:nonpositive"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "roster length is at most ten",
+      "vector": "context.roster:oversize"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "round must be an exact integer",
+      "vector": "context.round:boolean"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "round lies in 1..8",
+      "vector": "context.round:zero"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "round lies in 1..8",
+      "vector": "context.round:too-large"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "round must be an exact integer",
+      "vector": "context.round:float"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "sender must be an exact roster integer",
+      "vector": "context.sender:boolean"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "sender must be in the roster",
+      "vector": "context.sender:outside"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "recipient must be an exact roster integer",
+      "vector": "context.recipient:boolean"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "recipient must be in the roster",
+      "vector": "context.recipient:outside"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "group must be an exact object",
+      "vector": "context.group:null"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "group parameters must be exact integers",
+      "vector": "context.group.p:boolean"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "group order must be nontrivial",
+      "vector": "context.group.q:zero"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "generator must be nonidentity",
+      "vector": "context.group.g:identity"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "timing bounds must be exact integers",
+      "vector": "context.accept_by:boolean"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "acceptance time is nonnegative",
+      "vector": "context.accept_by:negative"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "deadline must be an exact integer",
+      "vector": "context.deadline:string"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "deadline cannot precede acceptance",
+      "vector": "context.deadline:before-accept"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "delay bounds must be exact integers",
+      "vector": "context.read-bound:boolean"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "delay bounds are nonnegative",
+      "vector": "context.compute-bound:negative"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "deadline must cover all declared delay bounds",
+      "vector": "context.delivery-bound:too-large"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "service label must be a string enum",
+      "vector": "context.service:boolean"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "service label must be declared",
+      "vector": "context.service:unknown"
+    },
+    {
+      "model": "compiler",
+      "schema_rule": "context has an exact key set",
+      "vector": "context.unexpected-key"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "context must be a JSON object",
+      "vector": "top.context:null"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "context must be a JSON object",
+      "vector": "top.context:bool"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "context must be a JSON object",
+      "vector": "top.context:integer"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "context must be a JSON object",
+      "vector": "top.context:float"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "context must be a JSON object",
+      "vector": "top.context:string"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "context must be a JSON object",
+      "vector": "top.context:list"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "context must be a JSON object",
+      "vector": "top.context:bytes"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "context must be a JSON object",
+      "vector": "top.context:tuple"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "receipts must be a JSON object",
+      "vector": "top.receipts:null"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "receipts must be a JSON object",
+      "vector": "top.receipts:bool"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "receipts must be a JSON object",
+      "vector": "top.receipts:integer"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "receipts must be a JSON object",
+      "vector": "top.receipts:float"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "receipts must be a JSON object",
+      "vector": "top.receipts:string"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "receipts must be a JSON object",
+      "vector": "top.receipts:list"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "receipts must be a JSON object",
+      "vector": "top.receipts:bytes"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "receipts must be a JSON object",
+      "vector": "top.receipts:tuple"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "closures must be a JSON object",
+      "vector": "top.closures:null"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "closures must be a JSON object",
+      "vector": "top.closures:bool"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "closures must be a JSON object",
+      "vector": "top.closures:integer"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "closures must be a JSON object",
+      "vector": "top.closures:float"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "closures must be a JSON object",
+      "vector": "top.closures:string"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "closures must be a JSON object",
+      "vector": "top.closures:list"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "closures must be a JSON object",
+      "vector": "top.closures:bytes"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "closures must be a JSON object",
+      "vector": "top.closures:tuple"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "record identifiers must be strings",
+      "vector": "receipts.nonstring-key"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "record values must be objects",
+      "vector": "receipts.nondict-value"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "closure identifiers must be strings",
+      "vector": "closures.nonstring-key"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "closure values must be objects",
+      "vector": "closures.nondict-value"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "top-level object has an exact key set",
+      "vector": "top.unexpected-key"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "context id must be nonempty",
+      "vector": "context.id:empty"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "roster members must be exact integers, not booleans",
+      "vector": "context.roster:boolean-member"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "roster members must be unique",
+      "vector": "context.roster:duplicate"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "roster must be nonempty",
+      "vector": "context.roster:empty"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "group must be an exact object",
+      "vector": "context.group:null"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "group parameters must be exact integers",
+      "vector": "context.group.p:boolean"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "threshold must be an exact integer",
+      "vector": "context.threshold:boolean"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "threshold is at least one",
+      "vector": "context.threshold:zero"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "threshold is at most roster size",
+      "vector": "context.threshold:too-large"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "coefficient tags must be a list",
+      "vector": "context.coefficient-tags:null"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "tags must be exact subgroup integers",
+      "vector": "context.coefficient-tags:boolean"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "tag count equals threshold",
+      "vector": "context.coefficient-tags:wrong-length"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "timing bounds must be exact integers",
+      "vector": "context.accept-by:boolean"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "deadline cannot precede acceptance",
+      "vector": "context.deadline:before-accept"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "delay bounds are nonnegative",
+      "vector": "context.read-bound:negative"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "delay bounds must be exact integers",
+      "vector": "context.compute-bound:boolean"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "deadline must cover all declared delay bounds",
+      "vector": "context.delivery-bound:too-large"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "service label must be declared",
+      "vector": "context.service:unknown"
+    },
+    {
+      "model": "ideal-receipt",
+      "schema_rule": "context has an exact key set",
+      "vector": "context.unexpected-key"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "context must be an exact object",
+      "vector": "top.context:null"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "context must be an exact object",
+      "vector": "top.context:bool"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "context must be an exact object",
+      "vector": "top.context:integer"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "context must be an exact object",
+      "vector": "top.context:float"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "context must be an exact object",
+      "vector": "top.context:string"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "context must be an exact object",
+      "vector": "top.context:list"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "context must be an exact object",
+      "vector": "top.context:bytes"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "context must be an exact object",
+      "vector": "top.context:tuple"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "outer authentication key must equal the registered key",
+      "vector": "top.auth-public:boolean"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "outer authentication key must equal the registered key",
+      "vector": "top.auth-public:mismatch"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "service label must be a string enum",
+      "vector": "top.service:boolean"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "service label must be declared",
+      "vector": "top.service:unknown"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "seed context must be an exact object",
+      "vector": "context.seed:null"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "seed roster members must be exact integers",
+      "vector": "context.seed.roster:boolean-member"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "seed roster is the canonical ordered roster",
+      "vector": "context.seed.roster:duplicate"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "seed roster is exactly 1..n",
+      "vector": "context.seed.roster:noncanonical"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "round must be an exact integer",
+      "vector": "context.seed.round:boolean"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "round lies in 1..8",
+      "vector": "context.seed.round:zero"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "ceremony domain is nonempty",
+      "vector": "context.seed.ceremony:empty"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "seed strings must be canonical JSON",
+      "vector": "context.seed.message:surrogate"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "registered share table must be a list",
+      "vector": "context.verification-shares:null"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "share table length equals roster length",
+      "vector": "context.verification-shares:short"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "registered shares are exact subgroup integers",
+      "vector": "context.verification-shares:boolean"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "nonce-tag vector must be a list",
+      "vector": "context.nonce-tags:null"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "nonce-tag vector length equals roster length",
+      "vector": "context.nonce-tags:short"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "nonce tags are exact subgroup integers",
+      "vector": "context.nonce-tags:boolean"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "sender must be an exact roster integer",
+      "vector": "context.sender:boolean"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "sender must be in the seed roster",
+      "vector": "context.sender:outside"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "registered authentication key is an exact subgroup element",
+      "vector": "context.auth-public:boolean"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "registered authentication key is a valid subgroup encoding",
+      "vector": "context.auth-public:identity"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "context has an exact key set",
+      "vector": "context.unexpected-key"
+    },
+    {
+      "model": "schnorr-specialization",
+      "schema_rule": "seed context has an exact key set",
+      "vector": "context.seed.unexpected-key"
+    }
+  ],
+  "model": "independently annotated parser-boundary vectors for damaged trusted-context encodings; no producer validator prefilter; not a cryptographic security experiment",
+  "public_api_calls": 388,
+  "schnorr_mutations": 32,
+  "selection_method": "each negative vector is constructed from an explicit schema rule before invoking any public API",
   "unsafe_results": 0
 }

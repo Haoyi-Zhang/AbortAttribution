@@ -60,7 +60,15 @@ def subgroup(x: Any) -> bool:
     return type(x) is int and 1 <= x < P and pow(x, Q, P) == 1
 
 
-_CONTEXT_KEYS = {"ceremony", "roster", "round", "message", "variant", "sender", "auth_public", "nonce_tags"}
+_SEED_KEYS = {"ceremony", "roster", "round", "message", "variant"}
+_CONTEXT_KEYS = {"seed_context", "verification_shares", "nonce_tags", "sender", "auth_public"}
+
+
+def transcript_context(context: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "seed_context": context["seed_context"],
+        "nonce_tags": context["nonce_tags"],
+    }
 
 
 def context_ok(context: Any) -> bool:
@@ -70,19 +78,26 @@ def context_ok(context: Any) -> bool:
         enc(context)
     except (TypeError, ValueError, UnicodeError):
         return False
-    roster = context.get("roster")
+    seed = context.get("seed_context")
+    if type(seed) is not dict or set(seed) != _SEED_KEYS:
+        return False
+    roster = seed.get("roster")
+    shares = context.get("verification_shares")
+    nonces = context.get("nonce_tags")
     return bool(
-        type(context.get("ceremony")) is str and context["ceremony"]
-        and type(context.get("message")) is str and context["message"]
-        and type(context.get("variant")) is str and context["variant"]
+        type(seed.get("ceremony")) is str and seed["ceremony"]
+        and type(seed.get("message")) is str and seed["message"]
+        and type(seed.get("variant")) is str and seed["variant"]
         and type(roster) is list and 3 <= len(roster) <= 10
+        and all(type(member) is int for member in roster)
         and roster == list(range(1, len(roster) + 1))
+        and type(seed.get("round")) is int and 1 <= seed["round"] <= 8
         and type(context.get("sender")) is int and context["sender"] in roster
-        and type(context.get("round")) is int and 1 <= context["round"] <= 8
         and subgroup(context.get("auth_public"))
-        and type(context.get("nonce_tags")) is list
-        and len(context["nonce_tags"]) == len(roster)
-        and all(subgroup(tag) for tag in context["nonce_tags"])
+        and type(shares) is list and len(shares) == len(roster)
+        and all(subgroup(share) for share in shares)
+        and type(nonces) is list and len(nonces) == len(roster)
+        and all(subgroup(tag) for tag in nonces)
     )
 
 
@@ -109,8 +124,14 @@ def lagrange(i: int, signers: list[int]) -> int | None:
 
 
 def bind_context(body: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:
-    return {"context": context, "sender": body.get("sender"), "round": body.get("round"),
-            "purpose": "encrypted-schnorr-response"}
+    return {
+        "transcript_context": transcript_context(context),
+        "verification_shares": context["verification_shares"],
+        "sender": context["sender"],
+        "auth_public": context["auth_public"],
+        "recipient_encryption_key": {"scheme": "toy-paillier", "modulus": N},
+        "purpose": "encrypted-schnorr-response",
+    }
 
 
 def binding(ctx: dict[str, Any], c: Any, ztag: Any, proof: Any) -> bool:
@@ -132,15 +153,16 @@ def binding(ctx: dict[str, Any], c: Any, ztag: Any, proof: Any) -> bool:
 
 
 def signing_challenge(context: dict[str, Any]) -> int:
+    seed = context["seed_context"]
     aggregate_nonce = 1
     for tag in context["nonce_tags"]:
         aggregate_nonce = aggregate_nonce * tag % P
     statement = {
-        "ceremony": context["ceremony"],
-        "roster": context["roster"],
-        "round": context["round"],
-        "message": context["message"],
-        "variant": context["variant"],
+        "ceremony": seed["ceremony"],
+        "roster": seed["roster"],
+        "round": seed["round"],
+        "message": seed["message"],
+        "variant": seed["variant"],
         "aggregate_nonce": aggregate_nonce,
     }
     return scalar("nfaa-signing-challenge-v2", statement)
@@ -152,13 +174,15 @@ def equation(body: dict[str, Any]) -> bool:
     if not isinstance(body, dict) or set(body) != keys: return False
     context, s = body.get("context"), body.get("signers")
     if not context_ok(context): return False
+    seed = context["seed_context"]
     if not (type(body.get("sender")) is int and body["sender"] == context["sender"]
-            and type(body.get("round")) is int and body["round"] == context["round"]
-            and isinstance(s, list) and s == context["roster"] and all(type(x) is int for x in s)
+            and type(body.get("round")) is int and body["round"] == seed["round"]
+            and isinstance(s, list) and s == seed["roster"] and all(type(x) is int for x in s)
             and body.get("evrf_verified") is True
             and subgroup(body.get("nonce_tag"))
             and body["nonce_tag"] == context["nonce_tags"][body["sender"] - 1]
             and subgroup(body.get("verification_share"))
+            and body["verification_share"] == context["verification_shares"][body["sender"] - 1]
             and subgroup(body.get("response_tag")) and type(body.get("challenge")) is int
             and 0 <= body["challenge"] < Q and type(body.get("lagrange")) is int and 0 <= body["lagrange"] < Q):
         return False
@@ -193,9 +217,10 @@ def replay(case: dict[str, Any]) -> str:
     body = env["body"]
     if not auth(body, case.get("auth_public"), env.get("signature")): return "none"
     if body.get("context") != context: return "none"
-    if (body.get("round") != context["round"]
+    seed = context["seed_context"]
+    if (body.get("round") != seed["round"]
             or body.get("sender") != context["sender"]
-            or body.get("signers") != context["roster"]):
+            or body.get("signers") != seed["roster"]):
         return "bad_binding"
     if not binding(bind_context(body, context), body.get("ciphertext"), body.get("response_tag"), body.get("binding_proof")):
         return "bad_binding"

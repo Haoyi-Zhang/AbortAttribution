@@ -1,5 +1,17 @@
 {
-  "scope": "clean extraction of the standalone repository and full project archives; the archives were rebuilt after this record was inserted and the documented commands were run again on the final packet",
+  "status": "passed",
+  "scope": "Clean extraction of the standalone repository and full project delivery archives after the deadline, semantic-reference, immutable-share, ordered-context, independent-schema, replay-parser, evidence-calibration, and platform-documentation repairs. The same commands were then rerun from the final packet after this record was inserted.",
+  "supported_path": {
+    "operating_system": "Linux, including Linux under WSL2",
+    "shell": "POSIX shell",
+    "python": "CPython 3.10 or later",
+    "required_unix_interfaces": [
+      "resource.setrlimit",
+      "resource.getrusage",
+      "signal.SIGALRM"
+    ],
+    "native_windows_python": "not claimed compatible"
+  },
   "commands": [
     "python3 -m unittest discover -s tests -v",
     "python3 reproduce.py --out <fresh-empty-directory>",
@@ -8,7 +20,7 @@
     "python3 paper/build.py"
   ],
   "unit_tests": {
-    "count": 53,
+    "count": 59,
     "exit_code": 0,
     "status": "passed"
   },
@@ -18,24 +30,67 @@
     "boundary_cases": 84,
     "compiler_cases": 3328,
     "schnorr_bridge_cases": 4160,
-    "counted_elementary_obligations": 215497,
+    "counted_elementary_obligations": 214545,
     "failures": 0,
-    "retained_measurement_cpu_seconds": 5.828600855,
-    "retained_measurement_wall_seconds": 5.837847322000016,
-    "retained_measurement_peak_rss_kib": 134304,
+    "retained_measurement_cpu_seconds": 6.088645341,
+    "retained_measurement_wall_seconds": 6.094755264999931,
+    "retained_measurement_peak_rss_kib": 135176,
     "clean_reproduction_measurements_recorded": false,
-    "measurement_note": "clean-reproduction timing and RSS are intentionally not frozen because they are process metadata; only retained measurement metadata and deterministic scientific files are preserved"
+    "measurement_note": "Clean-reproduction timing and RSS are intentionally not frozen because they are process metadata; only retained measurement metadata and deterministic scientific files are preserved."
   },
   "comparison": {
     "exit_code": 0,
-    "deterministic_files_compared": 21,
+    "deterministic_files_compared": 23,
     "status": "byte_for_byte_agreement",
     "measurements_excluded": true
   },
+  "deadline_regressions": {
+    "correct_at_D": "no attribution",
+    "correct_at_D_plus_1_bounded": "nonopening only",
+    "correct_at_D_plus_1_censorable": "no attribution",
+    "late_readiness": "no timing attribution",
+    "genuine_qualified_missing": "nonopening",
+    "late_malformed": [
+      "bad_entry",
+      "nonopening"
+    ]
+  },
+  "compiler_evidence_calibration": {
+    "invalid_certificate_records": 15392,
+    "certificate_field_mutation_templates": 19,
+    "focused_semantic_regression_cases": 12,
+    "focused_semantic_regression_checks": 30,
+    "honest_delayed_receipt_time": 12,
+    "inclusive_deadline": 12
+  },
+  "schnorr_registered_share_regression": {
+    "case": "n5-s2-r3-registered-share-substitution",
+    "registered_verification_share": 62,
+    "substituted_verification_share": 1,
+    "nonce_scalar": 206,
+    "nonce_tag": 285,
+    "substituted_response_tag": 285,
+    "registered_expected_response_tag": 402,
+    "binding_proof_accepts": true,
+    "producer_verdict": "bad_response",
+    "replay_verdict": "bad_response",
+    "counted_elementary_obligations": 10
+  },
   "input_boundary_audit": {
-    "canonical_encoding_checks": 31,
-    "malformed_setup_mutations": 503,
-    "public_api_calls": 1380,
+    "selection": "independently annotated schema vectors submitted directly to the public APIs without producer-validator prefiltering",
+    "malformed_setup_vectors": 140,
+    "public_api_calls": 388,
+    "includes_exact_type_roster_vector": [
+      true,
+      2,
+      3,
+      4,
+      5
+    ],
+    "nonstring_closure_references": [
+      "list",
+      "object"
+    ],
     "exceptions": 0,
     "unsafe_results": 0
   },
@@ -46,7 +101,7 @@
     "challenge_evaluations": 617,
     "producer_accepts": true,
     "replay_accepts": true,
-    "interpretation": "expected falsification of toy-proof soundness; the attribution theorem instead assumes complete and sound verification of the exact bounded relation under the accepted real setup, while privacy states its additional simulation assumptions separately"
+    "interpretation": "Expected falsification of the deliberately weak toy proof; the paper's relative theorem instead assumes a production proof system satisfying the stated completeness, soundness, and simulation interfaces."
   },
   "reference_audit": {
     "total_entries": 72,
@@ -57,7 +112,7 @@
     "duplicate_keys_titles_or_identifiers": 0,
     "nocite_used": false,
     "status": "passed",
-    "qualification": "the deterministic build does not pretend to repeat live network metadata resolution for all 72 records"
+    "qualification": "The deterministic build does not pretend to repeat live network metadata resolution or full-text verification for every record."
   },
   "manuscript_build": {
     "exit_code": 0,
@@ -76,13 +131,13 @@
   "pdf_validation": {
     "pages_rendered_at_200_dpi": 36,
     "second_renderer_pages": 36,
-    "renderer_dimensions_agree": true,
+    "renderer_page_dimensions_agree": true,
     "fonts_embedded": true,
     "replacement_characters_in_extracted_text": 0,
     "clean_build_text_identical": true,
     "clean_build_changed_pages_at_100_dpi": 0,
     "preflight_openable": true,
-    "visual_findings": "no clipping, overlap, black block, broken glyph, illegible table, or bibliography overflow observed"
+    "visual_findings": "No clipping, overlap, black block, broken glyph, illegible table, or bibliography overflow observed."
   },
   "packaging": {
     "full_project_single_root": "non-frameable-abort-attribution-for-exponent-vrf-ceremonies/",
@@ -96,7 +151,9 @@
     "nested_archives": 0,
     "bytecode_caches": 0,
     "latex_intermediates": 0,
-    "zip_integrity": "passed"
+    "zip_integrity": "passed",
+    "full_project_archive_entries": 72,
+    "standalone_archive_entries": 59
   },
   "limitations": [
     "This is deterministic hosted reproduction and a packet self-audit, not independent external review or mechanized proof.",
@@ -104,5 +161,20 @@
     "The Schnorr bridge uses toy arithmetic, deliberately exposes an unsound tiny-challenge transcript, and imports the eVRF verification result.",
     "The attribution theorem is relative to a production proof system and service interfaces that are not instantiated here; the privacy theorem additionally assumes the stated simulation interface.",
     "Timing, RSS, PDF metadata, and PDF bytes are not claimed deterministic."
-  ]
+  ],
+  "final_archive_recheck": {
+    "unit_tests": 59,
+    "unit_test_status": "passed",
+    "runner_status": "finite_checks_passed",
+    "counted_elementary_obligations": 214545,
+    "runner_failures": 0,
+    "deterministic_files_compared": 23,
+    "deterministic_comparison": "byte_for_byte_agreement",
+    "reference_entries": 72,
+    "reference_audit_status": "passed",
+    "manuscript_pages": 36,
+    "manuscript_build_status": "passed",
+    "pdf_extracted_text_identical": true,
+    "pdf_changed_pages_at_100_dpi": 0
+  }
 }

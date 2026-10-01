@@ -48,6 +48,10 @@ class SchemaTests(unittest.TestCase):
         self.assertEqual(result["unsafe_results"], 0)
         self.assertEqual(result["failures"], [])
         self.assertEqual(result["counted_elementary_obligations"], result["public_api_calls"])
+        labels = {(row["model"], row["vector"]) for row in result["manifest"]}
+        self.assertIn(("compiler", "context.roster:boolean-member"), labels)
+        self.assertIn(("schnorr-specialization", "context.seed.roster:boolean-member"), labels)
+        self.assertIn("no producer validator prefilter", result["model"])
 
     def test_malformed_schnorr_context_never_crashes_or_accuses(self):
         case = make_case(5, 2, 3, "honest")

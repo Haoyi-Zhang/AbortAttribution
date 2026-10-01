@@ -12,10 +12,13 @@
     "bad_message": 416,
     "nonopening": 416
   },
+  "compiler_certificate_mutation_template_count": 19,
+  "compiler_focused_regression_checks": 30,
+  "compiler_focused_regression_count": 12,
   "compiler_invalid_certificate_mutations": 15392,
   "compiler_producer_replay_comparisons": 26624,
   "compiler_supported_certificates": 1248,
-  "counted_elementary_obligations": 215497,
+  "counted_elementary_obligations": 214545,
   "deliberately_weak_judge_false_accusations": 10,
   "failures": [],
   "families": {
@@ -52,6 +55,19 @@
   "schnorr_case_count": 4160,
   "schnorr_invalid_attribution_mutations": 9568,
   "schnorr_producer_replay_comparisons": 13728,
+  "schnorr_registered_share_substitution": {
+    "binding_proof_accepts": true,
+    "counted_elementary_obligations": 10,
+    "nonce_scalar": 206,
+    "nonce_tag": 285,
+    "producer_verdict": "bad_response",
+    "registered_equation_accepts": false,
+    "registered_expected_response_tag": 402,
+    "registered_verification_share": 62,
+    "replay_verdict": "bad_response",
+    "substituted_response_tag": 285,
+    "substituted_verification_share": 1
+  },
   "schnorr_tiny_challenge_negative_control": {
     "challenge_evaluations": 617,
     "challenge_space": 251,
@@ -66,9 +82,9 @@
     "none": 1664,
     "qualified_nonopening": 416
   },
-  "setup_boundary_api_calls": 1380,
+  "setup_boundary_api_calls": 388,
   "setup_boundary_exceptions": 0,
-  "setup_boundary_mutations": 503,
+  "setup_boundary_mutations": 140,
   "setup_boundary_unsafe_results": 0,
   "status": "finite_checks_passed",
   "supported_certificates": 30,

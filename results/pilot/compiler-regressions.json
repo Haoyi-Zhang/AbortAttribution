@@ -1,0 +1,223 @@
+{
+  "counted_elementary_obligations": 30,
+  "model": "focused semantic and parser regressions; separate from the Cartesian certificate-field mutation campaign",
+  "regression_count": 12,
+  "rows": [
+    {
+      "certificates": [],
+      "expected_kinds": [],
+      "name": "correct-envelope-at-D",
+      "observed_kinds": [],
+      "producer_accepts": [],
+      "replay_accepts": []
+    },
+    {
+      "certificates": [
+        {
+          "accept": "accept",
+          "actor": 2,
+          "closure": "final",
+          "context": "compiler-n5-r3-s2-honest_valid",
+          "kind": "nonopening",
+          "ready": "ready"
+        }
+      ],
+      "expected_kinds": [
+        "nonopening"
+      ],
+      "name": "correct-envelope-at-D-plus-1-bounded",
+      "observed_kinds": [
+        "nonopening"
+      ],
+      "producer_accepts": [
+        true
+      ],
+      "replay_accepts": [
+        true
+      ]
+    },
+    {
+      "certificates": [],
+      "expected_kinds": [],
+      "name": "correct-envelope-at-D-plus-1-censorable",
+      "observed_kinds": [],
+      "producer_accepts": [],
+      "replay_accepts": []
+    },
+    {
+      "certificates": [],
+      "expected_kinds": [],
+      "name": "D-plus-1-with-late-readiness",
+      "observed_kinds": [],
+      "producer_accepts": [],
+      "replay_accepts": []
+    },
+    {
+      "certificates": [
+        {
+          "accept": "accept",
+          "actor": 2,
+          "closure": "final",
+          "context": "compiler-n5-r3-s2-missing_bounded",
+          "kind": "nonopening",
+          "ready": "ready"
+        }
+      ],
+      "expected_kinds": [
+        "nonopening"
+      ],
+      "name": "genuine-qualified-missing",
+      "observed_kinds": [
+        "nonopening"
+      ],
+      "producer_accepts": [
+        true
+      ],
+      "replay_accepts": [
+        true
+      ]
+    },
+    {
+      "certificates": [
+        {
+          "actor": 2,
+          "context": "compiler-n5-r3-s2-malformed_entry",
+          "envelope": "envelope",
+          "kind": "bad_entry"
+        },
+        {
+          "accept": "accept",
+          "actor": 2,
+          "closure": "final",
+          "context": "compiler-n5-r3-s2-malformed_entry",
+          "kind": "nonopening",
+          "ready": "ready"
+        }
+      ],
+      "expected_kinds": [
+        "bad_entry",
+        "nonopening"
+      ],
+      "name": "late-malformed-content",
+      "observed_kinds": [
+        "bad_entry",
+        "nonopening"
+      ],
+      "producer_accepts": [
+        true,
+        true
+      ],
+      "replay_accepts": [
+        true,
+        true
+      ]
+    },
+    {
+      "certificates": [
+        {
+          "actor": 2,
+          "context": "compiler-n5-r3-s2-honest_valid",
+          "envelope": "envelope",
+          "kind": "bad_entry"
+        }
+      ],
+      "expected_kinds": [
+        "bad_entry"
+      ],
+      "name": "statement-hash-mismatch",
+      "observed_kinds": [
+        "bad_entry"
+      ],
+      "producer_accepts": [
+        true
+      ],
+      "replay_accepts": [
+        true
+      ]
+    },
+    {
+      "certificates": [
+        {
+          "actor": 2,
+          "context": "compiler-n5-r3-s2-honest_valid",
+          "envelope": "envelope",
+          "kind": "bad_entry"
+        }
+      ],
+      "expected_kinds": [
+        "bad_entry"
+      ],
+      "name": "entry-proof-bit-false",
+      "observed_kinds": [
+        "bad_entry"
+      ],
+      "producer_accepts": [
+        true
+      ],
+      "replay_accepts": [
+        true
+      ]
+    },
+    {
+      "candidate": {
+        "accept": "accept",
+        "actor": 2,
+        "closure": "final",
+        "context": "compiler-n5-r3-s2-missing_bounded",
+        "kind": "nonopening",
+        "ready": "ready"
+      },
+      "expected_acceptance": false,
+      "name": "truncated-closure-content",
+      "producer_accepts": false,
+      "replay_accepts": false
+    },
+    {
+      "certificates": [
+        {
+          "accept": "a1",
+          "actor": 2,
+          "closure": "b1",
+          "context": "compiler-n5-r3-s2-missing_bounded",
+          "kind": "nonopening",
+          "ready": "r1"
+        }
+      ],
+      "expected_kinds": [
+        "nonopening"
+      ],
+      "expected_references": {
+        "accept": "a1",
+        "closure": "b1",
+        "ready": "r1"
+      },
+      "name": "renamed-references-and-multiple-candidates",
+      "observed_kinds": [
+        "nonopening"
+      ],
+      "observed_references": {
+        "accept": "a1",
+        "closure": "b1",
+        "ready": "r1"
+      },
+      "producer_accepts": [
+        true
+      ],
+      "replay_accepts": [
+        true
+      ]
+    },
+    {
+      "expected_acceptance": false,
+      "name": "nonstring-closure-reference-list",
+      "producer_accepts": false,
+      "replay_accepts": false
+    },
+    {
+      "expected_acceptance": false,
+      "name": "nonstring-closure-reference-object",
+      "producer_accepts": false,
+      "replay_accepts": false
+    }
+  ]
+}

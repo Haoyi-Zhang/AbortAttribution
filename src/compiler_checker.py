@@ -134,11 +134,17 @@ def _accepted_duty(env: dict[str, Any], actor: int, token: Any) -> bool:
 
 
 def _envelope_shape(env: dict[str, Any], token: Any, actor: int) -> tuple[bool, bool]:
-    """Return (attributable signed envelope, accepted valid envelope)."""
+    """Return ``(sender_attributable, content_valid)`` for any received envelope.
+
+    Receipt time is intentionally *not* part of the positive-content predicate.
+    A correct envelope observed at ``D+1`` is not a malformed entry merely
+    because transport was late.  Timely fulfilment is decided separately by the
+    bounded-service non-opening rule and the complete closure at ``D``.
+    """
     ctx = env["context"]
     r = _record(env, token)
     if not (_active(env, r, "envelope", actor) and r.get("signature_valid") is True
-            and _int(r.get("time")) and 0 <= r["time"] <= ctx["deadline"]):
+            and _int(r.get("time")) and r["time"] >= 0):
         return False, False
     body = r.get("body")
     if not isinstance(body, dict) or set(body) != {"statement", "entry_proof_valid", "entry_proof_statement"}:
@@ -150,8 +156,7 @@ def _envelope_shape(env: dict[str, Any], token: Any, actor: int) -> tuple[bool, 
             or not _int(st.get("tag")) or type(st.get("ciphertext")) is not str
             or body.get("entry_proof_statement") != _digest(st)):
         return True, False
-    valid = body.get("entry_proof_valid") is True
-    return True, valid
+    return True, body.get("entry_proof_valid") is True
 
 
 def _complaint_valid(env: dict[str, Any], token: Any, actor: int, envelope: str) -> bool:
@@ -245,6 +250,13 @@ def verify(env: dict[str, Any], cert: dict[str, Any]) -> bool:
 
 
 def extract(env: dict[str, Any]) -> list[dict[str, Any]]:
+    """Canonical public extraction without reserved record names.
+
+    Every reference is discovered by its validated record semantics.  When
+    several readiness or deadline-closure records qualify, the lexicographically
+    least valid reference tuple is chosen.  Accepted duties remain unique by the
+    certificate-class definition.
+    """
     if not valid_environment(env):
         return []
     try:
@@ -252,21 +264,40 @@ def extract(env: dict[str, Any]) -> list[dict[str, Any]]:
         actor = ctx["sender"]
         out: list[dict[str, Any]] = []
         for token in sorted(env["records"]):
-            attributable, accepted = _envelope_shape(env, token, actor)
-            if attributable and not accepted:
+            attributable, content_valid = _envelope_shape(env, token, actor)
+            if attributable and not content_valid:
                 candidate = {"kind": "bad_entry", "context": ctx["id"], "actor": actor, "envelope": token}
                 if verify(env, candidate):
                     out.append(candidate)
-            if accepted:
+            if content_valid:
                 for complaint in sorted(env["records"]):
                     candidate = {"kind": "bad_message", "context": ctx["id"], "actor": actor,
                                  "envelope": token, "complaint": complaint}
                     if verify(env, candidate):
                         out.append(candidate)
-        omission = {"kind": "nonopening", "context": ctx["id"], "actor": actor,
-                    "accept": "accept", "ready": "ready", "closure": "final"}
-        if verify(env, omission):
-            out.append(omission)
-        return sorted(out, key=lambda c: (c["actor"], c["kind"]))
+                        break
+
+        accepts = sorted(name for name in env["records"] if _valid_accept(env, actor, name))
+        if len(accepts) == 1:
+            ready_refs = sorted(name for name in env["records"] if _ready(env, name))
+            closure_refs = sorted(name for name in env["closures"] if _closed(env, name) is not None)
+            chosen: dict[str, Any] | None = None
+            for ready in ready_refs:
+                for closure in closure_refs:
+                    candidate = {"kind": "nonopening", "context": ctx["id"], "actor": actor,
+                                 "accept": accepts[0], "ready": ready, "closure": closure}
+                    if verify(env, candidate):
+                        chosen = candidate
+                        break
+                if chosen is not None:
+                    break
+            if chosen is not None:
+                out.append(chosen)
+
+        def order(cert: dict[str, Any]) -> tuple[Any, ...]:
+            return (cert["actor"], cert["kind"], cert.get("envelope", ""),
+                    cert.get("complaint", ""), cert.get("accept", ""),
+                    cert.get("ready", ""), cert.get("closure", ""))
+        return sorted(out, key=order)
     except (KeyError, TypeError, ValueError, OverflowError):
         return []

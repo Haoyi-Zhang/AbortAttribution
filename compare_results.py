@@ -8,8 +8,10 @@ import sys
 NAMES = ("cases.jsonl", "certificates.jsonl", "mutations.jsonl", "omission-probes.jsonl",
          "case-outcomes.json", "negative-controls.json", "disclosure.json", "timing.json",
          "exponents.json", "compiler-cases.jsonl", "compiler-certificates.jsonl",
-         "compiler-mutations.jsonl", "compiler-probes.jsonl", "compiler-outcomes.json",
+         "compiler-mutations.jsonl", "compiler-probes.jsonl", "compiler-regressions.json",
+         "compiler-outcomes.json",
          "schnorr-cases.jsonl", "schnorr-mutations.jsonl", "binding-negative-control.json",
+         "schnorr-share-substitution.json",
          "schnorr-outcomes.json", "schema-audit.json", "setup-boundary-audit.json",
          "outcomes.json")
 

@@ -87,29 +87,63 @@ def subgroup_element(value: Any) -> bool:
     return type(value) is int and 1 <= value < GROUP_P and pow(value, GROUP_Q, GROUP_P) == 1
 
 
-_CONTEXT_FIELDS = {"ceremony", "roster", "round", "message", "variant", "sender", "auth_public", "nonce_tags"}
+_SEED_FIELDS = {"ceremony", "roster", "round", "message", "variant"}
+_CONTEXT_FIELDS = {"seed_context", "verification_shares", "nonce_tags", "sender", "auth_public"}
+
+
+def transcript_context(context: dict[str, Any]) -> dict[str, Any]:
+    """Return the common post-nonce transcript context.
+
+    The seed context exists before any nonce is derived.  The transcript context
+    adds the ordered nonce-tag vector but deliberately excludes the share table
+    and per-sender keys.  Every signer therefore sees the same challenge input;
+    the full proof context adds the immutable registries afterwards.
+    """
+    return {
+        "seed_context": context["seed_context"],
+        "nonce_tags": context["nonce_tags"],
+    }
+
+
+def proof_context(context: dict[str, Any], purpose: str) -> dict[str, Any]:
+    """Return the full subject/key-bound context used by signatures and proofs."""
+    return {
+        "transcript_context": transcript_context(context),
+        "verification_shares": context["verification_shares"],
+        "sender": context["sender"],
+        "auth_public": context["auth_public"],
+        "recipient_encryption_key": {"scheme": "toy-paillier", "modulus": PAILLIER_N},
+        "purpose": purpose,
+    }
 
 
 def valid_context(context: Any) -> bool:
-    """Validate the fixed toy ceremony context and its registered sender key."""
+    """Validate seed, post-nonce transcript, registry, and sender binding."""
     if type(context) is not dict or set(context) != _CONTEXT_FIELDS:
         return False
     try:
         canonical(context)
     except (TypeError, ValueError, UnicodeError):
         return False
-    roster = context.get("roster")
-    if (type(context.get("ceremony")) is not str or not context["ceremony"]
-            or type(context.get("message")) is not str or not context["message"]
-            or type(context.get("variant")) is not str or not context["variant"]
+    seed = context.get("seed_context")
+    if type(seed) is not dict or set(seed) != _SEED_FIELDS:
+        return False
+    roster = seed.get("roster")
+    if (type(seed.get("ceremony")) is not str or not seed["ceremony"]
+            or type(seed.get("message")) is not str or not seed["message"]
+            or type(seed.get("variant")) is not str or not seed["variant"]
             or type(roster) is not list or not (3 <= len(roster) <= 10)
+            or any(type(member) is not int for member in roster)
             or roster != list(range(1, len(roster) + 1))
+            or type(seed.get("round")) is not int or not (1 <= seed["round"] <= 8)
             or type(context.get("sender")) is not int or context["sender"] not in roster
-            or type(context.get("round")) is not int or not (1 <= context["round"] <= 8)
             or not subgroup_element(context.get("auth_public"))):
         return False
+    shares = context.get("verification_shares")
     nonce_tags = context.get("nonce_tags")
-    if (type(nonce_tags) is not list or len(nonce_tags) != len(roster)
+    if (type(shares) is not list or len(shares) != len(roster)
+            or not all(subgroup_element(share) for share in shares)
+            or type(nonce_tags) is not list or len(nonce_tags) != len(roster)
             or not all(subgroup_element(tag) for tag in nonce_tags)):
         return False
     return True
@@ -334,16 +368,17 @@ def lagrange_at_zero(index: int, signers: list[int]) -> int:
 
 
 def _signing_challenge(context: dict[str, Any]) -> int:
-    """Recompute the common Schnorr challenge from the fixed public nonce vector."""
+    """Recompute one common challenge after the ordered nonce vector is fixed."""
+    seed = context["seed_context"]
     aggregate_nonce = 1
     for tag in context["nonce_tags"]:
         aggregate_nonce = (aggregate_nonce * tag) % GROUP_P
     statement = {
-        "ceremony": context["ceremony"],
-        "roster": context["roster"],
-        "round": context["round"],
-        "message": context["message"],
-        "variant": context["variant"],
+        "ceremony": seed["ceremony"],
+        "roster": seed["roster"],
+        "round": seed["round"],
+        "message": seed["message"],
+        "variant": seed["variant"],
         "aggregate_nonce": aggregate_nonce,
     }
     return hash_scalar("nfaa-signing-challenge-v2", statement)
@@ -357,14 +392,16 @@ def response_equation(body: dict[str, Any]) -> bool:
     context = body.get("context")
     if not valid_context(context):
         return False
+    seed = context["seed_context"]
     if not (type(body["sender"]) is int and body["sender"] == context["sender"]
-            and type(body["round"]) is int and body["round"] == context["round"]
-            and isinstance(body["signers"], list) and body["signers"] == context["roster"]
+            and type(body["round"]) is int and body["round"] == seed["round"]
+            and isinstance(body["signers"], list) and body["signers"] == seed["roster"]
             and all(type(x) is int for x in body["signers"])
             and body["evrf_verified"] is True
             and subgroup_element(body["nonce_tag"])
             and body["nonce_tag"] == context["nonce_tags"][body["sender"] - 1]
             and subgroup_element(body["verification_share"])
+            and body["verification_share"] == context["verification_shares"][body["sender"] - 1]
             and subgroup_element(body["response_tag"])
             and type(body["challenge"]) is int and 0 <= body["challenge"] < GROUP_Q
             and type(body["lagrange"]) is int and 0 <= body["lagrange"] < GROUP_Q):
@@ -393,16 +430,12 @@ def envelope_status(context: dict[str, Any], envelope: Any, auth_public: Any) ->
         return "unauthenticated"
     if body.get("context") != context:
         return "off_context"
-    if (body.get("round") != context["round"]
+    seed = context["seed_context"]
+    if (body.get("round") != seed["round"]
             or body.get("sender") != context["sender"]
-            or body.get("signers") != context["roster"]):
+            or body.get("signers") != seed["roster"]):
         return "bad_binding"
-    binding_context = {
-        "context": context,
-        "sender": body.get("sender"),
-        "round": body.get("round"),
-        "purpose": "encrypted-schnorr-response",
-    }
+    binding_context = proof_context(context, "encrypted-schnorr-response")
     if not binding_verify(binding_context, body.get("ciphertext"), body.get("response_tag"), body.get("binding_proof")):
         return "bad_binding"
     if not response_equation(body):
@@ -433,6 +466,7 @@ def verdict(context: dict[str, Any], envelope: Any, auth_public: Any, *, service
 
 
 def _nonce_seed_context(roster_size: int, round_number: int, variant: str) -> dict[str, Any]:
+    """Common context fixed before any eVRF nonce evaluation."""
     return {
         "ceremony": "evrf-schnorr-response-v1",
         "roster": list(range(1, roster_size + 1)),
@@ -444,22 +478,26 @@ def _nonce_seed_context(roster_size: int, round_number: int, variant: str) -> di
 
 def fixture_nonce_scalar(context: dict[str, Any], sender: int) -> int:
     """Deterministic private nonce used only to construct owned toy fixtures."""
-    seed_context = {key: context[key] for key in ("ceremony", "roster", "round", "message", "variant")}
-    return hash_scalar("nfaa-imported-evrf-nonce-v2", seed_context, sender, nonzero=True)
+    return hash_scalar("nfaa-imported-evrf-nonce-v2", context["seed_context"], sender, nonzero=True)
 
 
 def _context(roster_size: int, sender: int, round_number: int, variant: str = "base") -> dict[str, Any]:
     auth_secret = hash_scalar("nfaa-auth-secret-v1", roster_size, sender, nonzero=True)
-    seed_context = _nonce_seed_context(roster_size, round_number, variant)
+    seed = _nonce_seed_context(roster_size, round_number, variant)
+    verification_shares = [
+        pow(GROUP_G, hash_scalar("nfaa-share-v1", roster_size, actor, nonzero=True), GROUP_P)
+        for actor in seed["roster"]
+    ]
     nonce_tags = [
-        pow(GROUP_G, hash_scalar("nfaa-imported-evrf-nonce-v2", seed_context, actor, nonzero=True), GROUP_P)
-        for actor in seed_context["roster"]
+        pow(GROUP_G, hash_scalar("nfaa-imported-evrf-nonce-v2", seed, actor, nonzero=True), GROUP_P)
+        for actor in seed["roster"]
     ]
     return {
-        **seed_context,
+        "seed_context": seed,
+        "verification_shares": verification_shares,
+        "nonce_tags": nonce_tags,
         "sender": sender,
         "auth_public": pow(GROUP_G, auth_secret, GROUP_P),
-        "nonce_tags": nonce_tags,
     }
 
 
@@ -467,11 +505,12 @@ def make_case(roster_size: int, sender: int, round_number: int, family: str) -> 
     if not (3 <= roster_size <= 10 and 1 <= sender <= roster_size and 1 <= round_number <= 8):
         raise ValueError("fixture dimensions out of range")
     context = _context(roster_size, sender, round_number)
-    signers = context["roster"]
+    seed = context["seed_context"]
+    signers = seed["roster"]
     share = hash_scalar("nfaa-share-v1", roster_size, sender, nonzero=True)
     auth_secret = hash_scalar("nfaa-auth-secret-v1", roster_size, sender, nonzero=True)
     auth_public = context["auth_public"]
-    verification_share = pow(GROUP_G, share, GROUP_P)
+    verification_share = context["verification_shares"][sender - 1]
     nonce = fixture_nonce_scalar(context, sender)
     nonce_tag = context["nonce_tags"][sender - 1]
     challenge = _signing_challenge(context)
@@ -480,8 +519,7 @@ def make_case(roster_size: int, sender: int, round_number: int, family: str) -> 
     response_tag = pow(GROUP_G, response, GROUP_P)
     randomness = _coprime_from_hash("nfaa-paillier-randomizer-v1", context, sender, modulus=PAILLIER_N)
     ciphertext = paillier_encrypt(response, randomness)
-    binding_context = {"context": context, "sender": sender, "round": round_number,
-                       "purpose": "encrypted-schnorr-response"}
+    binding_context = proof_context(context, "encrypted-schnorr-response")
     proof = binding_prove(binding_context, ciphertext, response_tag, response, randomness)
     body = {
         "context": context,
@@ -566,6 +604,52 @@ def make_case(roster_size: int, sender: int, round_number: int, family: str) -> 
         "envelope_present": envelope_present,
         "expected": expected,
     }
+
+
+def registered_share_substitution_case() -> dict[str, Any]:
+    """Self-consistent n5-s2-r3 negative with an unregistered share substitution.
+
+    The legitimate registered share is X=62 and the fixed nonce scalar/tag are
+    r=206 and R=285.  Replacing X by the identity lets an attacker build the
+    internally consistent equation Z=R=285, encrypt 206, prove the true
+    ciphertext/tag equality, and sign the whole body.  The registered equation
+    instead requires Z=402, so both public paths must classify the object as a
+    bad response.
+    """
+    case = make_case(5, 2, 3, "honest")
+    body = case["envelope"]["body"]
+    registered_share = case["context"]["verification_shares"][1]
+    nonce_scalar = fixture_nonce_scalar(case["context"], 2)
+    nonce_tag = case["context"]["nonce_tags"][1]
+    registered_expected_tag = body["response_tag"]
+    if (registered_share, nonce_scalar, nonce_tag, registered_expected_tag) != (62, 206, 285, 402):
+        raise AssertionError("frozen n5-s2-r3 arithmetic changed")
+    body["verification_share"] = 1
+    body["response_tag"] = nonce_tag
+    randomness = _coprime_from_hash(
+        "nfaa-registered-share-substitution-randomizer-v1", case["context"], 2,
+        modulus=PAILLIER_N,
+    )
+    body["ciphertext"] = paillier_encrypt(nonce_scalar, randomness)
+    bind_ctx = proof_context(case["context"], "encrypted-schnorr-response")
+    body["binding_proof"] = binding_prove(
+        bind_ctx, body["ciphertext"], body["response_tag"], nonce_scalar, randomness
+    )
+    secret = hash_scalar("nfaa-auth-secret-v1", 5, 2, nonzero=True)
+    case["envelope"]["signature"] = schnorr_sign(body, secret)
+    case["case"] = "n5-s2-r3-registered-share-substitution"
+    case["family"] = "registered_share_substitution"
+    case["expected"] = "bad_response"
+    case["regression"] = {
+        "registered_verification_share": registered_share,
+        "substituted_verification_share": 1,
+        "nonce_scalar": nonce_scalar,
+        "nonce_tag": nonce_tag,
+        "substituted_response_tag": body["response_tag"],
+        "registered_expected_response_tag": registered_expected_tag,
+        "binding_relation_true": private_binding_relation(body["ciphertext"], body["response_tag"]),
+    }
+    return case
 
 
 def generate_cases() -> list[dict[str, Any]]:

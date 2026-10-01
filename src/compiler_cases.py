@@ -92,7 +92,7 @@ def fixture(n: int, sender: int, round_no: int, fault: str) -> dict[str, Any]:
             "context": sid,
             "kind": "envelope",
             "actor": sender,
-            "time": 11 if fault == "honest_delayed" else 4,
+            "time": 12 if fault == "honest_delayed" else 4,
             "signature_valid": True,
             "body": {
                 "statement": statement,

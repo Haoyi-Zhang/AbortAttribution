@@ -2,99 +2,53 @@
 
 ## Imported base interface
 
-For each fixed-context private action `(i,j,r)`, the base ceremony defines:
+For each fixed-context private action `(i,j,r)`, the base ceremony defines a message domain, public tag, semantic relation, honest correctness, and a simulator for the base public/corrupted-party view from declared leakage. The generic theorem is stated at this interface. The repository contains one static Schnorr-response specialization, but it imports eVRF verification and does not claim a production eVRF implementation.
 
-- message domain `M(i,j,r)`;
-- public tag `Tag(ctx,i,j,r,m)`;
-- semantic relation `R_base(ctx,tau,i,j,r,m,T)`;
-- honest correctness;
-- a simulator for the base public/corrupted-party view from declared leakage.
+## Envelope and complaint relations
 
-The generic theorem is stated at this interface. The repository also contains one static Schnorr-response specialization in `schnorr-bridge.md`; it imports the eVRF verification theorem and does not replace the generic interface with a production eVRF implementation.
+The envelope statement is `(ctx, tau, i, j, r, pk_j, C, T)` with witness `(m,rho)` satisfying encryption, message-domain, and tag-binding relations. It binds ciphertext and tag to one plaintext; it deliberately does not assert that the base semantic relation is true.
 
-## Envelope relation
+The complaint statement is `(ctx, tau, i, j, r, pk_j, C, T, hash(envelope))` with witness `(sk_j,m)` satisfying key registration, decryption, tag binding, and rejection by the base semantic relation. The proof reveals complaint truth and public identities, but not the scalar witness.
 
-Public statement:
+## Content and timing are separate predicates
 
-`(ctx, tau, i, j, r, pk_j, C, T)`.
+A sender-authenticated envelope is **content-valid** when its active context, canonical encoding, signed actor/round/recipient/duty metadata, registered references, and envelope proof verify. Receipt time is not part of this predicate.
 
-Witness:
+Timely fulfilment is the distinct fact that an attributable envelope occurs in the complete board closure at the inclusive deadline `D`. Consequently:
 
-`(m, rho)` satisfying:
-
-- `C = Enc(pk_j,m;rho)`;
-- `m` is in the declared message domain;
-- `T = Tag(ctx,i,j,r,m)`.
-
-This relation binds ciphertext and tag to one plaintext. It intentionally does not assert `R_base = 1`, so an invalid but well-bound delivered message remains complainable.
-
-## Complaint relation
-
-Public statement:
-
-`(ctx, tau, i, j, r, pk_j, C, T, hash(envelope))`.
-
-Witness:
-
-`(sk_j,m)` satisfying:
-
-- the fixed key registry binds `sk_j` to `pk_j`;
-- `Dec(sk_j,C) = m`;
-- `T = Tag(ctx,i,j,r,m)`;
-- `R_base(ctx,tau,i,j,r,m,T) = 0`.
-
-The proof reveals complaint truth and public identities, but not the scalar witness.
+- a correct envelope at `D` is timely and is not `bad_entry`;
+- a correct envelope first observed at `D+1` is not `bad_entry` merely because it is late;
+- under verified early readiness, bounded delivery, and a complete closure at `D`, that `D+1` record may coexist with a `nonopening` certificate for the missed deadline;
+- under censorable delivery or late readiness, the same absence at `D` is not attributable;
+- a malformed signed envelope at or before `D` is `bad_entry` and defeats `nonopening` because it is present in the closure;
+- a malformed signed envelope first observed after `D` may support both `bad_entry` (content) and `nonopening` (service-qualified deadline failure), because the two certificates establish different facts.
 
 ## Public rules
 
-1. `bad_entry`: a received sender-authenticated envelope fails canonical shape, context, deadline, or envelope-proof verification.
-2. `bad_message`: an accepted envelope and exact bound recipient complaint verify.
-3. `nonopening`: a unique accepted duty, early enough readiness, bounded-delivery context, and complete deadline closure contain no attributable envelope.
+1. `bad_entry`: a received sender-authenticated envelope fails the content predicate. Receipt at `D+1` alone is never a reason.
+2. `bad_message`: a content-valid envelope and exact bound recipient complaint verify.
+3. `nonopening`: a unique accepted duty, qualifying readiness for the enabling transcript prefix, bounded-delivery context, and complete closure at `D` contain no attributable envelope by `D`.
 
-Malformed and missing are disjoint: any attributable sender envelope prevents `nonopening`, even if the envelope is malformed.
+All certificate fields are registry references. The extractor scans actual valid acceptance, readiness, and closure records; it does not depend on literal names such as `accept`, `ready`, or `final`. If several valid readiness/closure records exist, it selects the lexicographically least valid tuple after enforcing a unique acceptance.
 
 ## Relative non-frameability proof
 
-An honest envelope satisfies canonical validation and real-setup proof completeness, so `bad_entry` rejects. A valid bad-message complaint against an honest sender would, by complaint-proof soundness, key binding, decryption correctness, and the accepted envelope relation, produce the same plaintext with both `R_base = 0` and honest correctness `R_base = 1`, a contradiction. Qualified bounded delivery forces an honest envelope into the complete deadline closure, contradicting `nonopening`.
+An honest envelope satisfies the content predicate and real-setup proof completeness, so `bad_entry` rejects independently of receipt time. A valid bad-message complaint against an honest sender would, by complaint-proof soundness, key binding, decryption correctness, and the accepted envelope relation, produce the same plaintext with both rejection and honest correctness of the base relation, a contradiction. Qualified bounded delivery forces an honest timely envelope into the complete deadline closure; if a correct honest envelope appears only at `D+1`, the interpretation lies in the declared service bad event rather than in content malformation.
 
-Concrete framing is bounded by the union of:
-
-- honest-signature forgery;
-- ambiguous or incorrect key registration;
-- envelope- or complaint-proof soundness failure;
-- context or envelope-digest collision;
-- board receipt or closure failure;
-- declared observation, computation, or delivery service failure.
+Concrete framing is bounded by the union of signature forgery, ambiguous key registration, proof-soundness failure, context/digest collision, board failure, and declared readiness/computation/delivery service failure.
 
 ## Completeness boundary
 
-Completeness covers:
+Completeness covers received sender-authenticated malformed content, invalid content-valid messages delivered to an honest complaint-capable recipient whose complaint reaches the board, and omissions meeting all bounded-service premises. A corrupt recipient may suppress the only complaint witness. Censorable absence remains unattributed.
 
-- received sender-authenticated malformed entries;
-- invalid accepted messages delivered to an honest complaint-capable recipient whose complaint reaches the board;
-- non-openings meeting the bounded-service and complete-closure premises.
+## Executable mapping
 
-A corrupt recipient may suppress the only complaint witness. Censorable absence remains unattributed.
+The Cartesian campaign's 15,392 invalid records arise from 19 certificate-field templates only. Statement-digest, proof-bit, closure-content, `D`/`D+1`, late-readiness, renamed-reference, multiple-candidate, and non-string closure-reference obligations are retained in the separate `compiler-regressions.json` output. The two judges reject list/object closure references without raising an exception.
 
 ## Public-view privacy proof
 
-Hybrid outline:
-
-1. replace the real CRS by an indistinguishable simulated setup, then replace honest proofs with the statement simulator;
-2. replace honest-to-honest ciphertexts by encryptions of fixed same-length domain elements using IND-CPA;
-3. generate exponent tags and other base-public values with the imported base simulator;
-4. generate identities, timing, certificate class, and complaint truth from attribution leakage;
-5. sign simulated records using the honest setup state available in the simulation experiment.
-
-Plaintexts received by corrupted recipients and all explicitly public complaint facts remain in leakage. If adversarial proofs can be submitted after simulated proofs are exposed, simulation soundness is required. Attribution uses proof soundness under the accepted real CRS and does not use witness extraction.
+The proof uses simulated setup and proof statements, same-length IND-CPA ciphertext hybrids, the imported base simulator, and explicit attribution leakage. Plaintexts received by corrupted recipients and all explicitly public complaint facts remain in leakage. If adversarial proofs can follow simulated proofs, simulation soundness is required. Attribution uses proof soundness under the real CRS and does not use witness extraction.
 
 ## Non-claims
 
-No claim is made about:
-
-- an end-to-end production eVRF construction or reduction;
-- NIZK circuit size or production performance;
-- production signature/encryption parameter choices;
-- a real complete-board construction or network latency distribution;
-- dynamic roster/key changes, recovery, fairness, robust completion, or adaptive corruption;
-- independent mechanized or human proof review.
+No claim is made about an end-to-end production eVRF construction, production NIZK performance, a real complete-board construction, a network latency distribution, dynamic roster/key changes, recovery, fairness, robust completion, adaptive corruption, or independent mechanized/human proof review.

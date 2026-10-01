@@ -8,8 +8,9 @@ import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from schnorr_bridge import (GROUP_G, GROUP_P, GROUP_Q, PAILLIER_N, binding_prove,
                             binding_verify, envelope_status, fixture_nonce_scalar, generate_cases, hash_scalar, make_case,
-                            paillier_decrypt, paillier_encrypt, private_binding_relation,
-                            response_equation, schnorr_sign, tiny_challenge_negative_control, verdict)
+                            paillier_decrypt, paillier_encrypt, private_binding_relation, proof_context,
+                            registered_share_substitution_case, response_equation, schnorr_sign,
+                            tiny_challenge_negative_control, verdict)
 from schnorr_replay import binding as replay_binding, replay
 
 
@@ -25,8 +26,7 @@ class SchnorrBridgeTests(unittest.TestCase):
         plaintext = paillier_decrypt(body["ciphertext"])
         self.assertLess(plaintext, PAILLIER_N)
         self.assertEqual(pow(GROUP_G, plaintext, GROUP_P), body["response_tag"])
-        ctx = {"context": case["context"], "sender": 2, "round": 3,
-               "purpose": "encrypted-schnorr-response"}
+        ctx = proof_context(case["context"], "encrypted-schnorr-response")
         self.assertTrue(binding_verify(ctx, body["ciphertext"], body["response_tag"], body["binding_proof"]))
         self.assertEqual(envelope_status(case["context"], case["envelope"], case["auth_public"]), "accepted")
         self.assertEqual(verdict(**{k: case[k] for k in ("context", "envelope", "auth_public", "service", "accepted_duty", "ready_on_time", "complete_closure", "envelope_present")}), "none")
@@ -118,8 +118,7 @@ class SchnorrBridgeTests(unittest.TestCase):
         body["response_tag"] = pow(GROUP_G, response, GROUP_P)
         randomness = 2
         body["ciphertext"] = paillier_encrypt(response, randomness)
-        bind_ctx = {"context": case["context"], "sender": 2, "round": 3,
-                    "purpose": "encrypted-schnorr-response"}
+        bind_ctx = proof_context(case["context"], "encrypted-schnorr-response")
         body["binding_proof"] = binding_prove(
             bind_ctx, body["ciphertext"], body["response_tag"], response, randomness
         )
@@ -144,8 +143,7 @@ class SchnorrBridgeTests(unittest.TestCase):
         response = paillier_decrypt(body["ciphertext"])
         randomness = 2
         body["ciphertext"] = paillier_encrypt(response, randomness)
-        bind_ctx = {"context": changed["context"], "sender": 1, "round": 3,
-                    "purpose": "encrypted-schnorr-response"}
+        bind_ctx = proof_context(changed["context"], "encrypted-schnorr-response")
         body["binding_proof"] = binding_prove(
             bind_ctx, body["ciphertext"], body["response_tag"], response, randomness
         )
@@ -156,11 +154,21 @@ class SchnorrBridgeTests(unittest.TestCase):
         self.assertEqual(replay(changed), "bad_response")
 
     def test_absence_requires_valid_registered_context(self):
-        for field, value in (("roster", None), ("sender", 99), ("auth_public", 1),
-                             ("round", True), ("ceremony", "")):
-            with self.subTest(field=field):
+        mutations = [
+            (("seed_context", "roster"), None),
+            (("sender",), 99),
+            (("auth_public",), 1),
+            (("seed_context", "round"), True),
+            (("seed_context", "ceremony"), ""),
+            (("verification_shares",), [True, 2, 3, 4, 5]),
+        ]
+        for path, value in mutations:
+            with self.subTest(path=path):
                 case = make_case(5, 2, 3, "missing_bounded")
-                case["context"][field] = value
+                target = case["context"]
+                for key in path[:-1]:
+                    target = target[key]
+                target[path[-1]] = value
                 kwargs = {k: case[k] for k in (
                     "context", "envelope", "auth_public", "service", "accepted_duty",
                     "ready_on_time", "complete_closure", "envelope_present"
@@ -182,8 +190,7 @@ class SchnorrBridgeTests(unittest.TestCase):
         case = make_case(5, 2, 3, "honest")
         body = case["envelope"]["body"]
         with self.assertRaises(ValueError):
-            binding_prove({"context": case["context"], "sender": 2, "round": 3,
-                           "purpose": "encrypted-schnorr-response"},
+            binding_prove(proof_context(case["context"], "encrypted-schnorr-response"),
                           body["ciphertext"], body["response_tag"], GROUP_Q, 2)
 
     def test_mutated_proof_rejected(self):
@@ -192,6 +199,28 @@ class SchnorrBridgeTests(unittest.TestCase):
         changed["envelope"]["body"]["binding_proof"]["response"] += 1
         # Signature no longer authenticates the body, so the public result is no attribution.
         self.assertEqual(replay(changed), "none")
+
+
+    def test_registered_verification_share_substitution_is_rejected(self):
+        case = registered_share_substitution_case()
+        body = case["envelope"]["body"]
+        regression = case["regression"]
+        self.assertEqual(regression["registered_verification_share"], 62)
+        self.assertEqual(regression["substituted_verification_share"], 1)
+        self.assertEqual(regression["nonce_scalar"], 206)
+        self.assertEqual(regression["nonce_tag"], 285)
+        self.assertEqual(regression["substituted_response_tag"], 285)
+        self.assertEqual(regression["registered_expected_response_tag"], 402)
+        self.assertTrue(regression["binding_relation_true"])
+        self.assertEqual(paillier_decrypt(body["ciphertext"]), 206)
+        self.assertTrue(binding_verify(
+            proof_context(case["context"], "encrypted-schnorr-response"),
+            body["ciphertext"], body["response_tag"], body["binding_proof"]
+        ))
+        self.assertFalse(response_equation(body))
+        self.assertEqual(envelope_status(case["context"], case["envelope"], case["auth_public"]),
+                         "bad_response")
+        self.assertEqual(replay(case), "bad_response")
 
     def test_replay_independent(self):
         source = Path(__file__).resolve().parents[1] / "src" / "schnorr_replay.py"

@@ -6,14 +6,26 @@ The artifact has four layers:
 
 1. an ideal authenticated-receipt model for malformed openings and qualified non-openings;
 2. an ideal signature/NIZK state machine for the generic compiler;
-3. a concrete toy-arithmetic bridge that checks a common aggregate-nonce Schnorr challenge, partial-response equation, Paillier ciphertext-to-exponent equations, authentication, context binding, and qualified omission;
-4. canonical-encoding and malformed-setup audits that require every public verification, replay, or extraction API to fail closed.
+3. a concrete toy-arithmetic bridge that checks a common aggregate-nonce Schnorr challenge, immutable registered verification shares, the partial-response equation, Paillier ciphertext-to-exponent equations, authentication, context binding, and qualified omission;
+4. canonical-encoding and independently annotated malformed-setup audits that require every public verification, replay, or extraction API to fail closed.
 
 The arithmetic bridge is deliberately **not** a production eVRF, NIZK, signature, consensus, or network implementation. Its eVRF verification result is an imported ideal bit. Its small group, Paillier modulus, and 251-value challenge space provide exact conformance and falsification checks rather than cryptographic security. The paper theorem instead imports complete and sound real-setup verification for the exact bounded plaintext/tag relation; compiled-view privacy separately requires simulated setup, statement simulation, multi-theorem zero knowledge, and simulation soundness when adversarial proofs follow simulated proofs.
 
+## Supported execution environment
+
+The retained runner intentionally uses Unix process controls: `signal.SIGALRM`, `resource.setrlimit`, `resource.getrusage`, a POSIX shell, and `mktemp`. The supported path is:
+
+- Linux, including a Linux distribution running under WSL2;
+- CPython 3.10 or newer;
+- `sh` or `bash` for the documented command sequence.
+
+The retained run was validated on Linux x86_64 with Bash and CPython 3.13.5. Native Windows Python is not supported because it does not expose the required Unix `resource` and alarm interfaces; use WSL2 rather than treating an unbounded native-Windows run as equivalent. macOS has related APIs but is outside the declared supported and measured path. The runner exits with an explicit platform error before starting if the required Linux/Unix interfaces are unavailable.
+
+The paper build additionally requires `pdflatex`, BibTeX, and `pdfinfo`. No network service or shell escape is used.
+
 ## Reproduce
 
-Python 3 standard library is sufficient.
+From this standalone repository root on Linux or WSL2:
 
 ```sh
 python3 -m unittest discover -s tests -v
@@ -25,25 +37,25 @@ python3 audit_references.py --inventory reference_audit.csv
 
 Expected high-level result:
 
-- 53 unit tests pass;
+- 59 unit tests pass;
 - the runner exits 0 with `status = finite_checks_passed`;
-- all 21 deterministic scientific output files match the retained pilot byte for byte;
+- all 23 deterministic scientific output files match the retained pilot byte for byte;
 - `measurements.json` is process metadata and is intentionally excluded from byte comparison.
 
-`reproduce.py` refuses a nonempty output directory and enforces a 180-second bound, a 3 GiB address-space limit, one worker, and a 300,000-obligation cap.
+`reproduce.py` refuses a nonempty output directory and enforces a 180-second wall/CPU bound, a 3 GiB address-space limit, one worker, and a 300,000-obligation cap through Linux resource interfaces.
 
 ## Components
 
 - `src/cases.py`, `src/checker.py`, `src/replay.py`: ideal-board boundary histories and two certificate implementations.
-- `src/compiler_cases.py`: 3,328 generic compiler transcript fixtures.
-- `src/compiler_checker.py`, `src/compiler_replay.py`: independently written judges for malformed entry, invalid bound message, and bounded-service non-opening.
-- `src/schnorr_bridge.py`: toy-group common-challenge Schnorr response, Paillier encryption, honest equality-equation fixtures, private relation oracle, deterministic false-statement control, authentication, and context binding.
+- `src/compiler_cases.py`: 3,328 generic compiler transcript fixtures; the delayed-honest class is received exactly at the inclusive deadline `D = 12`.
+- `src/compiler_checker.py`, `src/compiler_replay.py`: independently written judges for malformed content, invalid bound messages, and service-qualified non-opening. Receipt time is not part of `bad_entry`; `D+1` is tested separately.
+- `src/schnorr_bridge.py`: pre-nonce seed context, common post-nonce transcript context, sender/key-bound proof context, toy-group common-challenge Schnorr response, Paillier encryption, immutable share-registry lookup, honest equality-equation fixtures, private relation oracle, deterministic false-statement control, authentication, and context binding.
 - `src/schnorr_replay.py`: independently restated bridge judge; it does not import the producer.
 - `src/linear_oracle.py`: exact timing, linear-disclosure, and tiny-exponent controls.
 - `src/schema_audit.py`: canonical-JSON vectors and malformed-input refusal checks.
-- `src/setup_boundary_audit.py`: deterministic malformed-context mutations across all public APIs.
+- `src/setup_boundary_audit.py`: independently annotated malformed-context vectors across all public APIs. It does not use a producer validator to prefilter candidates.
 - `audit_references.py`, `reference_audit.csv`: bibliography structure, stable-identifier, uniqueness, and citation-closure audit.
-- `tests/`: boundary, compiler, arithmetic, challenge-binding, replay-independence, parser, bibliography, mutation, and refusal tests.
+- `tests/`: boundary, compiler, arithmetic, registered-share, challenge-binding, replay-independence, parser, bibliography, mutation, and refusal tests.
 - `proofs/`: proof maps and explicit non-claims.
 - `results/pilot/`: retained deterministic outputs and measured process metadata.
 - `claim_evidence_ledger.csv`: claim-to-proof/check mapping.
@@ -61,25 +73,30 @@ Boundary model:
 Generic compiler model:
 
 - 3,328 cases in eight equally sized classes;
-- 1,248 certificates, 15,392 invalid mutations, 9,984 candidate probes, and 26,624 producer/replay comparisons.
+- 1,248 certificates;
+- 15,392 invalid certificate records generated by exactly 19 certificate-field mutation templates;
+- 9,984 candidate probes and 26,624 producer/replay comparisons;
+- 12 separately recorded focused regressions with 30 explicit checks covering receipt at `D`, correct receipt at `D+1`, censorable `D+1`, late readiness, genuine qualified missing, late malformed content, statement-digest and proof-bit changes, truncated closure content, renamed references with multiple valid candidates, and non-string closure references.
 
 Static Schnorr-response bridge:
 
-- 4,160 cases in ten equally sized families;
+- 4,160 Cartesian cases in ten equally sized families;
 - 832 `bad_binding`, 1,248 `bad_response`, 416 `qualified_nonopening`, and 1,664 no-attribution outcomes;
 - 9,568 invalid-attribution mutations;
 - 13,728 producer/replay comparisons;
 - 8,320 decryption, subgroup, aggregate-challenge, response, and honest equality-equation checks;
+- one frozen registered-share substitution regression: in `n5-s2-r3`, registered `X = 62`, nonce scalar `r = 206`, and nonce tag `R = 285`; a legitimately signed body substitutes `X = 1`, encrypts 206, and proves the true ciphertext/tag equality for `Z = 285`, while the registered equation requires `Z = 402`. Both paths return `bad_response`;
 - a false relation (`Enc(17)` versus `g^18`) accepted by both toy-equation verifiers after 617 challenge evaluations, contributing 620 expected negative-control obligations.
 
 Input boundaries:
 
 - 31 canonical-encoding obligations;
-- 503 malformed trusted-context encodings exercised through 1,380 public API calls;
+- 140 independently annotated malformed trusted-context encodings exercised through 388 public API calls;
+- explicit exact-type roster vectors including `[true,2,3,4,5]`;
 - zero exceptions and zero unsafe attributions.
 
-The combined retained run counts **215,497** elementary obligations.
+The combined retained run counts **214,545** elementary obligations.
 
 ## Interpretation limits
 
-Successful execution establishes consistency of the finite encodings with the written specification. It does not prove the mathematical theorems by enumeration, instantiate the imported eVRF theorem or production NIZK, establish concrete cryptographic security, realize complete board closures, or measure deployment performance. The negative control positively demonstrates that the toy Fiat-Shamir transcript must not be used as the production proof system. The second judge reduces shared implementation structure but is not independent human review or mechanized verification.
+Successful execution establishes consistency of the finite encodings with the written specification. It does not prove the mathematical theorems by enumeration, instantiate the imported eVRF theorem or production NIZK, establish concrete cryptographic security, realize complete board closures, or measure deployment performance. The registered-share regression checks immutable lookup in two finite judges. The false-statement control positively demonstrates that the toy Fiat--Shamir transcript must not be used as the production proof system. The second judge reduces shared implementation structure but is not independent human review or mechanized verification.

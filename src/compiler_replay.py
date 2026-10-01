@@ -108,7 +108,7 @@ def replay(env: dict[str, Any], cert: dict[str, Any]) -> bool:
         r = rec(name)
         if not r or r.get("kind") != "envelope" or r.get("actor") != actor or r.get("signature_valid") is not True:
             return False, False
-        if type(r.get("time")) is not int or not (0 <= r["time"] <= ctx["deadline"]):
+        if type(r.get("time")) is not int or r["time"] < 0:
             return False, False
         b = r.get("body")
         if type(b) is not dict or set(b) != {"statement", "entry_proof_valid", "entry_proof_statement"}:
@@ -160,6 +160,8 @@ def replay(env: dict[str, Any], cert: dict[str, Any]) -> bool:
         if not (r and r.get("kind") == "ready" and r.get("actor") == 0 and r.get("signature_valid") is True
                 and type(r.get("time")) is int and 0 <= r["time"] <= latest
                 and r.get("body") == {"round": ctx["round"]}):
+            return False
+        if type(cert.get("closure")) is not str:
             return False
         snap = env.get("closures", {}).get(cert["closure"])
         if not (type(snap) is dict and set(snap) == {"context", "cutoff", "complete", "records"}

@@ -1,7 +1,7 @@
 {
   "algebraic_consistency_checks": 8320,
   "case_count": 4160,
-  "counted_elementary_obligations": 36396,
+  "counted_elementary_obligations": 36406,
   "families": {
     "bad_binding": 416,
     "bad_binding_context": 416,
@@ -20,10 +20,23 @@
     "q": 233
   },
   "invalid_attribution_mutations": 9568,
-  "max_case_encoding_bytes": 1040,
+  "max_case_encoding_bytes": 1196,
   "model": "toy prime-order group and Paillier arithmetic; imported eVRF verification bit; honest-equation conformance plus an explicit tiny-challenge forgery negative control; not production cryptography",
   "paillier_modulus": 1022117,
   "producer_replay_comparisons": 13728,
+  "registered_share_substitution": {
+    "binding_proof_accepts": true,
+    "counted_elementary_obligations": 10,
+    "nonce_scalar": 206,
+    "nonce_tag": 285,
+    "producer_verdict": "bad_response",
+    "registered_equation_accepts": false,
+    "registered_expected_response_tag": 402,
+    "registered_verification_share": 62,
+    "replay_verdict": "bad_response",
+    "substituted_response_tag": 285,
+    "substituted_verification_share": 1
+  },
   "replay_imports": [
     "__future__",
     "hashlib",
