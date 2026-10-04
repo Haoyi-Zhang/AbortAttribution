@@ -13,7 +13,7 @@ NAMES = ("cases.jsonl", "certificates.jsonl", "mutations.jsonl", "omission-probe
          "schnorr-cases.jsonl", "schnorr-mutations.jsonl", "binding-negative-control.json",
          "schnorr-share-substitution.json",
          "schnorr-outcomes.json", "schema-audit.json", "setup-boundary-audit.json",
-         "outcomes.json")
+         "privacy-lengths.json", "privacy-composition.json", "outcomes.json")
 
 
 def main() -> int:

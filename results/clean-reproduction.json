@@ -1,180 +1,127 @@
 {
   "status": "passed",
-  "scope": "Clean extraction of the standalone repository and full project delivery archives after the deadline, semantic-reference, immutable-share, ordered-context, independent-schema, replay-parser, evidence-calibration, and platform-documentation repairs. The same commands were then rerun from the final packet after this record was inserted.",
-  "supported_path": {
-    "operating_system": "Linux, including Linux under WSL2",
-    "shell": "POSIX shell",
-    "python": "CPython 3.10 or later",
-    "required_unix_interfaces": [
-      "resource.setrlimit",
-      "resource.getrusage",
-      "signal.SIGALRM"
-    ],
-    "native_windows_python": "not claimed compatible"
-  },
+  "scope": "Fresh copied standalone artifact, matching retained authentication and causal non-feedback interfaces; not independent review or production cryptographic verification",
+  "unit_tests": 95,
+  "optimized_tests": 95,
+  "hash_seed_tests": 95,
+  "finite_obligations": 214915,
+  "length_checks": 319,
+  "setup_correlation_checks": 51,
+  "deterministic_scientific_files": 25,
+  "unexpected_failures": 0,
   "commands": [
-    "python3 -m unittest discover -s tests -v",
-    "python3 reproduce.py --out <fresh-empty-directory>",
-    "python3 compare_results.py results/pilot <fresh-empty-directory>",
-    "python3 audit_references.py --inventory reference_audit.csv",
-    "python3 paper/build.py"
+    {
+      "name": "unit-tests",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "environment_overrides": {},
+      "returncode": 0,
+      "wall_seconds": 2.575932024000167,
+      "stdout": "",
+      "stderr": "test_ambiguous_duplicate_accept_rejected (test_compiler.CompilerTests.test_ambiguous_duplicate_accept_rejected) ... ok\ntest_bad_entry_positive_evidence (test_compiler.CompilerTests.test_bad_entry_positive_evidence) ... ok\ntest_bad_private_message_uses_bound_complaint (test_compiler.CompilerTests.test_bad_private_message_uses_bound_complaint) ... ok\ntest_campaign_size (test_compiler.CompilerTests.test_campaign_size) ... ok\ntest_complaint_cannot_predate_cited_envelope (test_compiler.CompilerTests.test_complaint_cannot_predate_cited_envelope) ... ok\ntest_deadline_and_d_plus_one_are_separate_from_content_fault (test_compiler.CompilerTests.test_deadline_and_d_plus_one_are_separate_from_content_fault) ... ok\ntest_extractor_discovers_renamed_references_and_chooses_canonical_pair (test_compiler.CompilerTests.test_extractor_discovers_renamed_references_and_chooses_canonical_pair) ... ok\ntest_forged_complaint_rejected (test_compiler.CompilerTests.test_forged_complaint_rejected) ... ok\ntest_late_malformed_content_and_deadline_nonfulfilment_are_distinct (test_compiler.CompilerTests.test_late_malformed_content_and_deadline_nonfulfilment_are_distinct) ... ok\ntest_malformed_setup_fails_closed (test_compiler.CompilerTests.test_malformed_setup_fails_closed) ... ok\ntest_missing_requires_bounded_service (test_compiler.CompilerTests.test_missing_requires_bounded_service) ... ok\ntest_negative_complaint_time_rejected (test_compiler.CompilerTests.test_negative_complaint_time_rejected) ... ok\ntest_nonstring_closure_references_fail_closed_in_both_paths (test_compiler.CompilerTests.test_nonstring_closure_references_fail_closed_in_both_paths) ... ok\ntest_replay_independence (test_compiler.CompilerTests.test_replay_independence) ... ok\ntest_tag_alone_is_not_delivery_evidence (test_compiler.CompilerTests.test_tag_alone_is_not_delivery_evidence) ... ok\ntest_transcript_field_regressions_are_not_certificate_mutations (test_compiler.CompilerTests.test_transcript_field_regressions_are_not_certificate_mutations) ... ok\ntest_truncated_closure_rejected (test_compiler.CompilerTests.test_truncated_closure_rejected) ... ok\ntest_boolean_actor_is_rejected (test_contract.ContractTests.test_boolean_actor_is_rejected) ... ok\ntest_censorable_nonopening_is_not_evidence (test_contract.ContractTests.test_censorable_nonopening_is_not_evidence) ... ok\ntest_damaged_ideal_setup_fails_closed (test_contract.ContractTests.test_damaged_ideal_setup_fails_closed) ... ok\ntest_foreign_record_cannot_create_active_offense (test_contract.ContractTests.test_foreign_record_cannot_create_active_offense) ... ok\ntest_incorrect_subject_reference_rejected (test_contract.ContractTests.test_incorrect_subject_reference_rejected) ... ok\ntest_late_readiness_is_not_fault (test_contract.ContractTests.test_late_readiness_is_not_fault) ... ok\ntest_new_fields_do_not_override_service (test_contract.ContractTests.test_new_fields_do_not_override_service) ... ok\ntest_premature_closure_rejected (test_contract.ContractTests.test_premature_closure_rejected) ... ok\ntest_receipt_at_deadline_is_included (test_contract.ContractTests.test_receipt_at_deadline_is_included) ... ok\ntest_replay_has_no_producer_dependency (test_contract.ContractTests.test_replay_has_no_producer_dependency) ... ok\ntest_scalar_rank_criterion (test_contract.ContractTests.test_scalar_rank_criterion) ... ok\ntest_signed_malformed_is_evidence (test_contract.ContractTests.test_signed_malformed_is_evidence) ... ok\ntest_truncated_closure_not_a_complete_snapshot (test_contract.ContractTests.test_truncated_closure_not_a_complete_snapshot) ... ok\ntest_auth_state_exact_types_and_immutability (test_privacy_composition.PrivacyCompositionTests.test_auth_state_exact_types_and_immutability) ... ok\ntest_corrupt_records_not_laundered_as_fixed_leakage (test_privacy_composition.PrivacyCompositionTests.test_corrupt_records_not_laundered_as_fixed_leakage) ... ok\ntest_corrupt_state_has_no_honest_signing_credential (test_privacy_composition.PrivacyCompositionTests.test_corrupt_state_has_no_honest_signing_credential) ... ok\ntest_finite_assertions_have_unique_names (test_privacy_composition.PrivacyCompositionTests.test_finite_assertions_have_unique_names) ... ok\ntest_fresh_key_does_not_match_old_registration (test_privacy_composition.PrivacyCompositionTests.test_fresh_key_does_not_match_old_registration) ... ok\ntest_malformed_public_records_fail_closed (test_privacy_composition.PrivacyCompositionTests.test_malformed_public_records_fail_closed) ... ok\ntest_marginal_equality_does_not_preserve_frozen_echo (test_privacy_composition.PrivacyCompositionTests.test_marginal_equality_does_not_preserve_frozen_echo) ... ok\ntest_matching_state_resigns_new_body (test_privacy_composition.PrivacyCompositionTests.test_matching_state_resigns_new_body) ... ok\ntest_mismatched_public_registry_rejects (test_privacy_composition.PrivacyCompositionTests.test_mismatched_public_registry_rejects) ... ok\ntest_no_registration_call_inside_renderer (test_privacy_composition.PrivacyCompositionTests.test_no_registration_call_inside_renderer) ... ok\ntest_precompilation_declaration_is_separate (test_privacy_composition.PrivacyCompositionTests.test_precompilation_declaration_is_separate) ... ok\ntest_public_dependency_allowed_hidden_feedback_refused (test_privacy_composition.PrivacyCompositionTests.test_public_dependency_allowed_hidden_feedback_refused) ... ok\ntest_public_setup_alone_is_not_signing_state (test_privacy_composition.PrivacyCompositionTests.test_public_setup_alone_is_not_signing_state) ... ok\ntest_reactive_records_are_regenerated (test_privacy_composition.PrivacyCompositionTests.test_reactive_records_are_regenerated) ... ok\ntest_renderer_detaches_registration_from_callback_aliases (test_privacy_composition.PrivacyCompositionTests.test_renderer_detaches_registration_from_callback_aliases) ... ok\ntest_responder_gets_immutable_prefix (test_privacy_composition.PrivacyCompositionTests.test_responder_gets_immutable_prefix) ... ok\ntest_schema_rejects_cycles_aliasing_and_unknown_origins (test_privacy_composition.PrivacyCompositionTests.test_schema_rejects_cycles_aliasing_and_unknown_origins) ... ok\ntest_signed_boolean_counter_and_wrong_role_reject (test_privacy_composition.PrivacyCompositionTests.test_signed_boolean_counter_and_wrong_role_reject) ... ok\ntest_stale_copy_has_valid_signatures_but_wrong_joint_view (test_privacy_composition.PrivacyCompositionTests.test_stale_copy_has_valid_signatures_but_wrong_joint_view) ... ok\ntest_duplicates_and_malformed_profile_reject (test_privacy_lengths.PrivacyLengthTests.test_duplicates_and_malformed_profile_reject) ... ok\ntest_empty_message_is_not_absence (test_privacy_lengths.PrivacyLengthTests.test_empty_message_is_not_absence) ... ok\ntest_exact_integer_lengths (test_privacy_lengths.PrivacyLengthTests.test_exact_integer_lengths) ... ok\ntest_finite_audit (test_privacy_lengths.PrivacyLengthTests.test_finite_audit) ... ok\ntest_joint_not_just_marginal_simulation (test_privacy_lengths.PrivacyLengthTests.test_joint_not_just_marginal_simulation) ... ok\ntest_leakage_manifest_types_and_partition_reject (test_privacy_lengths.PrivacyLengthTests.test_leakage_manifest_types_and_partition_reject) ... ok\ntest_length_is_not_sufficient_without_domain (test_privacy_lengths.PrivacyLengthTests.test_length_is_not_sufficient_without_domain) ... ok\ntest_length_only_negative_control_not_fixed_width_failure (test_privacy_lengths.PrivacyLengthTests.test_length_only_negative_control_not_fixed_width_failure) ... ok\ntest_nonvacuous_leakage_partition (test_privacy_lengths.PrivacyLengthTests.test_nonvacuous_leakage_partition) ... ok\ntest_parameter_mapping (test_privacy_lengths.PrivacyLengthTests.test_parameter_mapping) ... ok\ntest_plaintext_value_does_not_change_fixed_width (test_privacy_lengths.PrivacyLengthTests.test_plaintext_value_does_not_change_fixed_width) ... ok\ntest_profile_preserves_occurrence_order (test_privacy_lengths.PrivacyLengthTests.test_profile_preserves_occurrence_order) ... ok\ntest_public_dummy_needs_no_secret (test_privacy_lengths.PrivacyLengthTests.test_public_dummy_needs_no_secret) ... ok\ntest_raw_or_ambiguous_transcript_leakage_rejects (test_privacy_lengths.PrivacyLengthTests.test_raw_or_ambiguous_transcript_leakage_rejects) ... ok\ntest_response_domain_is_narrower_than_paillier_domain (test_privacy_lengths.PrivacyLengthTests.test_response_domain_is_narrower_than_paillier_domain) ... ok\ntest_response_domain_parameters (test_privacy_lengths.PrivacyLengthTests.test_response_domain_parameters) ... ok\ntest_wrong_length_and_encoding_type (test_privacy_lengths.PrivacyLengthTests.test_wrong_length_and_encoding_type) ... ok\ntest_nocite_is_forbidden (test_reference_audit.ReferenceAuditTests.test_nocite_is_forbidden) ... ok\ntest_parser_handles_nested_tex_and_same_line_fields (test_reference_audit.ReferenceAuditTests.test_parser_handles_nested_tex_and_same_line_fields) ... ok\ntest_retained_inventory_is_closed_and_large_enough (test_reference_audit.ReferenceAuditTests.test_retained_inventory_is_closed_and_large_enough) ... ok\ntest_uncited_and_unknown_keys_fail (test_reference_audit.ReferenceAuditTests.test_uncited_and_unknown_keys_fail) ... ok\ntest_frozen_cross_implementation_vectors (test_schema.SchemaTests.test_frozen_cross_implementation_vectors) ... ok\ntest_malformed_schnorr_context_never_crashes_or_accuses (test_schema.SchemaTests.test_malformed_schnorr_context_never_crashes_or_accuses) ... ok\ntest_non_json_types_are_rejected (test_schema.SchemaTests.test_non_json_types_are_rejected) ... ok\ntest_noncanonical_signed_compiler_entry_is_malformed (test_schema.SchemaTests.test_noncanonical_signed_compiler_entry_is_malformed) ... ok\ntest_setup_boundary_audit_is_fail_closed (test_schema.SchemaTests.test_setup_boundary_audit_is_fail_closed) ... ok\ntest_absence_requires_valid_registered_context (test_schnorr_bridge.SchnorrBridgeTests.test_absence_requires_valid_registered_context) ... ok\ntest_bad_evrf_proof_is_signed_positive_evidence (test_schnorr_bridge.SchnorrBridgeTests.test_bad_evrf_proof_is_signed_positive_evidence) ... ok\ntest_bad_response_has_positive_evidence (test_schnorr_bridge.SchnorrBridgeTests.test_bad_response_has_positive_evidence) ... ok\ntest_binding_and_context_failures (test_schnorr_bridge.SchnorrBridgeTests.test_binding_and_context_failures) ... ok\ntest_binding_prover_rejects_noncanonical_scalar (test_schnorr_bridge.SchnorrBridgeTests.test_binding_prover_rejects_noncanonical_scalar) ... ok\ntest_challenge_is_recomputed_from_fixed_context (test_schnorr_bridge.SchnorrBridgeTests.test_challenge_is_recomputed_from_fixed_context) ... ok\ntest_common_challenge_uses_all_public_nonce_tags (test_schnorr_bridge.SchnorrBridgeTests.test_common_challenge_uses_all_public_nonce_tags) ... ok\ntest_honest_response_and_binding (test_schnorr_bridge.SchnorrBridgeTests.test_honest_response_and_binding) ... ok\ntest_mutated_proof_rejected (test_schnorr_bridge.SchnorrBridgeTests.test_mutated_proof_rejected) ... ok\ntest_nonboolean_omission_flags_rejected (test_schnorr_bridge.SchnorrBridgeTests.test_nonboolean_omission_flags_rejected) ... ok\ntest_omission_requires_service (test_schnorr_bridge.SchnorrBridgeTests.test_omission_requires_service) ... ok\ntest_parameters_and_campaign_size (test_schnorr_bridge.SchnorrBridgeTests.test_parameters_and_campaign_size) ... ok\ntest_presence_flag_mismatch_never_accuses (test_schnorr_bridge.SchnorrBridgeTests.test_presence_flag_mismatch_never_accuses) ... ok\ntest_private_oracle_matches_honest_statement (test_schnorr_bridge.SchnorrBridgeTests.test_private_oracle_matches_honest_statement) ... ok\ntest_registered_authentication_key_is_context_bound (test_schnorr_bridge.SchnorrBridgeTests.test_registered_authentication_key_is_context_bound) ... ok\ntest_registered_verification_share_substitution_is_rejected (test_schnorr_bridge.SchnorrBridgeTests.test_registered_verification_share_substitution_is_rejected) ... ok\ntest_replay_independent (test_schnorr_bridge.SchnorrBridgeTests.test_replay_independent) ... ok\ntest_signature_failure_not_attributed (test_schnorr_bridge.SchnorrBridgeTests.test_signature_failure_not_attributed) ... ok\ntest_signed_context_fields_still_match_judging_context (test_schnorr_bridge.SchnorrBridgeTests.test_signed_context_fields_still_match_judging_context) ... ok\ntest_tiny_challenge_false_statement_negative_control (test_schnorr_bridge.SchnorrBridgeTests.test_tiny_challenge_false_statement_negative_control) ... ok\n\n----------------------------------------------------------------------\nRan 95 tests in 1.968s\n\nOK\n"
+    },
+    {
+      "name": "optimized-tests",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-O",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "environment_overrides": {},
+      "returncode": 0,
+      "wall_seconds": 2.5299122330000046,
+      "stdout": "",
+      "stderr": "test_ambiguous_duplicate_accept_rejected (test_compiler.CompilerTests.test_ambiguous_duplicate_accept_rejected) ... ok\ntest_bad_entry_positive_evidence (test_compiler.CompilerTests.test_bad_entry_positive_evidence) ... ok\ntest_bad_private_message_uses_bound_complaint (test_compiler.CompilerTests.test_bad_private_message_uses_bound_complaint) ... ok\ntest_campaign_size (test_compiler.CompilerTests.test_campaign_size) ... ok\ntest_complaint_cannot_predate_cited_envelope (test_compiler.CompilerTests.test_complaint_cannot_predate_cited_envelope) ... ok\ntest_deadline_and_d_plus_one_are_separate_from_content_fault (test_compiler.CompilerTests.test_deadline_and_d_plus_one_are_separate_from_content_fault) ... ok\ntest_extractor_discovers_renamed_references_and_chooses_canonical_pair (test_compiler.CompilerTests.test_extractor_discovers_renamed_references_and_chooses_canonical_pair) ... ok\ntest_forged_complaint_rejected (test_compiler.CompilerTests.test_forged_complaint_rejected) ... ok\ntest_late_malformed_content_and_deadline_nonfulfilment_are_distinct (test_compiler.CompilerTests.test_late_malformed_content_and_deadline_nonfulfilment_are_distinct) ... ok\ntest_malformed_setup_fails_closed (test_compiler.CompilerTests.test_malformed_setup_fails_closed) ... ok\ntest_missing_requires_bounded_service (test_compiler.CompilerTests.test_missing_requires_bounded_service) ... ok\ntest_negative_complaint_time_rejected (test_compiler.CompilerTests.test_negative_complaint_time_rejected) ... ok\ntest_nonstring_closure_references_fail_closed_in_both_paths (test_compiler.CompilerTests.test_nonstring_closure_references_fail_closed_in_both_paths) ... ok\ntest_replay_independence (test_compiler.CompilerTests.test_replay_independence) ... ok\ntest_tag_alone_is_not_delivery_evidence (test_compiler.CompilerTests.test_tag_alone_is_not_delivery_evidence) ... ok\ntest_transcript_field_regressions_are_not_certificate_mutations (test_compiler.CompilerTests.test_transcript_field_regressions_are_not_certificate_mutations) ... ok\ntest_truncated_closure_rejected (test_compiler.CompilerTests.test_truncated_closure_rejected) ... ok\ntest_boolean_actor_is_rejected (test_contract.ContractTests.test_boolean_actor_is_rejected) ... ok\ntest_censorable_nonopening_is_not_evidence (test_contract.ContractTests.test_censorable_nonopening_is_not_evidence) ... ok\ntest_damaged_ideal_setup_fails_closed (test_contract.ContractTests.test_damaged_ideal_setup_fails_closed) ... ok\ntest_foreign_record_cannot_create_active_offense (test_contract.ContractTests.test_foreign_record_cannot_create_active_offense) ... ok\ntest_incorrect_subject_reference_rejected (test_contract.ContractTests.test_incorrect_subject_reference_rejected) ... ok\ntest_late_readiness_is_not_fault (test_contract.ContractTests.test_late_readiness_is_not_fault) ... ok\ntest_new_fields_do_not_override_service (test_contract.ContractTests.test_new_fields_do_not_override_service) ... ok\ntest_premature_closure_rejected (test_contract.ContractTests.test_premature_closure_rejected) ... ok\ntest_receipt_at_deadline_is_included (test_contract.ContractTests.test_receipt_at_deadline_is_included) ... ok\ntest_replay_has_no_producer_dependency (test_contract.ContractTests.test_replay_has_no_producer_dependency) ... ok\ntest_scalar_rank_criterion (test_contract.ContractTests.test_scalar_rank_criterion) ... ok\ntest_signed_malformed_is_evidence (test_contract.ContractTests.test_signed_malformed_is_evidence) ... ok\ntest_truncated_closure_not_a_complete_snapshot (test_contract.ContractTests.test_truncated_closure_not_a_complete_snapshot) ... ok\ntest_auth_state_exact_types_and_immutability (test_privacy_composition.PrivacyCompositionTests.test_auth_state_exact_types_and_immutability) ... ok\ntest_corrupt_records_not_laundered_as_fixed_leakage (test_privacy_composition.PrivacyCompositionTests.test_corrupt_records_not_laundered_as_fixed_leakage) ... ok\ntest_corrupt_state_has_no_honest_signing_credential (test_privacy_composition.PrivacyCompositionTests.test_corrupt_state_has_no_honest_signing_credential) ... ok\ntest_finite_assertions_have_unique_names (test_privacy_composition.PrivacyCompositionTests.test_finite_assertions_have_unique_names) ... ok\ntest_fresh_key_does_not_match_old_registration (test_privacy_composition.PrivacyCompositionTests.test_fresh_key_does_not_match_old_registration) ... ok\ntest_malformed_public_records_fail_closed (test_privacy_composition.PrivacyCompositionTests.test_malformed_public_records_fail_closed) ... ok\ntest_marginal_equality_does_not_preserve_frozen_echo (test_privacy_composition.PrivacyCompositionTests.test_marginal_equality_does_not_preserve_frozen_echo) ... ok\ntest_matching_state_resigns_new_body (test_privacy_composition.PrivacyCompositionTests.test_matching_state_resigns_new_body) ... ok\ntest_mismatched_public_registry_rejects (test_privacy_composition.PrivacyCompositionTests.test_mismatched_public_registry_rejects) ... ok\ntest_no_registration_call_inside_renderer (test_privacy_composition.PrivacyCompositionTests.test_no_registration_call_inside_renderer) ... ok\ntest_precompilation_declaration_is_separate (test_privacy_composition.PrivacyCompositionTests.test_precompilation_declaration_is_separate) ... ok\ntest_public_dependency_allowed_hidden_feedback_refused (test_privacy_composition.PrivacyCompositionTests.test_public_dependency_allowed_hidden_feedback_refused) ... ok\ntest_public_setup_alone_is_not_signing_state (test_privacy_composition.PrivacyCompositionTests.test_public_setup_alone_is_not_signing_state) ... ok\ntest_reactive_records_are_regenerated (test_privacy_composition.PrivacyCompositionTests.test_reactive_records_are_regenerated) ... ok\ntest_renderer_detaches_registration_from_callback_aliases (test_privacy_composition.PrivacyCompositionTests.test_renderer_detaches_registration_from_callback_aliases) ... ok\ntest_responder_gets_immutable_prefix (test_privacy_composition.PrivacyCompositionTests.test_responder_gets_immutable_prefix) ... ok\ntest_schema_rejects_cycles_aliasing_and_unknown_origins (test_privacy_composition.PrivacyCompositionTests.test_schema_rejects_cycles_aliasing_and_unknown_origins) ... ok\ntest_signed_boolean_counter_and_wrong_role_reject (test_privacy_composition.PrivacyCompositionTests.test_signed_boolean_counter_and_wrong_role_reject) ... ok\ntest_stale_copy_has_valid_signatures_but_wrong_joint_view (test_privacy_composition.PrivacyCompositionTests.test_stale_copy_has_valid_signatures_but_wrong_joint_view) ... ok\ntest_duplicates_and_malformed_profile_reject (test_privacy_lengths.PrivacyLengthTests.test_duplicates_and_malformed_profile_reject) ... ok\ntest_empty_message_is_not_absence (test_privacy_lengths.PrivacyLengthTests.test_empty_message_is_not_absence) ... ok\ntest_exact_integer_lengths (test_privacy_lengths.PrivacyLengthTests.test_exact_integer_lengths) ... ok\ntest_finite_audit (test_privacy_lengths.PrivacyLengthTests.test_finite_audit) ... ok\ntest_joint_not_just_marginal_simulation (test_privacy_lengths.PrivacyLengthTests.test_joint_not_just_marginal_simulation) ... ok\ntest_leakage_manifest_types_and_partition_reject (test_privacy_lengths.PrivacyLengthTests.test_leakage_manifest_types_and_partition_reject) ... ok\ntest_length_is_not_sufficient_without_domain (test_privacy_lengths.PrivacyLengthTests.test_length_is_not_sufficient_without_domain) ... ok\ntest_length_only_negative_control_not_fixed_width_failure (test_privacy_lengths.PrivacyLengthTests.test_length_only_negative_control_not_fixed_width_failure) ... ok\ntest_nonvacuous_leakage_partition (test_privacy_lengths.PrivacyLengthTests.test_nonvacuous_leakage_partition) ... ok\ntest_parameter_mapping (test_privacy_lengths.PrivacyLengthTests.test_parameter_mapping) ... ok\ntest_plaintext_value_does_not_change_fixed_width (test_privacy_lengths.PrivacyLengthTests.test_plaintext_value_does_not_change_fixed_width) ... ok\ntest_profile_preserves_occurrence_order (test_privacy_lengths.PrivacyLengthTests.test_profile_preserves_occurrence_order) ... ok\ntest_public_dummy_needs_no_secret (test_privacy_lengths.PrivacyLengthTests.test_public_dummy_needs_no_secret) ... ok\ntest_raw_or_ambiguous_transcript_leakage_rejects (test_privacy_lengths.PrivacyLengthTests.test_raw_or_ambiguous_transcript_leakage_rejects) ... ok\ntest_response_domain_is_narrower_than_paillier_domain (test_privacy_lengths.PrivacyLengthTests.test_response_domain_is_narrower_than_paillier_domain) ... ok\ntest_response_domain_parameters (test_privacy_lengths.PrivacyLengthTests.test_response_domain_parameters) ... ok\ntest_wrong_length_and_encoding_type (test_privacy_lengths.PrivacyLengthTests.test_wrong_length_and_encoding_type) ... ok\ntest_nocite_is_forbidden (test_reference_audit.ReferenceAuditTests.test_nocite_is_forbidden) ... ok\ntest_parser_handles_nested_tex_and_same_line_fields (test_reference_audit.ReferenceAuditTests.test_parser_handles_nested_tex_and_same_line_fields) ... ok\ntest_retained_inventory_is_closed_and_large_enough (test_reference_audit.ReferenceAuditTests.test_retained_inventory_is_closed_and_large_enough) ... ok\ntest_uncited_and_unknown_keys_fail (test_reference_audit.ReferenceAuditTests.test_uncited_and_unknown_keys_fail) ... ok\ntest_frozen_cross_implementation_vectors (test_schema.SchemaTests.test_frozen_cross_implementation_vectors) ... ok\ntest_malformed_schnorr_context_never_crashes_or_accuses (test_schema.SchemaTests.test_malformed_schnorr_context_never_crashes_or_accuses) ... ok\ntest_non_json_types_are_rejected (test_schema.SchemaTests.test_non_json_types_are_rejected) ... ok\ntest_noncanonical_signed_compiler_entry_is_malformed (test_schema.SchemaTests.test_noncanonical_signed_compiler_entry_is_malformed) ... ok\ntest_setup_boundary_audit_is_fail_closed (test_schema.SchemaTests.test_setup_boundary_audit_is_fail_closed) ... ok\ntest_absence_requires_valid_registered_context (test_schnorr_bridge.SchnorrBridgeTests.test_absence_requires_valid_registered_context) ... ok\ntest_bad_evrf_proof_is_signed_positive_evidence (test_schnorr_bridge.SchnorrBridgeTests.test_bad_evrf_proof_is_signed_positive_evidence) ... ok\ntest_bad_response_has_positive_evidence (test_schnorr_bridge.SchnorrBridgeTests.test_bad_response_has_positive_evidence) ... ok\ntest_binding_and_context_failures (test_schnorr_bridge.SchnorrBridgeTests.test_binding_and_context_failures) ... ok\ntest_binding_prover_rejects_noncanonical_scalar (test_schnorr_bridge.SchnorrBridgeTests.test_binding_prover_rejects_noncanonical_scalar) ... ok\ntest_challenge_is_recomputed_from_fixed_context (test_schnorr_bridge.SchnorrBridgeTests.test_challenge_is_recomputed_from_fixed_context) ... ok\ntest_common_challenge_uses_all_public_nonce_tags (test_schnorr_bridge.SchnorrBridgeTests.test_common_challenge_uses_all_public_nonce_tags) ... ok\ntest_honest_response_and_binding (test_schnorr_bridge.SchnorrBridgeTests.test_honest_response_and_binding) ... ok\ntest_mutated_proof_rejected (test_schnorr_bridge.SchnorrBridgeTests.test_mutated_proof_rejected) ... ok\ntest_nonboolean_omission_flags_rejected (test_schnorr_bridge.SchnorrBridgeTests.test_nonboolean_omission_flags_rejected) ... ok\ntest_omission_requires_service (test_schnorr_bridge.SchnorrBridgeTests.test_omission_requires_service) ... ok\ntest_parameters_and_campaign_size (test_schnorr_bridge.SchnorrBridgeTests.test_parameters_and_campaign_size) ... ok\ntest_presence_flag_mismatch_never_accuses (test_schnorr_bridge.SchnorrBridgeTests.test_presence_flag_mismatch_never_accuses) ... ok\ntest_private_oracle_matches_honest_statement (test_schnorr_bridge.SchnorrBridgeTests.test_private_oracle_matches_honest_statement) ... ok\ntest_registered_authentication_key_is_context_bound (test_schnorr_bridge.SchnorrBridgeTests.test_registered_authentication_key_is_context_bound) ... ok\ntest_registered_verification_share_substitution_is_rejected (test_schnorr_bridge.SchnorrBridgeTests.test_registered_verification_share_substitution_is_rejected) ... ok\ntest_replay_independent (test_schnorr_bridge.SchnorrBridgeTests.test_replay_independent) ... ok\ntest_signature_failure_not_attributed (test_schnorr_bridge.SchnorrBridgeTests.test_signature_failure_not_attributed) ... ok\ntest_signed_context_fields_still_match_judging_context (test_schnorr_bridge.SchnorrBridgeTests.test_signed_context_fields_still_match_judging_context) ... ok\ntest_tiny_challenge_false_statement_negative_control (test_schnorr_bridge.SchnorrBridgeTests.test_tiny_challenge_false_statement_negative_control) ... ok\n\n----------------------------------------------------------------------\nRan 95 tests in 1.928s\n\nOK\n"
+    },
+    {
+      "name": "hash-seed-tests",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "environment_overrides": {
+        "PYTHONHASHSEED": "137"
+      },
+      "returncode": 0,
+      "wall_seconds": 2.5077363739999328,
+      "stdout": "",
+      "stderr": "test_ambiguous_duplicate_accept_rejected (test_compiler.CompilerTests.test_ambiguous_duplicate_accept_rejected) ... ok\ntest_bad_entry_positive_evidence (test_compiler.CompilerTests.test_bad_entry_positive_evidence) ... ok\ntest_bad_private_message_uses_bound_complaint (test_compiler.CompilerTests.test_bad_private_message_uses_bound_complaint) ... ok\ntest_campaign_size (test_compiler.CompilerTests.test_campaign_size) ... ok\ntest_complaint_cannot_predate_cited_envelope (test_compiler.CompilerTests.test_complaint_cannot_predate_cited_envelope) ... ok\ntest_deadline_and_d_plus_one_are_separate_from_content_fault (test_compiler.CompilerTests.test_deadline_and_d_plus_one_are_separate_from_content_fault) ... ok\ntest_extractor_discovers_renamed_references_and_chooses_canonical_pair (test_compiler.CompilerTests.test_extractor_discovers_renamed_references_and_chooses_canonical_pair) ... ok\ntest_forged_complaint_rejected (test_compiler.CompilerTests.test_forged_complaint_rejected) ... ok\ntest_late_malformed_content_and_deadline_nonfulfilment_are_distinct (test_compiler.CompilerTests.test_late_malformed_content_and_deadline_nonfulfilment_are_distinct) ... ok\ntest_malformed_setup_fails_closed (test_compiler.CompilerTests.test_malformed_setup_fails_closed) ... ok\ntest_missing_requires_bounded_service (test_compiler.CompilerTests.test_missing_requires_bounded_service) ... ok\ntest_negative_complaint_time_rejected (test_compiler.CompilerTests.test_negative_complaint_time_rejected) ... ok\ntest_nonstring_closure_references_fail_closed_in_both_paths (test_compiler.CompilerTests.test_nonstring_closure_references_fail_closed_in_both_paths) ... ok\ntest_replay_independence (test_compiler.CompilerTests.test_replay_independence) ... ok\ntest_tag_alone_is_not_delivery_evidence (test_compiler.CompilerTests.test_tag_alone_is_not_delivery_evidence) ... ok\ntest_transcript_field_regressions_are_not_certificate_mutations (test_compiler.CompilerTests.test_transcript_field_regressions_are_not_certificate_mutations) ... ok\ntest_truncated_closure_rejected (test_compiler.CompilerTests.test_truncated_closure_rejected) ... ok\ntest_boolean_actor_is_rejected (test_contract.ContractTests.test_boolean_actor_is_rejected) ... ok\ntest_censorable_nonopening_is_not_evidence (test_contract.ContractTests.test_censorable_nonopening_is_not_evidence) ... ok\ntest_damaged_ideal_setup_fails_closed (test_contract.ContractTests.test_damaged_ideal_setup_fails_closed) ... ok\ntest_foreign_record_cannot_create_active_offense (test_contract.ContractTests.test_foreign_record_cannot_create_active_offense) ... ok\ntest_incorrect_subject_reference_rejected (test_contract.ContractTests.test_incorrect_subject_reference_rejected) ... ok\ntest_late_readiness_is_not_fault (test_contract.ContractTests.test_late_readiness_is_not_fault) ... ok\ntest_new_fields_do_not_override_service (test_contract.ContractTests.test_new_fields_do_not_override_service) ... ok\ntest_premature_closure_rejected (test_contract.ContractTests.test_premature_closure_rejected) ... ok\ntest_receipt_at_deadline_is_included (test_contract.ContractTests.test_receipt_at_deadline_is_included) ... ok\ntest_replay_has_no_producer_dependency (test_contract.ContractTests.test_replay_has_no_producer_dependency) ... ok\ntest_scalar_rank_criterion (test_contract.ContractTests.test_scalar_rank_criterion) ... ok\ntest_signed_malformed_is_evidence (test_contract.ContractTests.test_signed_malformed_is_evidence) ... ok\ntest_truncated_closure_not_a_complete_snapshot (test_contract.ContractTests.test_truncated_closure_not_a_complete_snapshot) ... ok\ntest_auth_state_exact_types_and_immutability (test_privacy_composition.PrivacyCompositionTests.test_auth_state_exact_types_and_immutability) ... ok\ntest_corrupt_records_not_laundered_as_fixed_leakage (test_privacy_composition.PrivacyCompositionTests.test_corrupt_records_not_laundered_as_fixed_leakage) ... ok\ntest_corrupt_state_has_no_honest_signing_credential (test_privacy_composition.PrivacyCompositionTests.test_corrupt_state_has_no_honest_signing_credential) ... ok\ntest_finite_assertions_have_unique_names (test_privacy_composition.PrivacyCompositionTests.test_finite_assertions_have_unique_names) ... ok\ntest_fresh_key_does_not_match_old_registration (test_privacy_composition.PrivacyCompositionTests.test_fresh_key_does_not_match_old_registration) ... ok\ntest_malformed_public_records_fail_closed (test_privacy_composition.PrivacyCompositionTests.test_malformed_public_records_fail_closed) ... ok\ntest_marginal_equality_does_not_preserve_frozen_echo (test_privacy_composition.PrivacyCompositionTests.test_marginal_equality_does_not_preserve_frozen_echo) ... ok\ntest_matching_state_resigns_new_body (test_privacy_composition.PrivacyCompositionTests.test_matching_state_resigns_new_body) ... ok\ntest_mismatched_public_registry_rejects (test_privacy_composition.PrivacyCompositionTests.test_mismatched_public_registry_rejects) ... ok\ntest_no_registration_call_inside_renderer (test_privacy_composition.PrivacyCompositionTests.test_no_registration_call_inside_renderer) ... ok\ntest_precompilation_declaration_is_separate (test_privacy_composition.PrivacyCompositionTests.test_precompilation_declaration_is_separate) ... ok\ntest_public_dependency_allowed_hidden_feedback_refused (test_privacy_composition.PrivacyCompositionTests.test_public_dependency_allowed_hidden_feedback_refused) ... ok\ntest_public_setup_alone_is_not_signing_state (test_privacy_composition.PrivacyCompositionTests.test_public_setup_alone_is_not_signing_state) ... ok\ntest_reactive_records_are_regenerated (test_privacy_composition.PrivacyCompositionTests.test_reactive_records_are_regenerated) ... ok\ntest_renderer_detaches_registration_from_callback_aliases (test_privacy_composition.PrivacyCompositionTests.test_renderer_detaches_registration_from_callback_aliases) ... ok\ntest_responder_gets_immutable_prefix (test_privacy_composition.PrivacyCompositionTests.test_responder_gets_immutable_prefix) ... ok\ntest_schema_rejects_cycles_aliasing_and_unknown_origins (test_privacy_composition.PrivacyCompositionTests.test_schema_rejects_cycles_aliasing_and_unknown_origins) ... ok\ntest_signed_boolean_counter_and_wrong_role_reject (test_privacy_composition.PrivacyCompositionTests.test_signed_boolean_counter_and_wrong_role_reject) ... ok\ntest_stale_copy_has_valid_signatures_but_wrong_joint_view (test_privacy_composition.PrivacyCompositionTests.test_stale_copy_has_valid_signatures_but_wrong_joint_view) ... ok\ntest_duplicates_and_malformed_profile_reject (test_privacy_lengths.PrivacyLengthTests.test_duplicates_and_malformed_profile_reject) ... ok\ntest_empty_message_is_not_absence (test_privacy_lengths.PrivacyLengthTests.test_empty_message_is_not_absence) ... ok\ntest_exact_integer_lengths (test_privacy_lengths.PrivacyLengthTests.test_exact_integer_lengths) ... ok\ntest_finite_audit (test_privacy_lengths.PrivacyLengthTests.test_finite_audit) ... ok\ntest_joint_not_just_marginal_simulation (test_privacy_lengths.PrivacyLengthTests.test_joint_not_just_marginal_simulation) ... ok\ntest_leakage_manifest_types_and_partition_reject (test_privacy_lengths.PrivacyLengthTests.test_leakage_manifest_types_and_partition_reject) ... ok\ntest_length_is_not_sufficient_without_domain (test_privacy_lengths.PrivacyLengthTests.test_length_is_not_sufficient_without_domain) ... ok\ntest_length_only_negative_control_not_fixed_width_failure (test_privacy_lengths.PrivacyLengthTests.test_length_only_negative_control_not_fixed_width_failure) ... ok\ntest_nonvacuous_leakage_partition (test_privacy_lengths.PrivacyLengthTests.test_nonvacuous_leakage_partition) ... ok\ntest_parameter_mapping (test_privacy_lengths.PrivacyLengthTests.test_parameter_mapping) ... ok\ntest_plaintext_value_does_not_change_fixed_width (test_privacy_lengths.PrivacyLengthTests.test_plaintext_value_does_not_change_fixed_width) ... ok\ntest_profile_preserves_occurrence_order (test_privacy_lengths.PrivacyLengthTests.test_profile_preserves_occurrence_order) ... ok\ntest_public_dummy_needs_no_secret (test_privacy_lengths.PrivacyLengthTests.test_public_dummy_needs_no_secret) ... ok\ntest_raw_or_ambiguous_transcript_leakage_rejects (test_privacy_lengths.PrivacyLengthTests.test_raw_or_ambiguous_transcript_leakage_rejects) ... ok\ntest_response_domain_is_narrower_than_paillier_domain (test_privacy_lengths.PrivacyLengthTests.test_response_domain_is_narrower_than_paillier_domain) ... ok\ntest_response_domain_parameters (test_privacy_lengths.PrivacyLengthTests.test_response_domain_parameters) ... ok\ntest_wrong_length_and_encoding_type (test_privacy_lengths.PrivacyLengthTests.test_wrong_length_and_encoding_type) ... ok\ntest_nocite_is_forbidden (test_reference_audit.ReferenceAuditTests.test_nocite_is_forbidden) ... ok\ntest_parser_handles_nested_tex_and_same_line_fields (test_reference_audit.ReferenceAuditTests.test_parser_handles_nested_tex_and_same_line_fields) ... ok\ntest_retained_inventory_is_closed_and_large_enough (test_reference_audit.ReferenceAuditTests.test_retained_inventory_is_closed_and_large_enough) ... ok\ntest_uncited_and_unknown_keys_fail (test_reference_audit.ReferenceAuditTests.test_uncited_and_unknown_keys_fail) ... ok\ntest_frozen_cross_implementation_vectors (test_schema.SchemaTests.test_frozen_cross_implementation_vectors) ... ok\ntest_malformed_schnorr_context_never_crashes_or_accuses (test_schema.SchemaTests.test_malformed_schnorr_context_never_crashes_or_accuses) ... ok\ntest_non_json_types_are_rejected (test_schema.SchemaTests.test_non_json_types_are_rejected) ... ok\ntest_noncanonical_signed_compiler_entry_is_malformed (test_schema.SchemaTests.test_noncanonical_signed_compiler_entry_is_malformed) ... ok\ntest_setup_boundary_audit_is_fail_closed (test_schema.SchemaTests.test_setup_boundary_audit_is_fail_closed) ... ok\ntest_absence_requires_valid_registered_context (test_schnorr_bridge.SchnorrBridgeTests.test_absence_requires_valid_registered_context) ... ok\ntest_bad_evrf_proof_is_signed_positive_evidence (test_schnorr_bridge.SchnorrBridgeTests.test_bad_evrf_proof_is_signed_positive_evidence) ... ok\ntest_bad_response_has_positive_evidence (test_schnorr_bridge.SchnorrBridgeTests.test_bad_response_has_positive_evidence) ... ok\ntest_binding_and_context_failures (test_schnorr_bridge.SchnorrBridgeTests.test_binding_and_context_failures) ... ok\ntest_binding_prover_rejects_noncanonical_scalar (test_schnorr_bridge.SchnorrBridgeTests.test_binding_prover_rejects_noncanonical_scalar) ... ok\ntest_challenge_is_recomputed_from_fixed_context (test_schnorr_bridge.SchnorrBridgeTests.test_challenge_is_recomputed_from_fixed_context) ... ok\ntest_common_challenge_uses_all_public_nonce_tags (test_schnorr_bridge.SchnorrBridgeTests.test_common_challenge_uses_all_public_nonce_tags) ... ok\ntest_honest_response_and_binding (test_schnorr_bridge.SchnorrBridgeTests.test_honest_response_and_binding) ... ok\ntest_mutated_proof_rejected (test_schnorr_bridge.SchnorrBridgeTests.test_mutated_proof_rejected) ... ok\ntest_nonboolean_omission_flags_rejected (test_schnorr_bridge.SchnorrBridgeTests.test_nonboolean_omission_flags_rejected) ... ok\ntest_omission_requires_service (test_schnorr_bridge.SchnorrBridgeTests.test_omission_requires_service) ... ok\ntest_parameters_and_campaign_size (test_schnorr_bridge.SchnorrBridgeTests.test_parameters_and_campaign_size) ... ok\ntest_presence_flag_mismatch_never_accuses (test_schnorr_bridge.SchnorrBridgeTests.test_presence_flag_mismatch_never_accuses) ... ok\ntest_private_oracle_matches_honest_statement (test_schnorr_bridge.SchnorrBridgeTests.test_private_oracle_matches_honest_statement) ... ok\ntest_registered_authentication_key_is_context_bound (test_schnorr_bridge.SchnorrBridgeTests.test_registered_authentication_key_is_context_bound) ... ok\ntest_registered_verification_share_substitution_is_rejected (test_schnorr_bridge.SchnorrBridgeTests.test_registered_verification_share_substitution_is_rejected) ... ok\ntest_replay_independent (test_schnorr_bridge.SchnorrBridgeTests.test_replay_independent) ... ok\ntest_signature_failure_not_attributed (test_schnorr_bridge.SchnorrBridgeTests.test_signature_failure_not_attributed) ... ok\ntest_signed_context_fields_still_match_judging_context (test_schnorr_bridge.SchnorrBridgeTests.test_signed_context_fields_still_match_judging_context) ... ok\ntest_tiny_challenge_false_statement_negative_control (test_schnorr_bridge.SchnorrBridgeTests.test_tiny_challenge_false_statement_negative_control) ... ok\n\n----------------------------------------------------------------------\nRan 95 tests in 1.927s\n\nOK\n"
+    },
+    {
+      "name": "reproduction",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "reproduce.py",
+        "--out",
+        "../prepack_results"
+      ],
+      "environment_overrides": {},
+      "returncode": 0,
+      "wall_seconds": 6.8108004059999985,
+      "stdout": "{\"address_space_limit_bytes\": 3221225472, \"cases\": 84, \"cpu_seconds\": 6.17442943, \"enumeration_limit_this_run\": 300000, \"failures\": 0, \"measurement_scope\": \"pilot checks and raw-result writes, before final measurement serialization\", \"obligations\": 214915, \"peak_rss_kib\": 135284, \"status\": \"finite_checks_passed\", \"wall_limit_seconds\": 180, \"wall_seconds\": 6.177206312999942, \"workers\": 1}\n",
+      "stderr": ""
+    },
+    {
+      "name": "comparison",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "compare_results.py",
+        "results/pilot",
+        "../prepack_results"
+      ],
+      "environment_overrides": {},
+      "returncode": 0,
+      "wall_seconds": 0.6173146619998988,
+      "stdout": "All 25 deterministic scientific result files agree byte for byte; measurements excluded.\n",
+      "stderr": ""
+    },
+    {
+      "name": "references",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "audit_references.py",
+        "--inventory",
+        "reference_audit.csv"
+      ],
+      "environment_overrides": {},
+      "returncode": 0,
+      "wall_seconds": 0.6357105649999539,
+      "stdout": "Reference audit passed: 73 cited scholarly entries; 12 entries with recorded primary-source evidence and 61 with structural identifier checks (not a fresh full-text audit).\n",
+      "stderr": ""
+    }
   ],
-  "unit_tests": {
-    "count": 59,
-    "exit_code": 0,
-    "status": "passed"
+  "measurements_of_retained_pilot": {
+    "address_space_limit_bytes": 3221225472,
+    "cpu_seconds": 6.064093224,
+    "enumeration_limit_this_run": 300000,
+    "measurement_scope": "pilot checks and raw-result writes, before final measurement serialization",
+    "peak_rss_kib": 135312,
+    "wall_limit_seconds": 180,
+    "wall_seconds": 6.066902981999874,
+    "workers": 1
   },
-  "runner": {
-    "exit_code": 0,
-    "status": "finite_checks_passed",
-    "boundary_cases": 84,
-    "compiler_cases": 3328,
-    "schnorr_bridge_cases": 4160,
-    "counted_elementary_obligations": 214545,
-    "failures": 0,
-    "retained_measurement_cpu_seconds": 6.088645341,
-    "retained_measurement_wall_seconds": 6.094755264999931,
-    "retained_measurement_peak_rss_kib": 135176,
-    "clean_reproduction_measurements_recorded": false,
-    "measurement_note": "Clean-reproduction timing and RSS are intentionally not frozen because they are process metadata; only retained measurement metadata and deterministic scientific files are preserved."
-  },
-  "comparison": {
-    "exit_code": 0,
-    "deterministic_files_compared": 23,
-    "status": "byte_for_byte_agreement",
-    "measurements_excluded": true
-  },
-  "deadline_regressions": {
-    "correct_at_D": "no attribution",
-    "correct_at_D_plus_1_bounded": "nonopening only",
-    "correct_at_D_plus_1_censorable": "no attribution",
-    "late_readiness": "no timing attribution",
-    "genuine_qualified_missing": "nonopening",
-    "late_malformed": [
-      "bad_entry",
-      "nonopening"
-    ]
-  },
-  "compiler_evidence_calibration": {
-    "invalid_certificate_records": 15392,
-    "certificate_field_mutation_templates": 19,
-    "focused_semantic_regression_cases": 12,
-    "focused_semantic_regression_checks": 30,
-    "honest_delayed_receipt_time": 12,
-    "inclusive_deadline": 12
-  },
-  "schnorr_registered_share_regression": {
-    "case": "n5-s2-r3-registered-share-substitution",
-    "registered_verification_share": 62,
-    "substituted_verification_share": 1,
-    "nonce_scalar": 206,
-    "nonce_tag": 285,
-    "substituted_response_tag": 285,
-    "registered_expected_response_tag": 402,
-    "binding_proof_accepts": true,
-    "producer_verdict": "bad_response",
-    "replay_verdict": "bad_response",
-    "counted_elementary_obligations": 10
-  },
-  "input_boundary_audit": {
-    "selection": "independently annotated schema vectors submitted directly to the public APIs without producer-validator prefiltering",
-    "malformed_setup_vectors": 140,
-    "public_api_calls": 388,
-    "includes_exact_type_roster_vector": [
-      true,
-      2,
-      3,
-      4,
-      5
-    ],
-    "nonstring_closure_references": [
-      "list",
-      "object"
-    ],
-    "exceptions": 0,
-    "unsafe_results": 0
-  },
-  "negative_control": {
-    "statement": "Paillier ciphertext of 17 paired with exponent tag g^18",
-    "exact_relation_holds": false,
-    "challenge_space": 251,
-    "challenge_evaluations": 617,
-    "producer_accepts": true,
-    "replay_accepts": true,
-    "interpretation": "Expected falsification of the deliberately weak toy proof; the paper's relative theorem instead assumes a production proof system satisfying the stated completeness, soundness, and simulation interfaces."
-  },
-  "reference_audit": {
-    "total_entries": 72,
-    "all_cited_in_manuscript": true,
-    "minimum_required": 55,
-    "primary_publisher_or_iacr_records_checked": 9,
-    "stable_identifier_structural_checks": 63,
-    "duplicate_keys_titles_or_identifiers": 0,
-    "nocite_used": false,
-    "status": "passed",
-    "qualification": "The deterministic build does not pretend to repeat live network metadata resolution or full-text verification for every record."
-  },
-  "manuscript_build": {
-    "exit_code": 0,
-    "pages": 36,
-    "main_sections": 9,
-    "abstract_words": 243,
-    "keywords": 8,
-    "rendered_references": 72,
-    "source_references": 72,
-    "all_source_references_cited": true,
-    "overfull_boxes": 0,
-    "unresolved_references_or_citations": 0,
-    "missing_character_diagnostics": 0,
-    "visible_approved_authors": 2
-  },
-  "pdf_validation": {
-    "pages_rendered_at_200_dpi": 36,
-    "second_renderer_pages": 36,
-    "renderer_page_dimensions_agree": true,
-    "fonts_embedded": true,
-    "replacement_characters_in_extracted_text": 0,
-    "clean_build_text_identical": true,
-    "clean_build_changed_pages_at_100_dpi": 0,
-    "preflight_openable": true,
-    "visual_findings": "No clipping, overlap, black block, broken glyph, illegible table, or bibliography overflow observed."
-  },
-  "packaging": {
-    "full_project_single_root": "non-frameable-abort-attribution-for-exponent-vrf-ceremonies/",
-    "full_project_root_entries": [
-      "paper/",
-      "artifact/",
-      "research-plan.md",
-      "CURRENT-STATE.md"
-    ],
-    "standalone_single_root": "non-frameable-abort-attribution/",
-    "nested_archives": 0,
-    "bytecode_caches": 0,
-    "latex_intermediates": 0,
-    "zip_integrity": "passed",
-    "full_project_archive_entries": 72,
-    "standalone_archive_entries": 59
-  },
-  "limitations": [
-    "This is deterministic hosted reproduction and a packet self-audit, not independent external review or mechanized proof.",
-    "The generic campaign uses ideal cryptographic verification bits.",
-    "The Schnorr bridge uses toy arithmetic, deliberately exposes an unsound tiny-challenge transcript, and imports the eVRF verification result.",
-    "The attribution theorem is relative to a production proof system and service interfaces that are not instantiated here; the privacy theorem additionally assumes the stated simulation interface.",
-    "Timing, RSS, PDF metadata, and PDF bytes are not claimed deterministic."
+  "privacy_limits": [
+    "generated-setup ensemble, not arbitrary pre-existing P",
+    "non-feedback semantic trace plus causal public responses",
+    "no arbitrary ciphertext-driven private continuation",
+    "finite dependency checks validate annotations only"
   ],
-  "final_archive_recheck": {
-    "unit_tests": 59,
-    "unit_test_status": "passed",
-    "runner_status": "finite_checks_passed",
-    "counted_elementary_obligations": 214545,
-    "runner_failures": 0,
-    "deterministic_files_compared": 23,
-    "deterministic_comparison": "byte_for_byte_agreement",
-    "reference_entries": 72,
-    "reference_audit_status": "passed",
-    "manuscript_pages": 36,
-    "manuscript_build_status": "passed",
-    "pdf_extracted_text_identical": true,
-    "pdf_changed_pages_at_100_dpi": 0
-  }
+  "reference_scope": "73 actually cited entries; 12 inherited primary records, 61 structural/identifier checks; not a fresh full-text audit of all sources"
 }

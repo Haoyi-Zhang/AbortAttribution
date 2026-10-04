@@ -28,7 +28,11 @@ For Paillier modulus `N` and canonical `0 <= z < q < N`, the exact relation is
 
 `rho in Z_N^*`, `C = (1+N)^z rho^N mod N^2`, and `Z = g^z`.
 
-The full statement fixes the proof context, recipient key, group/Paillier encodings, sender, round, and purpose. No out-of-range witness is silently reduced. The executable Fiat--Shamir equations are used only for honest algebra and the explicit negative control. The theorem instead assumes a complete and sound production NIZK under the real setup; privacy separately assumes simulated setup, statement simulation, multi-theorem zero knowledge, and simulation soundness when required.
+The full statement fixes the proof context, recipient key, group/Paillier encodings, sender, round, and purpose. No out-of-range witness is silently reduced. The executable Fiat--Shamir equations are used only for honest algebra and the explicit negative control. The theorem instead assumes a complete and sound production NIZK under the real setup; privacy separately requires every generated-setup, non-feedback, causal-rendering and joint-simulation premise of Theorem 5.3. Simulation soundness, when separately required, does not supply these premises.
+
+## Public fixed-width encoding
+
+For the privacy theorem, encode every z in [0,q) using exactly ceil(log_256 N) big-endian bytes under the registered public modulus N, including leading zeros. Zero is an in-domain public dummy at the same width. Hence the indexed encryption-input length profile is determined by public setup and occurrences. This satisfies the new length premise without secret-dependent leakage. Privacy still imports matching setup-retained signing state, non-feedback semantic sampling, lawful causal public rendering, and a base simulator joint with retained auxiliary state and leakage. Dependent corrupted responses must be regenerated, not frozen in leakage. This does not establish that a production eVRF protocol meets those interfaces. The toy JSON arithmetic representation is not claimed to be a production wire codec; its judges and arithmetic evidence are unchanged. See `proofs/privacy-lengths.md` and the separate `privacy-lengths.json` result.
 
 ## Registered-share substitution regression
 
@@ -57,10 +61,12 @@ An authenticated envelope is classified as:
 - `qualified_nonopening` only when duty, readiness, bounded delivery, and complete closure all verify;
 - no attribution for well-formed, unauthenticated, off-context, replayed, or censorable-absence inputs.
 
-The theorem is a specialization of the generic compiler. Signatures and production proof soundness support positive evidence; the omission theorem supplies the service-dependent branch; simulated proofs, IND-CPA hybrids, and the imported base simulator support compiled-view privacy.
+The theorem is a specialization of the generic compiler. Signatures and production proof soundness support positive evidence; the omission theorem supplies the service-dependent branch; compiled-view privacy is conditional on all generated-setup, non-feedback and causal-rendering assumptions of Theorem 5.3 in addition to proof simulation, lawful IND-CPA hybrids and joint base simulation.
 
 ## Finite evidence and boundaries
 
 The retained Cartesian product contains 4,160 cases in ten families. The independently restated judges agree on 13,728 decisions, reject 9,568 attribution mutations, and perform 8,320 exact arithmetic checks. The registered-share regression adds 10 focused obligations. The false-statement control adds 620 obligations.
 
 The specialization is static and fixed-context. It does not implement a production eVRF or NIZK, solve adaptive PRF-to-random commitment after key exposure, realize a complete board, prove dynamic membership or key rotation, guarantee fairness/output delivery, or establish unique causal responsibility for a global abort.
+
+The general setup/correlation proof map and its narrower applicability are in `proofs/privacy-composition.md`. Fixed-width Paillier supplies only the length/dummy condition; neither signature-state matching nor absence of hidden feedback follows from that encoding.

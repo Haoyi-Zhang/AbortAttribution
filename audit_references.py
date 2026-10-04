@@ -2,7 +2,7 @@
 """Deterministic bibliography and citation audit.
 
 The audit is deliberately offline: it checks BibTeX structure, unique scholarly
-identifiers, manuscript citation closure, and an included human-reviewed source
+identifiers, manuscript citation closure, and an included source-verification
 inventory.  It does not claim that an offline build re-resolves publisher pages.
 """
 from __future__ import annotations
@@ -50,7 +50,8 @@ def _strip_tex_comments(text: str) -> str:
 
 
 def _balanced_value(text: str, pos: int, opener: str, closer: str) -> tuple[str, int]:
-    assert text[pos] == opener
+    if type(pos) is not int or not 0 <= pos < len(text) or text[pos] != opener:
+        raise ValueError("BibTeX value does not start with the expected delimiter")
     depth = 1
     i = pos + 1
     start = i
@@ -265,6 +266,7 @@ def validate_inventory(rows: list[dict[str, str]], entries: list[Entry] | None =
 # a stable identifier and are checked structurally, but the deterministic build
 # deliberately performs no network lookup.
 PRIMARY_CHECKED: dict[str, str] = {
+    "bonehshoup2023": "https://toc.cryptobook.us/book.pdf",
     "boneh2025evrf": "https://doi.org/10.1007/978-3-031-91098-2_8",
     "canetti2021ecdsaabort": "https://doi.org/10.1145/3372297.3423367",
     "chase2022dleq": "https://eprint.iacr.org/2022/1593",
@@ -299,7 +301,9 @@ def inventory_rows(entries: Iterable[Entry], citations: set[str]) -> list[dict[s
             "verification_source": PRIMARY_CHECKED.get(entry.key, default_source),
             "cited_in_manuscript": "yes" if entry.key in citations else "no",
             "audit_note": (
-                "Primary publisher or IACR record checked during final audit."
+                "Authors’ textbook title page, Remark 2.1 and Section 11.3.2 read on 2026-10-03; equal-length public-key CPA game checked in the page image."
+                if entry.key == "bonehshoup2023" else
+                "Inherited primary-record verification from the supplied project; not claimed as a fresh full-text reading in the length repair."
                 if primary else
                 "Required fields, identifier syntax, uniqueness, and manuscript citation linkage checked offline; live metadata not re-resolved by the deterministic build."
             ),
@@ -348,7 +352,7 @@ def main() -> int:
     primary = sum(row["verification_status"] == "primary-record-checked" for row in rows)
     print(
         f"Reference audit passed: {len(rows)} cited scholarly entries; "
-        f"{primary} primary records checked and {len(rows)-primary} stable identifiers structurally checked."
+        f"{primary} entries with recorded primary-source evidence and {len(rows)-primary} with structural identifier checks (not a fresh full-text audit)."
     )
     return 0
 

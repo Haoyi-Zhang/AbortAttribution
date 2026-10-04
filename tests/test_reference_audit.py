@@ -13,7 +13,7 @@ class ReferenceAuditTests(unittest.TestCase):
     def test_retained_inventory_is_closed_and_large_enough(self):
         rows = audit.read_inventory(ARTIFACT / "reference_audit.csv")
         self.assertEqual(audit.validate_inventory(rows), [])
-        self.assertEqual(len(rows), 72)
+        self.assertEqual(len(rows), 73)
         self.assertGreaterEqual(
             sum(row["verification_status"] == "primary-record-checked" for row in rows), 9
         )

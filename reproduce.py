@@ -40,6 +40,8 @@ from schnorr_bridge import (GROUP_G as SCHNORR_G, GROUP_P as SCHNORR_P, PAILLIER
 from schnorr_replay import binding as replay_binding, replay as replay_schnorr
 from schema_audit import run_schema_audit
 from setup_boundary_audit import run_setup_boundary_audit
+from privacy_lengths import run_length_audit
+from privacy_composition import run_composition_audit
 
 
 def dump(path: Path, obj: Any) -> None:
@@ -601,6 +603,12 @@ def run(out: Path) -> dict[str, Any]:
     setup_boundary = run_setup_boundary_audit()
     failures.extend({"failure": "setup_boundary_audit", "detail": f}
                     for f in setup_boundary["failures"])
+    privacy_lengths = run_length_audit()
+    failures.extend({"failure": "privacy_length_contract", "detail": f}
+                    for f in privacy_lengths["failures"])
+    privacy_composition = run_composition_audit()
+    failures.extend({"failure": "privacy_composition_contract", "detail": f}
+                    for f in privacy_composition["failures"])
     disclosure = run_disclosure_oracle()
     timing = run_timing_oracle()
     exponent = run_exponent_oracle()
@@ -623,7 +631,9 @@ def run(out: Path) -> dict[str, Any]:
                   + replay_decisions + len(pair_results) + compiler["counted_elementary_obligations"]
                   + schnorr["counted_elementary_obligations"]
                   + schema["counted_elementary_obligations"]
-                  + setup_boundary["counted_elementary_obligations"])
+                  + setup_boundary["counted_elementary_obligations"]
+                  + privacy_lengths["counted_elementary_obligations"]
+                  + privacy_composition["counted_elementary_obligations"])
     if elementary > 300_000:
         failures.append({"failure": "pilot_enumeration_reserve_exceeded", "count": elementary})
     if max_receipts > 12 or max_size > 32768:
@@ -666,6 +676,10 @@ def run(out: Path) -> dict[str, Any]:
                 "setup_boundary_api_calls": setup_boundary["public_api_calls"],
                 "setup_boundary_exceptions": setup_boundary["exceptions"],
                 "setup_boundary_unsafe_results": setup_boundary["unsafe_results"],
+                "privacy_length_checks": privacy_lengths["counted_elementary_obligations"],
+                "privacy_length_failures": len(privacy_lengths["failures"]),
+                "privacy_composition_checks": privacy_composition["counted_elementary_obligations"],
+                "privacy_composition_failures": len(privacy_composition["failures"]),
                 "counted_elementary_obligations": elementary,
                 "replay_imports": sorted(set(imports)), "failures": failures}
     lines(out / "cases.jsonl", cases)
@@ -679,6 +693,8 @@ def run(out: Path) -> dict[str, Any]:
     dump(out / "exponents.json", exponent)
     dump(out / "schema-audit.json", schema)
     dump(out / "setup-boundary-audit.json", setup_boundary)
+    dump(out / "privacy-lengths.json", privacy_lengths)
+    dump(out / "privacy-composition.json", privacy_composition)
     dump(out / "outcomes.json", outcomes)
     return outcomes
 

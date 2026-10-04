@@ -2,14 +2,16 @@
 
 This standalone repository reproduces deterministic finite checks for the paper's delivery boundary, tag-bound attribution compiler, and static eVRF-driven Schnorr-response bridge.
 
-The artifact has four layers:
+The artifact has six layers:
 
 1. an ideal authenticated-receipt model for malformed openings and qualified non-openings;
 2. an ideal signature/NIZK state machine for the generic compiler;
 3. a concrete toy-arithmetic bridge that checks a common aggregate-nonce Schnorr challenge, immutable registered verification shares, the partial-response equation, Paillier ciphertext-to-exponent equations, authentication, context binding, and qualified omission;
-4. canonical-encoding and independently annotated malformed-setup audits that require every public verification, replay, or extraction API to fail closed.
+4. canonical-encoding and independently annotated malformed-setup audits that require every public verification, replay, or extraction API to fail closed;
+5. a separate leakage-manifest, public-length/dummy, and fixed-width Paillier codec audit, including omitted-length and marginal-only boundaries;
+6. retained-authentication and causal-rendering conformance checks with exact stale-replay counterexamples and an independently declared dependency graph.
 
-The arithmetic bridge is deliberately **not** a production eVRF, NIZK, signature, consensus, or network implementation. Its eVRF verification result is an imported ideal bit. Its small group, Paillier modulus, and 251-value challenge space provide exact conformance and falsification checks rather than cryptographic security. The paper theorem instead imports complete and sound real-setup verification for the exact bounded plaintext/tag relation; compiled-view privacy separately requires simulated setup, statement simulation, multi-theorem zero knowledge, and simulation soundness when adversarial proofs follow simulated proofs.
+The arithmetic bridge is deliberately **not** a production eVRF, NIZK, signature, consensus, or network implementation. Its eVRF verification result is an imported ideal bit. Its small group, Paillier modulus, and 251-value challenge space provide exact conformance and falsification checks rather than cryptographic security. The paper theorem instead imports complete and sound real-setup verification for the exact bounded plaintext/tag relation; compiled-view privacy is separately restricted to generated setup with retained matching signing state and a non-feedback semantic trace. It requires lawful same-length dummies, causal regeneration of public responses, a joint base simulator with the retained auxiliary state, and a joint simulated-CRS/proof interface. Static corruption or simulation soundness alone does not imply these conditions.
 
 ## Supported execution environment
 
@@ -37,9 +39,9 @@ python3 audit_references.py --inventory reference_audit.csv
 
 Expected high-level result:
 
-- 59 unit tests pass;
+- 95 unit tests pass;
 - the runner exits 0 with `status = finite_checks_passed`;
-- all 23 deterministic scientific output files match the retained pilot byte for byte;
+- all 25 deterministic scientific output files match the retained pilot byte for byte;
 - `measurements.json` is process metadata and is intentionally excluded from byte comparison.
 
 `reproduce.py` refuses a nonempty output directory and enforces a 180-second wall/CPU bound, a 3 GiB address-space limit, one worker, and a 300,000-obligation cap through Linux resource interfaces.
@@ -54,6 +56,7 @@ Expected high-level result:
 - `src/linear_oracle.py`: exact timing, linear-disclosure, and tiny-exponent controls.
 - `src/schema_audit.py`: canonical-JSON vectors and malformed-input refusal checks.
 - `src/setup_boundary_audit.py`: independently annotated malformed-context vectors across all public APIs. It does not use a producer validator to prefilter candidates.
+- `src/privacy_lengths.py`: non-vacuous leakage-manifest, exact encoding-length, legal-dummy and joint-view distribution checks; no cryptographic security or new attribution predicate.
 - `audit_references.py`, `reference_audit.csv`: bibliography structure, stable-identifier, uniqueness, and citation-closure audit.
 - `tests/`: boundary, compiler, arithmetic, registered-share, challenge-binding, replay-independence, parser, bibliography, mutation, and refusal tests.
 - `proofs/`: proof maps and explicit non-claims.
@@ -95,7 +98,28 @@ Input boundaries:
 - explicit exact-type roster vectors including `[true,2,3,4,5]`;
 - zero exceptions and zero unsafe attributions.
 
-The combined retained run counts **214,545** elementary obligations.
+The combined retained run counts **214,915** elementary obligations.
+
+Length interface:
+
+- 319 named expected/observed finite assertions, recorded separately in `privacy-lengths.json`;
+- an independently declared leakage manifest that rejects transcript-copy and catch-all leakage fields while permitting declared ideal outputs and precompilation inputs, not realized reactive corrupted records;
+- public fixed widths versus explicit per-occurrence length leakage;
+- valid same-length domain elements, including structured domains where all-zero strings are invalid;
+- full framing/padding and byte length rather than character count;
+- distinct profiles with equal totals and absent versus empty messages;
+- exact length-only and joint-versus-marginal distribution comparisons;
+- all 233 toy scalars and public-modulus width boundaries.
+
+The generic privacy theorem additionally requires matching setup-retained authentication state, a non-feedback semantic trace and causal public regeneration. Its base simulation is joint with that auxiliary state and all permitted leakage; arbitrary ciphertext-driven private continuation is not covered. These checks validate the local interface schema; they do not implement or prove those cryptographic simulators. In the fixed-width Paillier specialization, the profile is a public function of N and message occurrences, so this repair adds no secret-dependent leakage. Existing attribution, deadline, registered-share and weak-proof regressions are retained without changed predicates.
+
+## Retained setup and causal-response checks
+
+`src/privacy_composition.py` is a small contract harness, not a cryptographic simulator. It rejects absent or mismatched signing state, preserves one registered public-key table, and signs regenerated bodies using the matching retained toy keys. It reruns a stateful corrupted responder on each current immutable prefix; echoes, prefix hashes and the responder's own signatures are recomputed. Old responses can remain signature-valid while failing correlation checks.
+
+The exact public-salt model has unchanged public-salt marginals but stale-replay joint distance 3/4 for an alphabet of size four; causal regeneration gives zero. A declared DAG refuses wrapper-byte, wrapper-coin and honest-decryption dependencies into semantic/leakage nodes. It checks annotations only, not arbitrary code or external implementations. The old nonempty `declared_adversary_outputs` argument is rejected; the distinct `declared_precompilation_inputs` field cannot establish independence merely by naming it.
+
+`privacy-composition.json` records 51 separate assertions. See `proofs/privacy-composition.md` for setup order, simulator state, the complete restricted hybrid argument and exclusions. Real rendering must agree with the actual protocol in the admitted class; forcing a dependent semantic outcome to remain fixed is not sufficient.
 
 ## Interpretation limits
 

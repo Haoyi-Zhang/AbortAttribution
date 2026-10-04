@@ -2,7 +2,7 @@
 
 ## Purpose
 
-The pilot is a falsifiable finite check of five declared interfaces: the ideal receipt boundary, the generic tag-bound compiler, a toy arithmetic Schnorr bridge, canonical signed/hash encodings, and fail-closed parsing of damaged setup inputs. It is not a production cryptographic benchmark or deployed-board experiment.
+The pilot is a falsifiable finite check of seven declared interfaces: the ideal receipt boundary, the generic tag-bound compiler, a toy arithmetic Schnorr bridge, canonical signed/hash encodings, fail-closed parsing of damaged setup inputs, the encoding-length/dummy interfaces, and setup/causal-correlation conformance of the restricted privacy hybrid. It is not a production cryptographic benchmark or deployed-board experiment.
 
 ## Supported platform and fixed limits
 
@@ -55,10 +55,22 @@ The retained false-statement control encrypts 17 but uses tag `g^18`. A determin
 
 Canonical encoding checks include accepted vectors, rejected non-JSON types, malformed Unicode, and a frozen digest. The setup audit constructs 140 independently annotated parser-invalid contexts or registries without consulting a producer validator, then submits them to 388 public verification, replay, and extraction calls across the ideal model, generic compiler, and Schnorr bridge. The manifest includes exact-type roster failures such as `[true,2,3,4,5]`. Every call must return fail-closed without exception or accusation.
 
+## Privacy and length inclusion
+
+This separate finite layer checks unrestricted byte lengths, exact types and resource bounds, legal same-length dummy production, structured message domains, complete framing/padding, UTF-8 byte lengths, per-occurrence ordering, equal totals with different profiles, absence versus empty messages, and malformed or duplicate occurrence identifiers. Exact two-point distributions demonstrate the omitted-length and marginal-versus-joint boundaries. All 233 toy scalars are serialized at the public Paillier width with additional modulus and range boundaries.
+
+The same layer checks a published leakage-field manifest: ideal outputs and separately declared precompilation inputs may overlap the base trace, but actual reactive corrupted records may not be fixed in leakage. The old nonempty adversary-output argument fails closed. The layer contains 319 named assertions, including 15 leakage-manifest checks, separate from the 19 certificate templates.
+
+## Setup and causal-correlation inclusion
+
+A separate finite harness retains matching authentication state and checks re-signing of changed bodies, refusal of public-only/fresh-key/mismatched state, exact signer roles and counters, and registry immutability. A stateful corrupted program echoes current ciphertext bytes, hashes the actual prefix, and signs its response. Every hybrid reruns this program rather than copying old responses. Stale responses still have valid signatures but fail prefix checks.
+
+Exact salt alphabets 2,4,8,16 compare real, stale and regenerated joint distributions. The stale joint distance is 1-1/n while its public-salt marginal distance is zero; regenerated distance is zero. A dependency manifest checks direct and indirect forbidden semantic/leakage dependencies, malformed/cyclic graphs and origin overrides. The 51 assertions validate these finite contracts, not arbitrary-program noninterference, IND-CPA or a real simulator. The result is privacy-composition.json. No attribution source or weak-proof control is changed.
+
 ## Falsification conditions
 
-The run fails on any unexpected verdict; valid certificate rejection; specified invalid mutation acceptance; producer/replay disagreement; unauthenticated or off-context attribution; tag-only delivery attribution; censorable-silence attribution; a correct late envelope classified as `bad_entry`; a registered-share substitution accepted; common-challenge, response, subgroup, decryption, timing, or disclosure mismatch; missing negative-control acceptance; producer implementation imported by a replay module; malformed encoding accepted; public API crash on a declared damaged setup; or resource-cap breach.
+The run fails on any unexpected verdict; valid certificate rejection; specified invalid mutation acceptance; producer/replay disagreement; unauthenticated or off-context attribution; tag-only delivery attribution; censorable-silence attribution; a correct late envelope classified as `bad_entry`; a registered-share substitution accepted; common-challenge, response, subgroup, decryption, timing, or disclosure mismatch; missing negative-control acceptance; producer implementation imported by a replay module; malformed encoding accepted; public API crash on a declared damaged setup; resource-cap breach; mismatched retained keys accepted; stale prefix accepted; or a declared forbidden feedback edge accepted.
 
 ## Outputs
 
-The runner writes canonical sorted JSON/JSONL. `measurements.json` is process metadata and excluded from exact comparison. The other 23 scientific files, including `compiler-regressions.json`, `schnorr-share-substitution.json`, `binding-negative-control.json`, `schema-audit.json`, and `setup-boundary-audit.json`, are compared byte for byte by `compare_results.py`.
+The runner writes canonical sorted JSON/JSONL. `measurements.json` is process metadata and excluded from exact comparison. The other 25 scientific files, including `compiler-regressions.json`, `schnorr-share-substitution.json`, `binding-negative-control.json`, `schema-audit.json`, and `setup-boundary-audit.json`, are compared byte for byte by `compare_results.py`.

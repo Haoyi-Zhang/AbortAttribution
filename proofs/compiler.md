@@ -47,7 +47,11 @@ The Cartesian campaign's 15,392 invalid records arise from 19 certificate-field 
 
 ## Public-view privacy proof
 
-The proof uses simulated setup and proof statements, same-length IND-CPA ciphertext hybrids, the imported base simulator, and explicit attribution leakage. Plaintexts received by corrupted recipients and all explicitly public complaint facts remain in leakage. If adversarial proofs can follow simulated proofs, simulation soundness is required. Attribution uses proof soundness under the real CRS and does not use witness extraction.
+Theorem 5.3 is separately restricted to generated setup and a non-feedback semantic trace. Its two-stage simulator retains authentication keys matching the published registry and a proof-simulation trapdoor. It does not receive arbitrary existing public keys and manufacture matching secret keys. The base simulator is joint with this auxiliary state and all declared semantic/length leakage.
+
+A causal public renderer reruns the corrupted program on the actual prefix in every hybrid. Copying, hashing or signing a changed ciphertext therefore changes the dependent corrupted record as required. Such public responses may not affect private message values, semantic schedules or honest decryption. Actual corrupted wrapper records are excluded from fixed leakage. Arbitrary private feedback is not covered.
+
+Legal equal-length dummy replacements, the joint simulated-CRS/proof interface and multi-key IND-CPA hybrids are all explicit. See proofs/privacy-composition.md for the complete setup and hybrid map and proofs/privacy-lengths.md for length boundaries. The new finite modules check interface examples, not computational security. No attribution judge or existing certificate predicate changes.
 
 ## Non-claims
 

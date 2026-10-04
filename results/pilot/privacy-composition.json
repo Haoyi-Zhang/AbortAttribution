@@ -1,0 +1,572 @@
+{
+  "attribution_predicates_changed": false,
+  "checks": [
+    {
+      "expected": true,
+      "name": "retained-key-signs-current-body-0",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "retained-key-signs-current-body-1",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "retained-key-signs-current-body-2",
+      "observed": true
+    },
+    {
+      "expected": "refused",
+      "name": "public-keys-alone-have-no-signing-state",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "new-key-for-old-registration",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "wrong-registration-state",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "corrupt-key-does-not-sign-for-honest",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "inexact-or-invalid-signing-state-0",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "inexact-or-invalid-signing-state-1",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "inexact-or-invalid-signing-state-2",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "inexact-or-invalid-signing-state-3",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "inexact-or-invalid-signing-state-4",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "inexact-or-invalid-signing-state-5",
+      "observed": "refused"
+    },
+    {
+      "expected": 17,
+      "name": "retained-state-is-detached-from-caller",
+      "observed": 17
+    },
+    {
+      "expected": "7b22617574685f7265676973747279223a7b22636f7272757074223a3135392c22686f6e657374223a3230387d2c22726567697374726174696f6e223a2266697865642d61757468656e7469636174696f6e2d7365747570227d",
+      "name": "registration-not-mutated-by-signing",
+      "observed": "7b22617574685f7265676973747279223a7b22636f7272757074223a3135392c22686f6e657374223a3230387d2c22726567697374726174696f6e223a2266697865642d61757468656e7469636174696f6e2d7365747570227d"
+    },
+    {
+      "expected": true,
+      "name": "real-causal-chain-valid",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "new-prefix-causal-chain-valid",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "replayed-corrupt-signatures-still-valid",
+      "observed": true
+    },
+    {
+      "expected": false,
+      "name": "replayed-corrupt-records-break-correlation",
+      "observed": false
+    },
+    {
+      "expected": true,
+      "name": "dependent-corrupt-records-actually-change",
+      "observed": true
+    },
+    {
+      "expected": "7b22617574685f7265676973747279223a7b22636f7272757074223a3135392c22686f6e657374223a3230387d2c22726567697374726174696f6e223a2266697865642d61757468656e7469636174696f6e2d7365747570227d",
+      "name": "public-keys-stable-through-both-renderings",
+      "observed": "7b22617574685f7265676973747279223a7b22636f7272757074223a3135392c22686f6e657374223a3230387d2c22726567697374726174696f6e223a2266697865642d61757468656e7469636174696f6e2d7365747570227d"
+    },
+    {
+      "expected": false,
+      "name": "signed-boolean-counter-is-not-an-integer",
+      "observed": false
+    },
+    {
+      "expected": false,
+      "name": "valid-signature-under-wrong-role-is-refused",
+      "observed": false
+    },
+    {
+      "expected": false,
+      "name": "signed-wrong-record-kind-is-refused",
+      "observed": false
+    },
+    {
+      "expected": "refused",
+      "name": "mutable-ciphertext-fixture-refused",
+      "observed": "refused"
+    },
+    {
+      "expected": [
+        "precompilation_auxiliary",
+        "wrapper_bytes"
+      ],
+      "name": "causal-public-copy-is-admissible",
+      "observed": [
+        "precompilation_auxiliary",
+        "wrapper_bytes"
+      ]
+    },
+    {
+      "expected": "refused",
+      "name": "no-semantic-feedback-from-ciphertext",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "no-leakage-feedback-from-ciphertext",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "no-semantic-feedback-from-coins",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "no-leakage-feedback-from-coins",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "no-semantic-feedback-from-decryption",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "no-leakage-feedback-from-decryption",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "no-semantic-feedback-from-response",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "no-leakage-feedback-from-response",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "public-response-cannot-use-decryption",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "forward-or-cycle-reference",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "duplicate-node-name",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "unregistered-root-provenance",
+      "observed": "refused"
+    },
+    {
+      "expected": "refused",
+      "name": "provenance-laundering",
+      "observed": "refused"
+    },
+    {
+      "expected": "0",
+      "name": "identical-public-salt-marginal-2",
+      "observed": "0"
+    },
+    {
+      "expected": "1/2",
+      "name": "stale-replay-joint-distance-2",
+      "observed": "1/2"
+    },
+    {
+      "expected": "0",
+      "name": "rerun-preserves-joint-distribution-2",
+      "observed": "0"
+    },
+    {
+      "expected": "0",
+      "name": "identical-public-salt-marginal-4",
+      "observed": "0"
+    },
+    {
+      "expected": "3/4",
+      "name": "stale-replay-joint-distance-4",
+      "observed": "3/4"
+    },
+    {
+      "expected": "0",
+      "name": "rerun-preserves-joint-distribution-4",
+      "observed": "0"
+    },
+    {
+      "expected": "0",
+      "name": "identical-public-salt-marginal-8",
+      "observed": "0"
+    },
+    {
+      "expected": "7/8",
+      "name": "stale-replay-joint-distance-8",
+      "observed": "7/8"
+    },
+    {
+      "expected": "0",
+      "name": "rerun-preserves-joint-distribution-8",
+      "observed": "0"
+    },
+    {
+      "expected": "0",
+      "name": "identical-public-salt-marginal-16",
+      "observed": "0"
+    },
+    {
+      "expected": "15/16",
+      "name": "stale-replay-joint-distance-16",
+      "observed": "15/16"
+    },
+    {
+      "expected": "0",
+      "name": "rerun-preserves-joint-distribution-16",
+      "observed": "0"
+    }
+  ],
+  "counted_elementary_obligations": 51,
+  "dependency_manifest": [
+    {
+      "name": "P",
+      "origin": "public_setup",
+      "parents": [],
+      "role": "source"
+    },
+    {
+      "name": "base",
+      "origin": "base_semantics",
+      "parents": [],
+      "role": "source"
+    },
+    {
+      "name": "ciphertext",
+      "origin": "wrapper_bytes",
+      "parents": [],
+      "role": "source"
+    },
+    {
+      "name": "coins",
+      "origin": "wrapper_coins",
+      "parents": [],
+      "role": "source"
+    },
+    {
+      "name": "decryption",
+      "origin": "honest_decryption_state",
+      "parents": [],
+      "role": "source"
+    },
+    {
+      "name": "alpha",
+      "origin": "precompilation_auxiliary",
+      "parents": [],
+      "role": "source"
+    },
+    {
+      "name": "schedule",
+      "origin": null,
+      "parents": [
+        "P",
+        "base"
+      ],
+      "role": "semantic"
+    },
+    {
+      "name": "response",
+      "origin": null,
+      "parents": [
+        "ciphertext",
+        "alpha"
+      ],
+      "role": "public_response"
+    },
+    {
+      "name": "L",
+      "origin": null,
+      "parents": [
+        "base",
+        "alpha"
+      ],
+      "role": "leakage"
+    }
+  ],
+  "failures": [],
+  "model": "finite retained-authentication and non-feedback causal-renderer contracts",
+  "private_state_exported": false,
+  "salt_distributions": [
+    {
+      "alphabet": 2,
+      "public_salt_marginal_tv": "0",
+      "real_equal_probability": "1",
+      "real_support": 2,
+      "regenerated_joint_tv": "0",
+      "stale_equal_probability": "1/2",
+      "stale_joint_tv": "1/2",
+      "stale_support": 4
+    },
+    {
+      "alphabet": 4,
+      "public_salt_marginal_tv": "0",
+      "real_equal_probability": "1",
+      "real_support": 4,
+      "regenerated_joint_tv": "0",
+      "stale_equal_probability": "1/4",
+      "stale_joint_tv": "3/4",
+      "stale_support": 16
+    },
+    {
+      "alphabet": 8,
+      "public_salt_marginal_tv": "0",
+      "real_equal_probability": "1",
+      "real_support": 8,
+      "regenerated_joint_tv": "0",
+      "stale_equal_probability": "1/8",
+      "stale_joint_tv": "7/8",
+      "stale_support": 64
+    },
+    {
+      "alphabet": 16,
+      "public_salt_marginal_tv": "0",
+      "real_equal_probability": "1",
+      "real_support": 16,
+      "regenerated_joint_tv": "0",
+      "stale_equal_probability": "1/16",
+      "stale_joint_tv": "15/16",
+      "stale_support": 256
+    }
+  ],
+  "scope": "not a cryptographic simulator, privacy experiment, or implementation of a production proof system",
+  "signed_response_examples": {
+    "real": [
+      {
+        "body": {
+          "actor": "honest",
+          "payload": {
+            "ciphertext": "7265616c2d31",
+            "kind": "envelope",
+            "slot": 0
+          },
+          "registration": "fixed-authentication-setup"
+        },
+        "signature": {
+          "commitment": 374,
+          "response": 13
+        }
+      },
+      {
+        "body": {
+          "actor": "corrupt",
+          "payload": {
+            "call": 1,
+            "echo": "7265616c2d31",
+            "kind": "causal_response",
+            "prefix_digest": "b09e61282d73db5195a62f03538a8926c4e694890ac3de5aaa453b1fc8b2495c"
+          },
+          "registration": "fixed-authentication-setup"
+        },
+        "signature": {
+          "commitment": 146,
+          "response": 163
+        }
+      },
+      {
+        "body": {
+          "actor": "honest",
+          "payload": {
+            "ciphertext": "7265616c2d32",
+            "kind": "envelope",
+            "slot": 1
+          },
+          "registration": "fixed-authentication-setup"
+        },
+        "signature": {
+          "commitment": 286,
+          "response": 212
+        }
+      },
+      {
+        "body": {
+          "actor": "corrupt",
+          "payload": {
+            "call": 2,
+            "echo": "7265616c2d32",
+            "kind": "causal_response",
+            "prefix_digest": "720be42bbf16bfb66c21a4957d677d5244478e0c0e7a19c3ca1d1dc88064b7cd"
+          },
+          "registration": "fixed-authentication-setup"
+        },
+        "signature": {
+          "commitment": 189,
+          "response": 18
+        }
+      }
+    ],
+    "regenerated": [
+      {
+        "body": {
+          "actor": "honest",
+          "payload": {
+            "ciphertext": "6e65772d2d31",
+            "kind": "envelope",
+            "slot": 0
+          },
+          "registration": "fixed-authentication-setup"
+        },
+        "signature": {
+          "commitment": 199,
+          "response": 12
+        }
+      },
+      {
+        "body": {
+          "actor": "corrupt",
+          "payload": {
+            "call": 1,
+            "echo": "6e65772d2d31",
+            "kind": "causal_response",
+            "prefix_digest": "0ad907cd1da12517b2a9e3dad9701fa2c92c22f8482fd4f73de5bd4594b4c6d2"
+          },
+          "registration": "fixed-authentication-setup"
+        },
+        "signature": {
+          "commitment": 127,
+          "response": 182
+        }
+      },
+      {
+        "body": {
+          "actor": "honest",
+          "payload": {
+            "ciphertext": "6e65772d2d32",
+            "kind": "envelope",
+            "slot": 1
+          },
+          "registration": "fixed-authentication-setup"
+        },
+        "signature": {
+          "commitment": 156,
+          "response": 84
+        }
+      },
+      {
+        "body": {
+          "actor": "corrupt",
+          "payload": {
+            "call": 2,
+            "echo": "6e65772d2d32",
+            "kind": "causal_response",
+            "prefix_digest": "ba4ae109098447c8aa1b66fe1ca631b678b18dd6b4e3cc9cd6fea3728312649a"
+          },
+          "registration": "fixed-authentication-setup"
+        },
+        "signature": {
+          "commitment": 59,
+          "response": 70
+        }
+      }
+    ],
+    "stale_replay": [
+      {
+        "body": {
+          "actor": "honest",
+          "payload": {
+            "ciphertext": "6e65772d2d31",
+            "kind": "envelope",
+            "slot": 0
+          },
+          "registration": "fixed-authentication-setup"
+        },
+        "signature": {
+          "commitment": 199,
+          "response": 12
+        }
+      },
+      {
+        "body": {
+          "actor": "corrupt",
+          "payload": {
+            "call": 1,
+            "echo": "7265616c2d31",
+            "kind": "causal_response",
+            "prefix_digest": "b09e61282d73db5195a62f03538a8926c4e694890ac3de5aaa453b1fc8b2495c"
+          },
+          "registration": "fixed-authentication-setup"
+        },
+        "signature": {
+          "commitment": 146,
+          "response": 163
+        }
+      },
+      {
+        "body": {
+          "actor": "honest",
+          "payload": {
+            "ciphertext": "6e65772d2d32",
+            "kind": "envelope",
+            "slot": 1
+          },
+          "registration": "fixed-authentication-setup"
+        },
+        "signature": {
+          "commitment": 156,
+          "response": 84
+        }
+      },
+      {
+        "body": {
+          "actor": "corrupt",
+          "payload": {
+            "call": 2,
+            "echo": "7265616c2d32",
+            "kind": "causal_response",
+            "prefix_digest": "720be42bbf16bfb66c21a4957d677d5244478e0c0e7a19c3ca1d1dc88064b7cd"
+          },
+          "registration": "fixed-authentication-setup"
+        },
+        "signature": {
+          "commitment": 189,
+          "response": 18
+        }
+      }
+    ]
+  }
+}

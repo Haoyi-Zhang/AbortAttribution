@@ -18,7 +18,7 @@
   "compiler_invalid_certificate_mutations": 15392,
   "compiler_producer_replay_comparisons": 26624,
   "compiler_supported_certificates": 1248,
-  "counted_elementary_obligations": 214545,
+  "counted_elementary_obligations": 214915,
   "deliberately_weak_judge_false_accusations": 10,
   "failures": [],
   "families": {
@@ -40,6 +40,10 @@
   "omission_probes": 410,
   "paired_public_observations": 10,
   "posterior_cells_checked": 45124,
+  "privacy_composition_checks": 51,
+  "privacy_composition_failures": 0,
+  "privacy_length_checks": 319,
+  "privacy_length_failures": 0,
   "producer_replay_comparisons": 925,
   "rank_distribution_comparisons": 64,
   "replay_imports": [
