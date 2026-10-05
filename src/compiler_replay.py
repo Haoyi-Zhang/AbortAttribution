@@ -106,7 +106,8 @@ def replay(env: dict[str, Any], cert: dict[str, Any]) -> bool:
 
     def envelope(name: Any) -> tuple[bool, bool]:
         r = rec(name)
-        if not r or r.get("kind") != "envelope" or r.get("actor") != actor or r.get("signature_valid") is not True:
+        if (not r or r.get("kind") != "envelope" or type(r.get("actor")) is not int
+                or r.get("actor") != actor or r.get("signature_valid") is not True):
             return False, False
         if type(r.get("time")) is not int or r["time"] < 0:
             return False, False
@@ -115,6 +116,7 @@ def replay(env: dict[str, Any], cert: dict[str, Any]) -> bool:
             return True, False
         s = b.get("statement")
         shape = (type(s) is dict and set(s) == {"sender", "recipient", "round", "tag", "ciphertext"}
+                 and all(type(s.get(field)) is int for field in ("sender", "recipient", "round"))
                  and s.get("sender") == actor and s.get("recipient") == ctx["recipient"]
                  and s.get("round") == ctx["round"] and type(s.get("tag")) is int
                  and type(s.get("ciphertext")) is str and b.get("entry_proof_statement") == _hash(s))
@@ -129,7 +131,8 @@ def replay(env: dict[str, Any], cert: dict[str, Any]) -> bool:
         if not accepted:
             return False
         c = rec(cert["complaint"])
-        if not c or c.get("kind") != "complaint" or c.get("actor") != ctx["recipient"] or c.get("signature_valid") is not True:
+        if (not c or c.get("kind") != "complaint" or type(c.get("actor")) is not int
+                or c.get("actor") != ctx["recipient"] or c.get("signature_valid") is not True):
             return False
         cited = rec(cert["envelope"])
         if (type(c.get("time")) is not int or not (0 <= c["time"] <= ctx["deadline"])
@@ -138,6 +141,7 @@ def replay(env: dict[str, Any], cert: dict[str, Any]) -> bool:
         b = c.get("body")
         return bool(type(b) is dict
                     and set(b) == {"envelope", "accused", "claim", "complaint_proof_valid", "complaint_statement"}
+                    and type(b.get("accused")) is int
                     and b.get("envelope") == cert["envelope"] and b.get("accused") == actor
                     and b.get("claim") == "base_relation_false" and b.get("complaint_proof_valid") is True
                     and b.get("complaint_statement") == _hash([ctx["id"], cert["envelope"], actor,
@@ -149,8 +153,11 @@ def replay(env: dict[str, Any], cert: dict[str, Any]) -> bool:
         def accepted(name: str) -> bool:
             item = rec(name)
             return bool(item and item.get("kind") == "accept" and item.get("actor") == actor
+                        and type(item.get("actor")) is int
                         and item.get("signature_valid") is True and type(item.get("time")) is int
                         and 0 <= item["time"] <= ctx["accept_by"]
+                        and type(item.get("body")) is dict
+                        and all(type(item["body"].get(field)) is int for field in ("round", "recipient", "deadline"))
                         and item.get("body") == {"round": ctx["round"], "recipient": ctx["recipient"],
                                                  "deadline": ctx["deadline"]})
         accepted_names = [name for name in records if accepted(name)]
@@ -158,14 +165,16 @@ def replay(env: dict[str, Any], cert: dict[str, Any]) -> bool:
             return False
         latest = ctx["deadline"] - ctx["read_bound"] - ctx["compute_bound"] - ctx["delivery_bound"]
         if not (r and r.get("kind") == "ready" and r.get("actor") == 0 and r.get("signature_valid") is True
+                and type(r.get("actor")) is int
                 and type(r.get("time")) is int and 0 <= r["time"] <= latest
+                and type(r.get("body")) is dict and type(r["body"].get("round")) is int
                 and r.get("body") == {"round": ctx["round"]}):
             return False
         if type(cert.get("closure")) is not str:
             return False
         snap = env.get("closures", {}).get(cert["closure"])
         if not (type(snap) is dict and set(snap) == {"context", "cutoff", "complete", "records"}
-                and snap.get("context") == ctx["id"] and snap.get("cutoff") == ctx["deadline"]
+                and snap.get("context") == ctx["id"] and type(snap.get("cutoff")) is int and snap.get("cutoff") == ctx["deadline"]
                 and snap.get("complete") is True and type(snap.get("records")) is list
                 and all(type(x) is str for x in snap["records"])):
             return False

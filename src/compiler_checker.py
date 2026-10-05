@@ -111,7 +111,7 @@ def _active(env: dict[str, Any], record: dict[str, Any] | None, kind: str, actor
         return False
     if record.get("kind") != kind:
         return False
-    if actor is not None and record.get("actor") != actor:
+    if actor is not None and (not _int(record.get("actor")) or record.get("actor") != actor):
         return False
     return True
 
@@ -123,6 +123,8 @@ def _valid_accept(env: dict[str, Any], actor: int, token: Any) -> bool:
         _active(env, r, "accept", actor)
         and r.get("signature_valid") is True
         and _int(r.get("time")) and 0 <= r["time"] <= ctx["accept_by"]
+        and type(r.get("body")) is dict
+        and all(_int(r["body"].get(field)) for field in ("round", "recipient", "deadline"))
         and r.get("body") == {"round": ctx["round"], "recipient": ctx["recipient"], "deadline": ctx["deadline"]}
     )
 
@@ -152,7 +154,8 @@ def _envelope_shape(env: dict[str, Any], token: Any, actor: int) -> tuple[bool, 
     st = body.get("statement")
     if not isinstance(st, dict) or set(st) != {"sender", "recipient", "round", "tag", "ciphertext"}:
         return True, False
-    if (st.get("sender") != actor or st.get("recipient") != ctx["recipient"] or st.get("round") != ctx["round"]
+    if (any(not _int(st.get(field)) for field in ("sender", "recipient", "round"))
+            or st.get("sender") != actor or st.get("recipient") != ctx["recipient"] or st.get("round") != ctx["round"]
             or not _int(st.get("tag")) or type(st.get("ciphertext")) is not str
             or body.get("entry_proof_statement") != _digest(st)):
         return True, False
@@ -174,6 +177,7 @@ def _complaint_valid(env: dict[str, Any], token: Any, actor: int, envelope: str)
         isinstance(body, dict)
         and set(body) == {"envelope", "accused", "claim", "complaint_proof_valid", "complaint_statement"}
         and body.get("envelope") == envelope
+        and _int(body.get("accused"))
         and body.get("accused") == actor
         and body.get("claim") == "base_relation_false"
         and body.get("complaint_statement") == expected_statement
@@ -188,6 +192,7 @@ def _ready(env: dict[str, Any], token: Any) -> bool:
     return bool(
         _active(env, r, "ready", 0)
         and r.get("signature_valid") is True
+        and type(r.get("body")) is dict and _int(r["body"].get("round"))
         and r.get("body") == {"round": ctx["round"]}
         and _int(r.get("time")) and 0 <= r["time"] <= latest
     )
@@ -197,7 +202,7 @@ def _closed(env: dict[str, Any], token: Any) -> set[str] | None:
     ctx = env["context"]
     snap = env.get("closures", {}).get(token) if isinstance(token, str) else None
     if not (isinstance(snap, dict) and set(snap) == {"context", "cutoff", "complete", "records"}
-            and snap.get("context") == ctx["id"] and snap.get("cutoff") == ctx["deadline"]
+            and snap.get("context") == ctx["id"] and _int(snap.get("cutoff")) and snap.get("cutoff") == ctx["deadline"]
             and snap.get("complete") is True and isinstance(snap.get("records"), list)
             and all(type(x) is str for x in snap["records"])):
         return None
