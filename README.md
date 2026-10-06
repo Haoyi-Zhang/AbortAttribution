@@ -39,7 +39,7 @@ python3 audit_references.py --inventory reference_audit.csv
 
 Expected high-level result:
 
-- 95 unit tests pass;
+- 107 unit tests pass (99 present before these edits plus eight arithmetic-domain/adaptive-policy regressions; the historical run recorded 95);
 - the runner exits 0 with `status = finite_checks_passed`;
 - all 25 deterministic scientific output files match the retained pilot byte for byte;
 - `measurements.json` is process metadata and is intentionally excluded from byte comparison.
@@ -63,6 +63,23 @@ Expected high-level result:
 - `results/pilot/`: retained deterministic outputs and measured process metadata.
 - `claim_evidence_ledger.csv`: claim-to-proof/check mapping.
 - `external_resources.csv`: external-source and access notes.
+
+## Current arithmetic-domain checks
+
+The ideal-receipt and generic compiler parsers require prime modulus and prime
+subgroup order. Exact trial division is limited to 16-bit parameters; larger
+groups are outside these finite APIs, not claimed mathematically invalid.
+The existing nonidentity-generator and subgroup equations then establish exact
+prime order. Receipt authors require exact integers, not Boolean/float aliases.
+The Schnorr context requires a nonidentity registered authentication key; share
+and nonce tags may still be the identity when their scalar is zero.
+
+The eight additional unit tests also enumerate public-history-only adaptive
+opening policies over F_3 and distinguish hidden-state selection, which is
+outside the manuscript's rank corollary. These regression assertions are
+separate from the retained pilot totals below. Existing 25-file pilot outputs
+and Linux process measurements are preserved; new local timings do not replace
+the historical host measurements.
 
 ## Retained campaign
 

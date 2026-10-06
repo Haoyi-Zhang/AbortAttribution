@@ -51,7 +51,7 @@ For uniform coefficient vector `a`, fixed scalar observations `Aa=b`, and target
 
 `|F|^(rank([A;U]) - rank(A))`.
 
-The proof uses the affine solution coset of `ker(A)` and the image of that kernel under `U`. Conditioning on an adaptively selected realized matrix gives the same statement for that transcript, while the selection event itself remains leakage.
+The proof uses the affine solution coset of `ker(A)` and the image of that kernel under `U`. For adaptive openings, next-row selection and stopping must use only preceding public rows/values and coins independent of the uniform coefficient vector. Every vector satisfying a realized transcript's equations then has the same positive transcript likelihood, so conditioning preserves uniformity on the solution coset. Hidden-state selection or secret-correlated coins can impose additional nonlinear restrictions; merely recording the selected matrix does not justify applying the rank formula in that broader class. `tests/test_adaptive_disclosure.py` checks public-policy conditioning and an excluded private-selection example over F_3.
 
 ## Relation to compiler proof
 

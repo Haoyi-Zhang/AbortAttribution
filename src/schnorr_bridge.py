@@ -137,7 +137,8 @@ def valid_context(context: Any) -> bool:
             or roster != list(range(1, len(roster) + 1))
             or type(seed.get("round")) is not int or not (1 <= seed["round"] <= 8)
             or type(context.get("sender")) is not int or context["sender"] not in roster
-            or not subgroup_element(context.get("auth_public"))):
+            or not subgroup_element(context.get("auth_public"))
+            or context["auth_public"] == 1):
         return False
     shares = context.get("verification_shares")
     nonce_tags = context.get("nonce_tags")

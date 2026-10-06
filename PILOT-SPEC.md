@@ -53,6 +53,15 @@ The retained false-statement control encrypts 17 but uses tag `g^18`. A determin
 
 ## Input-boundary inclusion
 
+The current ideal/generic arithmetic APIs accept only prime p and q at most
+65535, with a nonidentity generator satisfying the declared subgroup equation.
+The cap bounds exact trial division and is not a production cryptographic
+parameter limit. Receipt identity metadata must use exact integers. The
+Schnorr authentication registry excludes the identity key, while zero-valued
+share/nonce tags remain legal. Additional regressions for these conditions and
+public-history-only adaptive opening policies are unit tests, not additions to
+the historical 140-vector pilot manifest or its obligation total.
+
 Canonical encoding checks include accepted vectors, rejected non-JSON types, malformed Unicode, and a frozen digest. The setup audit constructs 140 independently annotated parser-invalid contexts or registries without consulting a producer validator, then submits them to 388 public verification, replay, and extraction calls across the ideal model, generic compiler, and Schnorr bridge. The manifest includes exact-type roster failures such as `[true,2,3,4,5]`. Every call must return fail-closed without exception or accusation.
 
 ## Privacy and length inclusion

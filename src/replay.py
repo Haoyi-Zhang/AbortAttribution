@@ -15,6 +15,13 @@ _CONTEXT_KEYS = {
 }
 
 
+def _finite_prime(n: int) -> bool:
+    # Independently checked finite arithmetic boundary, at most 16-bit inputs.
+    if n < 2 or n > 65535:
+        return False
+    return all(n % d for d in range(2, int(n ** 0.5) + 1))
+
+
 def _well_formed_setup(env: Any) -> bool:
     if type(env) is not dict or set(env) != {"context", "receipts", "closures"}:
         return False
@@ -31,6 +38,7 @@ def _well_formed_setup(env: Any) -> bool:
     group = ctx.get("group")
     if (type(group) is not dict or set(group) != {"p", "q", "g"}
             or any(type(group.get(k)) is not int for k in ("p", "q", "g"))
+            or not _finite_prime(group["p"]) or not _finite_prime(group["q"])
             or not (2 < group["p"] and 1 < group["q"] < group["p"]
                     and 1 < group["g"] < group["p"]
                     and (group["p"] - 1) % group["q"] == 0
@@ -55,7 +63,8 @@ def _well_formed_setup(env: Any) -> bool:
     if type(ctx.get("service")) is not str or ctx["service"] not in {"bounded_delivery", "censorable"}:
         return False
     return bool(type(receipts) is dict
-                and all(type(k) is str and type(v) is dict for k, v in receipts.items())
+                and all(type(k) is str and type(v) is dict
+                        and type(v.get("actor")) is int for k, v in receipts.items())
                 and type(closures) is dict
                 and all(type(k) is str and type(v) is dict for k, v in closures.items()))
 
@@ -74,7 +83,8 @@ def replay(env: dict[str, Any], cert: Any) -> bool:
         accepts = []
         for name in recs:
             r = recs[name]
-            if r["context"] != ctx["id"] or r["actor"] != who or r["kind"] != "accept":
+            if (r["context"] != ctx["id"] or type(r["actor"]) is not int
+                    or r["actor"] != who or r["kind"] != "accept"):
                 continue
             b = r["body"]
             if (type(b) is dict and set(b.keys()) == {"commitment", "deadline", "round"}
@@ -93,7 +103,8 @@ def replay(env: dict[str, Any], cert: Any) -> bool:
             if type(cert["opening"]) is not str or cert["opening"] not in recs:
                 return False
             r = recs[cert["opening"]]
-            if (r["actor"] != who or r["context"] != ctx["id"] or r["kind"] != "open"
+            if (type(r["actor"]) is not int or r["actor"] != who
+                    or r["context"] != ctx["id"] or r["kind"] != "open"
                     or type(r["time"]) is not int or r["time"] < a["time"]
                     or r["time"] > ctx["deadline"]):
                 return False
@@ -123,7 +134,7 @@ def replay(env: dict[str, Any], cert: Any) -> bool:
             return False
         limit = ctx["deadline"] - ctx["delivery_bound"] - ctx["compute_bound"] - ctx["read_bound"]
         enabled = sorted(name for name, r in recs.items()
-                         if r["context"] == ctx["id"] and r["actor"] == 0
+                         if r["context"] == ctx["id"] and type(r["actor"]) is int and r["actor"] == 0
                          and r["kind"] == "ready" and r["body"] == {"round": "open"}
                          and type(r["time"]) is int and 0 <= r["time"] <= limit)
         if not enabled or cert["ready"] != enabled[0]:
@@ -145,7 +156,7 @@ def replay(env: dict[str, Any], cert: Any) -> bool:
             return False
         for name in visible:
             r = recs[name]
-            if r["actor"] == who and r["kind"] == "open":
+            if type(r["actor"]) is int and r["actor"] == who and r["kind"] == "open":
                 return False
         return True
     except (KeyError, TypeError, ValueError, OverflowError):

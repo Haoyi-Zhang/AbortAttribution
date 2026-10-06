@@ -44,6 +44,13 @@ _REQUIRED_CONTEXT = {
 }
 
 
+def _finite_prime(n: int) -> bool:
+    # Independent finite-domain check; larger groups are outside this toy API.
+    if n < 2 or n > 65535:
+        return False
+    return all(n % d for d in range(2, int(n ** 0.5) + 1))
+
+
 def _setup_is_well_formed(env: Any) -> bool:
     # Independently restated parser boundary; no producer/checker helper import.
     if type(env) is not dict or set(env) != {"context", "records", "closures"}:
@@ -65,6 +72,7 @@ def _setup_is_well_formed(env: Any) -> bool:
     group = ctx.get("group")
     if (type(group) is not dict or set(group) != {"p", "q", "g"}
             or any(type(group.get(k)) is not int for k in ("p", "q", "g"))
+            or not _finite_prime(group["p"]) or not _finite_prime(group["q"])
             or not (2 < group["p"] and 1 < group["q"] < group["p"]
                     and 1 < group["g"] < group["p"]
                     and (group["p"] - 1) % group["q"] == 0

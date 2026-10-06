@@ -21,6 +21,18 @@ def integer(value: Any) -> bool:
     return type(value) is int
 
 
+def _small_prime(value: int) -> bool:
+    """Exact bounded trial division, not production parameter validation."""
+    if not 2 <= value <= 65535:
+        return False
+    divisor = 2
+    while divisor * divisor <= value:
+        if value % divisor == 0:
+            return False
+        divisor += 1
+    return True
+
+
 _CONTEXT_FIELDS = {
     "id", "roster", "group", "threshold", "coefficient_tags", "service",
     "accept_by", "deadline", "compute_bound", "delivery_bound", "read_bound",
@@ -44,6 +56,7 @@ def valid_environment(env: Any) -> bool:
     group = ctx.get("group")
     if (type(group) is not dict or set(group) != {"p", "q", "g"}
             or any(type(group.get(k)) is not int for k in ("p", "q", "g"))
+            or not _small_prime(group["p"]) or not _small_prime(group["q"])
             or not (2 < group["p"] and 1 < group["q"] < group["p"]
                     and 1 < group["g"] < group["p"]
                     and (group["p"] - 1) % group["q"] == 0
@@ -69,7 +82,8 @@ def valid_environment(env: Any) -> bool:
     if type(ctx.get("service")) is not str or ctx["service"] not in {"bounded_delivery", "censorable"}:
         return False
     if (type(receipts) is not dict
-            or any(type(k) is not str or type(v) is not dict for k, v in receipts.items())):
+            or any(type(k) is not str or type(v) is not dict
+                   or type(v.get("actor")) is not int for k, v in receipts.items())):
         return False
     if (type(closures) is not dict
             or any(type(k) is not str or type(v) is not dict for k, v in closures.items())):
@@ -95,7 +109,7 @@ def active(env: dict[str, Any], r: dict[str, Any] | None,
            actor: int | None = None, kind: str | None = None) -> bool:
     if r is None or r.get("context") != env["context"]["id"]:
         return False
-    if actor is not None and r.get("actor") != actor:
+    if actor is not None and (not integer(r.get("actor")) or r.get("actor") != actor):
         return False
     if kind is not None and r.get("kind") != kind:
         return False

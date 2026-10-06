@@ -1,0 +1,53 @@
+name: Scientific checks
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  finite-checks:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    env:
+      PYTHONUTF8: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        timeout-minutes: 2
+        with:
+          persist-credentials: false
+      - name: Initialize raw output
+        if: always()
+        run: |
+          mkdir -p raw-output
+          uname -a > raw-output/runner.txt
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        timeout-minutes: 2
+        with:
+          python-version: '3.12'
+      - name: Run bounded finite checks
+        timeout-minutes: 5
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=10s 240s bash -c '
+            set -euo pipefail
+            ulimit -v 3145728
+            ulimit -t 180
+            python -B -m unittest discover -s tests -v
+            python -B reproduce.py --out raw-output/pilot
+            python -B compare_results.py results/pilot raw-output/pilot
+            python -B audit_references.py --inventory reference_audit.csv
+          ' 2>&1 | tee raw-output/scientific-checks.log
+      - name: Preserve raw output on success or failure
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        timeout-minutes: 1
+        with:
+          name: scientific-raw-output
+          path: raw-output/
+          if-no-files-found: error
+          retention-days: 14

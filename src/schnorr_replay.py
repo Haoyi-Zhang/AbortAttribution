@@ -94,6 +94,7 @@ def context_ok(context: Any) -> bool:
         and type(seed.get("round")) is int and 1 <= seed["round"] <= 8
         and type(context.get("sender")) is int and context["sender"] in roster
         and subgroup(context.get("auth_public"))
+        and context["auth_public"] != 1
         and type(shares) is list and len(shares) == len(roster)
         and all(subgroup(share) for share in shares)
         and type(nonces) is list and len(nonces) == len(roster)

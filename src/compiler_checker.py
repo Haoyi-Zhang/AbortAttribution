@@ -42,6 +42,18 @@ def _int(value: Any) -> bool:
     return type(value) is int
 
 
+def _small_prime(value: int) -> bool:
+    """Exact bounded trial division, not production parameter validation."""
+    if not 2 <= value <= 65535:
+        return False
+    divisor = 2
+    while divisor * divisor <= value:
+        if value % divisor == 0:
+            return False
+        divisor += 1
+    return True
+
+
 _CONTEXT_FIELDS = {
     "id", "roster", "round", "sender", "recipient", "group",
     "accept_by", "deadline", "read_bound", "compute_bound",
@@ -77,6 +89,7 @@ def valid_environment(env: Any) -> bool:
     group = ctx.get("group")
     if (type(group) is not dict or set(group) != {"p", "q", "g"}
             or any(type(group.get(k)) is not int for k in ("p", "q", "g"))
+            or not _small_prime(group["p"]) or not _small_prime(group["q"])
             or not (2 < group["p"] and 1 < group["q"] < group["p"]
                     and 1 < group["g"] < group["p"]
                     and (group["p"] - 1) % group["q"] == 0
