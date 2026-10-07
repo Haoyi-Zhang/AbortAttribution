@@ -66,6 +66,22 @@ Expected high-level result:
 
 ## Current arithmetic-domain checks
 
+Compiler extraction sorts record references once per validated call and discovers
+complaint candidates before invoking the unchanged standalone certificate judge.
+Every selected certificate still passes that judge; independent replay, canonical
+hashes, closure comparison and D/D+1 semantics are unchanged. This removes
+redundant discovery work, not a measured cryptographic or protocol speedup.
+The separate optional regression is an explicit existing-CI step:
+
+```sh
+python3 -B tests/regression_extraction_preparation.py -v
+```
+
+It checks 24 bounded named fixtures against literal certificate expectations and
+independent replay, including lexical references, ambiguous duties, exact closures
+and content/timing distinctions. The original 107-test suite, 25 scientific output
+files, process measurements and insecure toy-proof negative control are retained.
+
 The ideal-receipt and generic compiler parsers require prime modulus and prime
 subgroup order. Exact trial division is limited to 16-bit parameters; larger
 groups are outside these finite APIs, not claimed mathematically invalid.

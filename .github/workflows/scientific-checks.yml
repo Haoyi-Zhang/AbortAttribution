@@ -38,6 +38,7 @@ jobs:
             ulimit -v 3145728
             ulimit -t 180
             python -B -m unittest discover -s tests -v
+            python -B tests/regression_extraction_preparation.py -v
             python -B reproduce.py --out raw-output/pilot
             python -B compare_results.py results/pilot raw-output/pilot
             python -B audit_references.py --inventory reference_audit.csv

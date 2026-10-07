@@ -281,23 +281,28 @@ def extract(env: dict[str, Any]) -> list[dict[str, Any]]:
         ctx = env["context"]
         actor = ctx["sender"]
         out: list[dict[str, Any]] = []
-        for token in sorted(env["records"]):
+        record_names = sorted(env["records"])
+        for token in record_names:
             attributable, content_valid = _envelope_shape(env, token, actor)
             if attributable and not content_valid:
                 candidate = {"kind": "bad_entry", "context": ctx["id"], "actor": actor, "envelope": token}
                 if verify(env, candidate):
                     out.append(candidate)
             if content_valid:
-                for complaint in sorted(env["records"]):
+                for complaint in record_names:
+                    # Discovery is local to this extraction call. The unchanged
+                    # standalone judge still validates the selected certificate.
+                    if not _complaint_valid(env, complaint, actor, token):
+                        continue
                     candidate = {"kind": "bad_message", "context": ctx["id"], "actor": actor,
                                  "envelope": token, "complaint": complaint}
                     if verify(env, candidate):
                         out.append(candidate)
                         break
 
-        accepts = sorted(name for name in env["records"] if _valid_accept(env, actor, name))
+        accepts = [name for name in record_names if _valid_accept(env, actor, name)]
         if len(accepts) == 1:
-            ready_refs = sorted(name for name in env["records"] if _ready(env, name))
+            ready_refs = [name for name in record_names if _ready(env, name)]
             closure_refs = sorted(name for name in env["closures"] if _closed(env, name) is not None)
             chosen: dict[str, Any] | None = None
             for ready in ready_refs:
