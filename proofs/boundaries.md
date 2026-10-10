@@ -45,6 +45,8 @@ If a public exponent tag is independent of the privately delivered scalar and th
 
 If a base transcript has a simulator and a fixed extractor uses only that transcript and public coins, sample the simulated transcript once and apply the same extractor. Data processing preserves the base distinguishing bound. The lemma does not create a missing base simulator or hide new public inputs.
 
+The paper's joint relation retains honest secrets Z while withholding them from the simulator. Recovering old leakage L from L' is not alone sufficient to extend this relation. A sufficient condition is L'=f(P,Z,L) for an efficient deterministic f, together with efficient recovery L=h(P,L'); apply f to both joint views and use S'(P,L')=S(P,h(P,L')). Otherwise a new joint premise with L' is required. With empty L and independent fair bits Z,T, the old simulation is exact, but L'=Z xor T makes T determined by (Z,L') while any simulator receiving only L' guesses it with probability 1/2. The compiler's existing full-leakage and retained-state premises remain unchanged.
+
 ## Linear disclosure
 
 For uniform coefficient vector `a`, fixed scalar observations `Aa=b`, and target `Ua`, the target is determined exactly when `row(U)` is contained in `row(A)`. Otherwise its conditional support size is:
