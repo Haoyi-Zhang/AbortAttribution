@@ -1,0 +1,766 @@
+{
+  "coefficient_target_evaluations": 85184,
+  "coefficient_vectors": 1331,
+  "comparisons": [
+    {
+      "fibres": 1,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 0,
+      "subset": [],
+      "target": "constant"
+    },
+    {
+      "fibres": 1,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 0,
+      "subset": [],
+      "target": "share-5"
+    },
+    {
+      "fibres": 11,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 1,
+      "subset": [
+        1
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 11,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 1,
+      "subset": [
+        1
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 11,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 1,
+      "subset": [
+        2
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 11,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 1,
+      "subset": [
+        2
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 11,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 1,
+      "subset": [
+        3
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 11,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 1,
+      "subset": [
+        3
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 11,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 1,
+      "subset": [
+        4
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 11,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 1,
+      "subset": [
+        4
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 11,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 1,
+      "subset": [
+        5
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 11,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 1,
+      "subset": [
+        5
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 2,
+      "subset": [
+        1,
+        2
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 2,
+      "subset": [
+        1,
+        2
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 2,
+      "subset": [
+        1,
+        3
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 2,
+      "subset": [
+        1,
+        3
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 2,
+      "subset": [
+        1,
+        4
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 2,
+      "subset": [
+        1,
+        4
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 2,
+      "subset": [
+        1,
+        5
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 2,
+      "subset": [
+        1,
+        5
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 2,
+      "subset": [
+        2,
+        3
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 2,
+      "subset": [
+        2,
+        3
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 2,
+      "subset": [
+        2,
+        4
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 2,
+      "subset": [
+        2,
+        4
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 2,
+      "subset": [
+        2,
+        5
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 2,
+      "subset": [
+        2,
+        5
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 2,
+      "subset": [
+        3,
+        4
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 2,
+      "subset": [
+        3,
+        4
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 2,
+      "subset": [
+        3,
+        5
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 2,
+      "subset": [
+        3,
+        5
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "uniform",
+      "rank": 2,
+      "subset": [
+        4,
+        5
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 121,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 2,
+      "subset": [
+        4,
+        5
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        2,
+        3
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        2,
+        3
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        2,
+        4
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        2,
+        4
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        2,
+        5
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        2,
+        5
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        3,
+        4
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        3,
+        4
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        3,
+        5
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        3,
+        5
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        4,
+        5
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        4,
+        5
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        2,
+        3,
+        4
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        2,
+        3,
+        4
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        2,
+        3,
+        5
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        2,
+        3,
+        5
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        2,
+        4,
+        5
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        2,
+        4,
+        5
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        3,
+        4,
+        5
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        3,
+        4,
+        5
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        2,
+        3,
+        5
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        2,
+        3,
+        5
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        3,
+        4,
+        5
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        3,
+        4,
+        5
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "target": "share-5"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "target": "constant"
+    },
+    {
+      "fibres": 1331,
+      "passed": true,
+      "predicted": "determined",
+      "rank": 3,
+      "subset": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "target": "share-5"
+    }
+  ],
+  "failures": [],
+  "n": 5,
+  "posterior_cells_checked": 45124,
+  "q": 11,
+  "rank_distribution_comparisons": 64,
+  "reconstruction_example": {
+    "coefficients": [
+      7,
+      4,
+      2
+    ],
+    "reconstructed_constant": 7,
+    "shares": {
+      "1": 2,
+      "2": 1,
+      "3": 4
+    },
+    "weights": [
+      3,
+      -3,
+      1
+    ]
+  },
+  "revealed_subsets": 32,
+  "targets": 2,
+  "threshold": 3
+}

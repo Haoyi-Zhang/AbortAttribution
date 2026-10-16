@@ -1,0 +1,17 @@
+{
+  "binding_proof_accepts": true,
+  "binding_relation_true": true,
+  "case": "n5-s2-r3-registered-share-substitution",
+  "counted_elementary_obligations": 10,
+  "decrypted_scalar": 206,
+  "nonce_scalar": 206,
+  "nonce_tag": 285,
+  "producer_status": "bad_response",
+  "producer_verdict": "bad_response",
+  "registered_equation_accepts": false,
+  "registered_expected_response_tag": 402,
+  "registered_verification_share": 62,
+  "replay_verdict": "bad_response",
+  "substituted_response_tag": 285,
+  "substituted_verification_share": 1
+}

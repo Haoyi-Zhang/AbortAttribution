@@ -36,6 +36,13 @@ The extraction regression checks literal certificates and independent replay, ca
 
 CI in `.github/workflows/scientific-checks.yml` runs the bounded checks on Ubuntu 24.04 and uploads raw output on success or failure. `.github/scripts/check_repository.py` is a separate source/configuration integrity check, not an experiment.
 
+## Diagrams
+
+The two manuscript schematics are generated directly by `plot_schematics.py`.
+With Matplotlib installed, use `python3 -B plot_schematics.py --outdir ../paper/figures`.
+The optional `check_schematics.py` additionally uses pypdf and checks two deterministic
+regenerations, vector structure and embedded fonts; it does not rerun the scientific campaign.
+
 ## Results and specification
 
 [PILOT-SPEC.md](PILOT-SPEC.md) defines inclusion counts, fixed parameters, output schemas, limits, and falsification conditions. It is the detailed companion to this execution guide.

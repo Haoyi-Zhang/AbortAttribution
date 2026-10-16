@@ -1,0 +1,3697 @@
+{
+  "attribution_predicates_changed": false,
+  "checks": [
+    {
+      "expected": [
+        0,
+        true
+      ],
+      "name": "byte-domain-0",
+      "observed": [
+        0,
+        true
+      ]
+    },
+    {
+      "expected": [
+        1,
+        true
+      ],
+      "name": "byte-domain-1",
+      "observed": [
+        1,
+        true
+      ]
+    },
+    {
+      "expected": [
+        2,
+        true
+      ],
+      "name": "byte-domain-2",
+      "observed": [
+        2,
+        true
+      ]
+    },
+    {
+      "expected": [
+        31,
+        true
+      ],
+      "name": "byte-domain-31",
+      "observed": [
+        31,
+        true
+      ]
+    },
+    {
+      "expected": [
+        32,
+        true
+      ],
+      "name": "byte-domain-32",
+      "observed": [
+        32,
+        true
+      ]
+    },
+    {
+      "expected": [
+        255,
+        true
+      ],
+      "name": "byte-domain-255",
+      "observed": [
+        255,
+        true
+      ]
+    },
+    {
+      "expected": [
+        256,
+        true
+      ],
+      "name": "byte-domain-256",
+      "observed": [
+        256,
+        true
+      ]
+    },
+    {
+      "expected": true,
+      "name": "invalid-length-bool",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "invalid-length-negative",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "invalid-length-float",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "invalid-length-none",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "invalid-length-list",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "invalid-length-object",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "invalid-length-over-budget",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "wrong-dummy-length",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "noncanonical-bytearray",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "zero-not-in-structured-domain",
+      "observed": true
+    },
+    {
+      "expected": "ff00",
+      "name": "structured-domain-dummy",
+      "observed": "ff00"
+    },
+    {
+      "expected": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "name": "per-occurrence-profile-not-total",
+      "observed": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          2
+        ]
+      ]
+    },
+    {
+      "expected": true,
+      "name": "same-total-still-different-profile",
+      "observed": true
+    },
+    {
+      "expected": [
+        0,
+        1
+      ],
+      "name": "absence-versus-empty-message",
+      "observed": [
+        0,
+        1
+      ]
+    },
+    {
+      "expected": [
+        "z",
+        "a"
+      ],
+      "name": "order-retained",
+      "observed": [
+        "z",
+        "a"
+      ]
+    },
+    {
+      "expected": true,
+      "name": "duplicate-occurrence",
+      "observed": true
+    },
+    {
+      "expected": [
+        8,
+        8,
+        true
+      ],
+      "name": "framing-padding-0",
+      "observed": [
+        8,
+        8,
+        true
+      ]
+    },
+    {
+      "expected": [
+        8,
+        8,
+        true
+      ],
+      "name": "framing-padding-1",
+      "observed": [
+        8,
+        8,
+        true
+      ]
+    },
+    {
+      "expected": [
+        8,
+        8,
+        true
+      ],
+      "name": "framing-padding-6",
+      "observed": [
+        8,
+        8,
+        true
+      ]
+    },
+    {
+      "expected": [
+        16,
+        16,
+        true
+      ],
+      "name": "framing-padding-7",
+      "observed": [
+        16,
+        16,
+        true
+      ]
+    },
+    {
+      "expected": [
+        16,
+        16,
+        true
+      ],
+      "name": "framing-padding-8",
+      "observed": [
+        16,
+        16,
+        true
+      ]
+    },
+    {
+      "expected": [
+        24,
+        24,
+        true
+      ],
+      "name": "framing-padding-15",
+      "observed": [
+        24,
+        24,
+        true
+      ]
+    },
+    {
+      "expected": [
+        1,
+        2
+      ],
+      "name": "utf8-bytes-not-characters",
+      "observed": [
+        1,
+        2
+      ]
+    },
+    {
+      "expected": true,
+      "name": "padded-zero-string-not-canonical",
+      "observed": true
+    },
+    {
+      "expected": "1",
+      "name": "different-length-observation-tv",
+      "observed": "1"
+    },
+    {
+      "expected": "1/2",
+      "name": "shared-simulator-tv-world0",
+      "observed": "1/2"
+    },
+    {
+      "expected": "1/2",
+      "name": "shared-simulator-tv-world1",
+      "observed": "1/2"
+    },
+    {
+      "expected": [
+        1,
+        2
+      ],
+      "name": "length-informed-observation-reconstruction",
+      "observed": [
+        1,
+        2
+      ]
+    },
+    {
+      "expected": "1/2",
+      "name": "marginal-simulation-does-not-imply-joint",
+      "observed": "1/2"
+    },
+    {
+      "expected": "0",
+      "name": "length-conditioned-joint-simulation",
+      "observed": "0"
+    },
+    {
+      "expected": [
+        "exponent_tag"
+      ],
+      "name": "explicit-ideal-output-overlap",
+      "observed": [
+        "exponent_tag"
+      ]
+    },
+    {
+      "expected": [
+        "precommitted_corrupt_input"
+      ],
+      "name": "explicit-precompilation-input-overlap",
+      "observed": [
+        "precommitted_corrupt_input"
+      ]
+    },
+    {
+      "expected": true,
+      "name": "metadata-excludes-transcript-fields",
+      "observed": true
+    },
+    {
+      "expected": [
+        "exponent_tag",
+        "precommitted_corrupt_input"
+      ],
+      "name": "base-overlap-is-declared",
+      "observed": [
+        "exponent_tag",
+        "precommitted_corrupt_input"
+      ]
+    },
+    {
+      "expected": true,
+      "name": "reactive-record-cannot-be-fixed-leakage",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "ambiguous-all-public-values",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "raw-base-transcript-copy",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "raw-attribution-transcript-copy",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "undeclared-semantic-overlap",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "declared-output-not-base-leakage",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "declared-adversary-output-not-base-leakage",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "ideal-adversary-declaration-collision",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "duplicate-leakage-field",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "nonstring-leakage-field",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "base-attribution-name-collision",
+      "observed": true
+    },
+    {
+      "expected": 1,
+      "name": "public-width-2",
+      "observed": 1
+    },
+    {
+      "expected": [
+        1,
+        0
+      ],
+      "name": "fixed-width-roundtrip-2-0",
+      "observed": [
+        1,
+        0
+      ]
+    },
+    {
+      "expected": [
+        1,
+        1
+      ],
+      "name": "fixed-width-roundtrip-2-1",
+      "observed": [
+        1,
+        1
+      ]
+    },
+    {
+      "expected": 1,
+      "name": "public-width-255",
+      "observed": 1
+    },
+    {
+      "expected": [
+        1,
+        0
+      ],
+      "name": "fixed-width-roundtrip-255-0",
+      "observed": [
+        1,
+        0
+      ]
+    },
+    {
+      "expected": [
+        1,
+        254
+      ],
+      "name": "fixed-width-roundtrip-255-254",
+      "observed": [
+        1,
+        254
+      ]
+    },
+    {
+      "expected": 1,
+      "name": "public-width-256",
+      "observed": 1
+    },
+    {
+      "expected": [
+        1,
+        0
+      ],
+      "name": "fixed-width-roundtrip-256-0",
+      "observed": [
+        1,
+        0
+      ]
+    },
+    {
+      "expected": [
+        1,
+        255
+      ],
+      "name": "fixed-width-roundtrip-256-255",
+      "observed": [
+        1,
+        255
+      ]
+    },
+    {
+      "expected": 2,
+      "name": "public-width-257",
+      "observed": 2
+    },
+    {
+      "expected": [
+        2,
+        0
+      ],
+      "name": "fixed-width-roundtrip-257-0",
+      "observed": [
+        2,
+        0
+      ]
+    },
+    {
+      "expected": [
+        2,
+        256
+      ],
+      "name": "fixed-width-roundtrip-257-256",
+      "observed": [
+        2,
+        256
+      ]
+    },
+    {
+      "expected": 2,
+      "name": "public-width-65536",
+      "observed": 2
+    },
+    {
+      "expected": [
+        2,
+        0
+      ],
+      "name": "fixed-width-roundtrip-65536-0",
+      "observed": [
+        2,
+        0
+      ]
+    },
+    {
+      "expected": [
+        2,
+        65535
+      ],
+      "name": "fixed-width-roundtrip-65536-65535",
+      "observed": [
+        2,
+        65535
+      ]
+    },
+    {
+      "expected": 3,
+      "name": "public-width-65537",
+      "observed": 3
+    },
+    {
+      "expected": [
+        3,
+        0
+      ],
+      "name": "fixed-width-roundtrip-65537-0",
+      "observed": [
+        3,
+        0
+      ]
+    },
+    {
+      "expected": [
+        3,
+        65536
+      ],
+      "name": "fixed-width-roundtrip-65537-65536",
+      "observed": [
+        3,
+        65536
+      ]
+    },
+    {
+      "expected": [
+        3,
+        5
+      ],
+      "name": "Paillier-public-widths",
+      "observed": [
+        3,
+        5
+      ]
+    },
+    {
+      "expected": "000000",
+      "name": "Paillier-dummy",
+      "observed": "000000"
+    },
+    {
+      "expected": [
+        3,
+        0,
+        true
+      ],
+      "name": "Paillier-scalar-0",
+      "observed": [
+        3,
+        0,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        1,
+        true
+      ],
+      "name": "Paillier-scalar-1",
+      "observed": [
+        3,
+        1,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        2,
+        true
+      ],
+      "name": "Paillier-scalar-2",
+      "observed": [
+        3,
+        2,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        3,
+        true
+      ],
+      "name": "Paillier-scalar-3",
+      "observed": [
+        3,
+        3,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        4,
+        true
+      ],
+      "name": "Paillier-scalar-4",
+      "observed": [
+        3,
+        4,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        5,
+        true
+      ],
+      "name": "Paillier-scalar-5",
+      "observed": [
+        3,
+        5,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        6,
+        true
+      ],
+      "name": "Paillier-scalar-6",
+      "observed": [
+        3,
+        6,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        7,
+        true
+      ],
+      "name": "Paillier-scalar-7",
+      "observed": [
+        3,
+        7,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        8,
+        true
+      ],
+      "name": "Paillier-scalar-8",
+      "observed": [
+        3,
+        8,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        9,
+        true
+      ],
+      "name": "Paillier-scalar-9",
+      "observed": [
+        3,
+        9,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        10,
+        true
+      ],
+      "name": "Paillier-scalar-10",
+      "observed": [
+        3,
+        10,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        11,
+        true
+      ],
+      "name": "Paillier-scalar-11",
+      "observed": [
+        3,
+        11,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        12,
+        true
+      ],
+      "name": "Paillier-scalar-12",
+      "observed": [
+        3,
+        12,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        13,
+        true
+      ],
+      "name": "Paillier-scalar-13",
+      "observed": [
+        3,
+        13,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        14,
+        true
+      ],
+      "name": "Paillier-scalar-14",
+      "observed": [
+        3,
+        14,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        15,
+        true
+      ],
+      "name": "Paillier-scalar-15",
+      "observed": [
+        3,
+        15,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        16,
+        true
+      ],
+      "name": "Paillier-scalar-16",
+      "observed": [
+        3,
+        16,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        17,
+        true
+      ],
+      "name": "Paillier-scalar-17",
+      "observed": [
+        3,
+        17,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        18,
+        true
+      ],
+      "name": "Paillier-scalar-18",
+      "observed": [
+        3,
+        18,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        19,
+        true
+      ],
+      "name": "Paillier-scalar-19",
+      "observed": [
+        3,
+        19,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        20,
+        true
+      ],
+      "name": "Paillier-scalar-20",
+      "observed": [
+        3,
+        20,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        21,
+        true
+      ],
+      "name": "Paillier-scalar-21",
+      "observed": [
+        3,
+        21,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        22,
+        true
+      ],
+      "name": "Paillier-scalar-22",
+      "observed": [
+        3,
+        22,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        23,
+        true
+      ],
+      "name": "Paillier-scalar-23",
+      "observed": [
+        3,
+        23,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        24,
+        true
+      ],
+      "name": "Paillier-scalar-24",
+      "observed": [
+        3,
+        24,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        25,
+        true
+      ],
+      "name": "Paillier-scalar-25",
+      "observed": [
+        3,
+        25,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        26,
+        true
+      ],
+      "name": "Paillier-scalar-26",
+      "observed": [
+        3,
+        26,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        27,
+        true
+      ],
+      "name": "Paillier-scalar-27",
+      "observed": [
+        3,
+        27,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        28,
+        true
+      ],
+      "name": "Paillier-scalar-28",
+      "observed": [
+        3,
+        28,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        29,
+        true
+      ],
+      "name": "Paillier-scalar-29",
+      "observed": [
+        3,
+        29,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        30,
+        true
+      ],
+      "name": "Paillier-scalar-30",
+      "observed": [
+        3,
+        30,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        31,
+        true
+      ],
+      "name": "Paillier-scalar-31",
+      "observed": [
+        3,
+        31,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        32,
+        true
+      ],
+      "name": "Paillier-scalar-32",
+      "observed": [
+        3,
+        32,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        33,
+        true
+      ],
+      "name": "Paillier-scalar-33",
+      "observed": [
+        3,
+        33,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        34,
+        true
+      ],
+      "name": "Paillier-scalar-34",
+      "observed": [
+        3,
+        34,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        35,
+        true
+      ],
+      "name": "Paillier-scalar-35",
+      "observed": [
+        3,
+        35,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        36,
+        true
+      ],
+      "name": "Paillier-scalar-36",
+      "observed": [
+        3,
+        36,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        37,
+        true
+      ],
+      "name": "Paillier-scalar-37",
+      "observed": [
+        3,
+        37,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        38,
+        true
+      ],
+      "name": "Paillier-scalar-38",
+      "observed": [
+        3,
+        38,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        39,
+        true
+      ],
+      "name": "Paillier-scalar-39",
+      "observed": [
+        3,
+        39,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        40,
+        true
+      ],
+      "name": "Paillier-scalar-40",
+      "observed": [
+        3,
+        40,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        41,
+        true
+      ],
+      "name": "Paillier-scalar-41",
+      "observed": [
+        3,
+        41,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        42,
+        true
+      ],
+      "name": "Paillier-scalar-42",
+      "observed": [
+        3,
+        42,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        43,
+        true
+      ],
+      "name": "Paillier-scalar-43",
+      "observed": [
+        3,
+        43,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        44,
+        true
+      ],
+      "name": "Paillier-scalar-44",
+      "observed": [
+        3,
+        44,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        45,
+        true
+      ],
+      "name": "Paillier-scalar-45",
+      "observed": [
+        3,
+        45,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        46,
+        true
+      ],
+      "name": "Paillier-scalar-46",
+      "observed": [
+        3,
+        46,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        47,
+        true
+      ],
+      "name": "Paillier-scalar-47",
+      "observed": [
+        3,
+        47,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        48,
+        true
+      ],
+      "name": "Paillier-scalar-48",
+      "observed": [
+        3,
+        48,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        49,
+        true
+      ],
+      "name": "Paillier-scalar-49",
+      "observed": [
+        3,
+        49,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        50,
+        true
+      ],
+      "name": "Paillier-scalar-50",
+      "observed": [
+        3,
+        50,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        51,
+        true
+      ],
+      "name": "Paillier-scalar-51",
+      "observed": [
+        3,
+        51,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        52,
+        true
+      ],
+      "name": "Paillier-scalar-52",
+      "observed": [
+        3,
+        52,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        53,
+        true
+      ],
+      "name": "Paillier-scalar-53",
+      "observed": [
+        3,
+        53,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        54,
+        true
+      ],
+      "name": "Paillier-scalar-54",
+      "observed": [
+        3,
+        54,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        55,
+        true
+      ],
+      "name": "Paillier-scalar-55",
+      "observed": [
+        3,
+        55,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        56,
+        true
+      ],
+      "name": "Paillier-scalar-56",
+      "observed": [
+        3,
+        56,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        57,
+        true
+      ],
+      "name": "Paillier-scalar-57",
+      "observed": [
+        3,
+        57,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        58,
+        true
+      ],
+      "name": "Paillier-scalar-58",
+      "observed": [
+        3,
+        58,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        59,
+        true
+      ],
+      "name": "Paillier-scalar-59",
+      "observed": [
+        3,
+        59,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        60,
+        true
+      ],
+      "name": "Paillier-scalar-60",
+      "observed": [
+        3,
+        60,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        61,
+        true
+      ],
+      "name": "Paillier-scalar-61",
+      "observed": [
+        3,
+        61,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        62,
+        true
+      ],
+      "name": "Paillier-scalar-62",
+      "observed": [
+        3,
+        62,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        63,
+        true
+      ],
+      "name": "Paillier-scalar-63",
+      "observed": [
+        3,
+        63,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        64,
+        true
+      ],
+      "name": "Paillier-scalar-64",
+      "observed": [
+        3,
+        64,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        65,
+        true
+      ],
+      "name": "Paillier-scalar-65",
+      "observed": [
+        3,
+        65,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        66,
+        true
+      ],
+      "name": "Paillier-scalar-66",
+      "observed": [
+        3,
+        66,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        67,
+        true
+      ],
+      "name": "Paillier-scalar-67",
+      "observed": [
+        3,
+        67,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        68,
+        true
+      ],
+      "name": "Paillier-scalar-68",
+      "observed": [
+        3,
+        68,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        69,
+        true
+      ],
+      "name": "Paillier-scalar-69",
+      "observed": [
+        3,
+        69,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        70,
+        true
+      ],
+      "name": "Paillier-scalar-70",
+      "observed": [
+        3,
+        70,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        71,
+        true
+      ],
+      "name": "Paillier-scalar-71",
+      "observed": [
+        3,
+        71,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        72,
+        true
+      ],
+      "name": "Paillier-scalar-72",
+      "observed": [
+        3,
+        72,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        73,
+        true
+      ],
+      "name": "Paillier-scalar-73",
+      "observed": [
+        3,
+        73,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        74,
+        true
+      ],
+      "name": "Paillier-scalar-74",
+      "observed": [
+        3,
+        74,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        75,
+        true
+      ],
+      "name": "Paillier-scalar-75",
+      "observed": [
+        3,
+        75,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        76,
+        true
+      ],
+      "name": "Paillier-scalar-76",
+      "observed": [
+        3,
+        76,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        77,
+        true
+      ],
+      "name": "Paillier-scalar-77",
+      "observed": [
+        3,
+        77,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        78,
+        true
+      ],
+      "name": "Paillier-scalar-78",
+      "observed": [
+        3,
+        78,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        79,
+        true
+      ],
+      "name": "Paillier-scalar-79",
+      "observed": [
+        3,
+        79,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        80,
+        true
+      ],
+      "name": "Paillier-scalar-80",
+      "observed": [
+        3,
+        80,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        81,
+        true
+      ],
+      "name": "Paillier-scalar-81",
+      "observed": [
+        3,
+        81,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        82,
+        true
+      ],
+      "name": "Paillier-scalar-82",
+      "observed": [
+        3,
+        82,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        83,
+        true
+      ],
+      "name": "Paillier-scalar-83",
+      "observed": [
+        3,
+        83,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        84,
+        true
+      ],
+      "name": "Paillier-scalar-84",
+      "observed": [
+        3,
+        84,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        85,
+        true
+      ],
+      "name": "Paillier-scalar-85",
+      "observed": [
+        3,
+        85,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        86,
+        true
+      ],
+      "name": "Paillier-scalar-86",
+      "observed": [
+        3,
+        86,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        87,
+        true
+      ],
+      "name": "Paillier-scalar-87",
+      "observed": [
+        3,
+        87,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        88,
+        true
+      ],
+      "name": "Paillier-scalar-88",
+      "observed": [
+        3,
+        88,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        89,
+        true
+      ],
+      "name": "Paillier-scalar-89",
+      "observed": [
+        3,
+        89,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        90,
+        true
+      ],
+      "name": "Paillier-scalar-90",
+      "observed": [
+        3,
+        90,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        91,
+        true
+      ],
+      "name": "Paillier-scalar-91",
+      "observed": [
+        3,
+        91,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        92,
+        true
+      ],
+      "name": "Paillier-scalar-92",
+      "observed": [
+        3,
+        92,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        93,
+        true
+      ],
+      "name": "Paillier-scalar-93",
+      "observed": [
+        3,
+        93,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        94,
+        true
+      ],
+      "name": "Paillier-scalar-94",
+      "observed": [
+        3,
+        94,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        95,
+        true
+      ],
+      "name": "Paillier-scalar-95",
+      "observed": [
+        3,
+        95,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        96,
+        true
+      ],
+      "name": "Paillier-scalar-96",
+      "observed": [
+        3,
+        96,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        97,
+        true
+      ],
+      "name": "Paillier-scalar-97",
+      "observed": [
+        3,
+        97,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        98,
+        true
+      ],
+      "name": "Paillier-scalar-98",
+      "observed": [
+        3,
+        98,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        99,
+        true
+      ],
+      "name": "Paillier-scalar-99",
+      "observed": [
+        3,
+        99,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        100,
+        true
+      ],
+      "name": "Paillier-scalar-100",
+      "observed": [
+        3,
+        100,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        101,
+        true
+      ],
+      "name": "Paillier-scalar-101",
+      "observed": [
+        3,
+        101,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        102,
+        true
+      ],
+      "name": "Paillier-scalar-102",
+      "observed": [
+        3,
+        102,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        103,
+        true
+      ],
+      "name": "Paillier-scalar-103",
+      "observed": [
+        3,
+        103,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        104,
+        true
+      ],
+      "name": "Paillier-scalar-104",
+      "observed": [
+        3,
+        104,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        105,
+        true
+      ],
+      "name": "Paillier-scalar-105",
+      "observed": [
+        3,
+        105,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        106,
+        true
+      ],
+      "name": "Paillier-scalar-106",
+      "observed": [
+        3,
+        106,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        107,
+        true
+      ],
+      "name": "Paillier-scalar-107",
+      "observed": [
+        3,
+        107,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        108,
+        true
+      ],
+      "name": "Paillier-scalar-108",
+      "observed": [
+        3,
+        108,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        109,
+        true
+      ],
+      "name": "Paillier-scalar-109",
+      "observed": [
+        3,
+        109,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        110,
+        true
+      ],
+      "name": "Paillier-scalar-110",
+      "observed": [
+        3,
+        110,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        111,
+        true
+      ],
+      "name": "Paillier-scalar-111",
+      "observed": [
+        3,
+        111,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        112,
+        true
+      ],
+      "name": "Paillier-scalar-112",
+      "observed": [
+        3,
+        112,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        113,
+        true
+      ],
+      "name": "Paillier-scalar-113",
+      "observed": [
+        3,
+        113,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        114,
+        true
+      ],
+      "name": "Paillier-scalar-114",
+      "observed": [
+        3,
+        114,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        115,
+        true
+      ],
+      "name": "Paillier-scalar-115",
+      "observed": [
+        3,
+        115,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        116,
+        true
+      ],
+      "name": "Paillier-scalar-116",
+      "observed": [
+        3,
+        116,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        117,
+        true
+      ],
+      "name": "Paillier-scalar-117",
+      "observed": [
+        3,
+        117,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        118,
+        true
+      ],
+      "name": "Paillier-scalar-118",
+      "observed": [
+        3,
+        118,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        119,
+        true
+      ],
+      "name": "Paillier-scalar-119",
+      "observed": [
+        3,
+        119,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        120,
+        true
+      ],
+      "name": "Paillier-scalar-120",
+      "observed": [
+        3,
+        120,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        121,
+        true
+      ],
+      "name": "Paillier-scalar-121",
+      "observed": [
+        3,
+        121,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        122,
+        true
+      ],
+      "name": "Paillier-scalar-122",
+      "observed": [
+        3,
+        122,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        123,
+        true
+      ],
+      "name": "Paillier-scalar-123",
+      "observed": [
+        3,
+        123,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        124,
+        true
+      ],
+      "name": "Paillier-scalar-124",
+      "observed": [
+        3,
+        124,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        125,
+        true
+      ],
+      "name": "Paillier-scalar-125",
+      "observed": [
+        3,
+        125,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        126,
+        true
+      ],
+      "name": "Paillier-scalar-126",
+      "observed": [
+        3,
+        126,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        127,
+        true
+      ],
+      "name": "Paillier-scalar-127",
+      "observed": [
+        3,
+        127,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        128,
+        true
+      ],
+      "name": "Paillier-scalar-128",
+      "observed": [
+        3,
+        128,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        129,
+        true
+      ],
+      "name": "Paillier-scalar-129",
+      "observed": [
+        3,
+        129,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        130,
+        true
+      ],
+      "name": "Paillier-scalar-130",
+      "observed": [
+        3,
+        130,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        131,
+        true
+      ],
+      "name": "Paillier-scalar-131",
+      "observed": [
+        3,
+        131,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        132,
+        true
+      ],
+      "name": "Paillier-scalar-132",
+      "observed": [
+        3,
+        132,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        133,
+        true
+      ],
+      "name": "Paillier-scalar-133",
+      "observed": [
+        3,
+        133,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        134,
+        true
+      ],
+      "name": "Paillier-scalar-134",
+      "observed": [
+        3,
+        134,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        135,
+        true
+      ],
+      "name": "Paillier-scalar-135",
+      "observed": [
+        3,
+        135,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        136,
+        true
+      ],
+      "name": "Paillier-scalar-136",
+      "observed": [
+        3,
+        136,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        137,
+        true
+      ],
+      "name": "Paillier-scalar-137",
+      "observed": [
+        3,
+        137,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        138,
+        true
+      ],
+      "name": "Paillier-scalar-138",
+      "observed": [
+        3,
+        138,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        139,
+        true
+      ],
+      "name": "Paillier-scalar-139",
+      "observed": [
+        3,
+        139,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        140,
+        true
+      ],
+      "name": "Paillier-scalar-140",
+      "observed": [
+        3,
+        140,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        141,
+        true
+      ],
+      "name": "Paillier-scalar-141",
+      "observed": [
+        3,
+        141,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        142,
+        true
+      ],
+      "name": "Paillier-scalar-142",
+      "observed": [
+        3,
+        142,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        143,
+        true
+      ],
+      "name": "Paillier-scalar-143",
+      "observed": [
+        3,
+        143,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        144,
+        true
+      ],
+      "name": "Paillier-scalar-144",
+      "observed": [
+        3,
+        144,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        145,
+        true
+      ],
+      "name": "Paillier-scalar-145",
+      "observed": [
+        3,
+        145,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        146,
+        true
+      ],
+      "name": "Paillier-scalar-146",
+      "observed": [
+        3,
+        146,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        147,
+        true
+      ],
+      "name": "Paillier-scalar-147",
+      "observed": [
+        3,
+        147,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        148,
+        true
+      ],
+      "name": "Paillier-scalar-148",
+      "observed": [
+        3,
+        148,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        149,
+        true
+      ],
+      "name": "Paillier-scalar-149",
+      "observed": [
+        3,
+        149,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        150,
+        true
+      ],
+      "name": "Paillier-scalar-150",
+      "observed": [
+        3,
+        150,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        151,
+        true
+      ],
+      "name": "Paillier-scalar-151",
+      "observed": [
+        3,
+        151,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        152,
+        true
+      ],
+      "name": "Paillier-scalar-152",
+      "observed": [
+        3,
+        152,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        153,
+        true
+      ],
+      "name": "Paillier-scalar-153",
+      "observed": [
+        3,
+        153,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        154,
+        true
+      ],
+      "name": "Paillier-scalar-154",
+      "observed": [
+        3,
+        154,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        155,
+        true
+      ],
+      "name": "Paillier-scalar-155",
+      "observed": [
+        3,
+        155,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        156,
+        true
+      ],
+      "name": "Paillier-scalar-156",
+      "observed": [
+        3,
+        156,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        157,
+        true
+      ],
+      "name": "Paillier-scalar-157",
+      "observed": [
+        3,
+        157,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        158,
+        true
+      ],
+      "name": "Paillier-scalar-158",
+      "observed": [
+        3,
+        158,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        159,
+        true
+      ],
+      "name": "Paillier-scalar-159",
+      "observed": [
+        3,
+        159,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        160,
+        true
+      ],
+      "name": "Paillier-scalar-160",
+      "observed": [
+        3,
+        160,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        161,
+        true
+      ],
+      "name": "Paillier-scalar-161",
+      "observed": [
+        3,
+        161,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        162,
+        true
+      ],
+      "name": "Paillier-scalar-162",
+      "observed": [
+        3,
+        162,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        163,
+        true
+      ],
+      "name": "Paillier-scalar-163",
+      "observed": [
+        3,
+        163,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        164,
+        true
+      ],
+      "name": "Paillier-scalar-164",
+      "observed": [
+        3,
+        164,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        165,
+        true
+      ],
+      "name": "Paillier-scalar-165",
+      "observed": [
+        3,
+        165,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        166,
+        true
+      ],
+      "name": "Paillier-scalar-166",
+      "observed": [
+        3,
+        166,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        167,
+        true
+      ],
+      "name": "Paillier-scalar-167",
+      "observed": [
+        3,
+        167,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        168,
+        true
+      ],
+      "name": "Paillier-scalar-168",
+      "observed": [
+        3,
+        168,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        169,
+        true
+      ],
+      "name": "Paillier-scalar-169",
+      "observed": [
+        3,
+        169,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        170,
+        true
+      ],
+      "name": "Paillier-scalar-170",
+      "observed": [
+        3,
+        170,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        171,
+        true
+      ],
+      "name": "Paillier-scalar-171",
+      "observed": [
+        3,
+        171,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        172,
+        true
+      ],
+      "name": "Paillier-scalar-172",
+      "observed": [
+        3,
+        172,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        173,
+        true
+      ],
+      "name": "Paillier-scalar-173",
+      "observed": [
+        3,
+        173,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        174,
+        true
+      ],
+      "name": "Paillier-scalar-174",
+      "observed": [
+        3,
+        174,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        175,
+        true
+      ],
+      "name": "Paillier-scalar-175",
+      "observed": [
+        3,
+        175,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        176,
+        true
+      ],
+      "name": "Paillier-scalar-176",
+      "observed": [
+        3,
+        176,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        177,
+        true
+      ],
+      "name": "Paillier-scalar-177",
+      "observed": [
+        3,
+        177,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        178,
+        true
+      ],
+      "name": "Paillier-scalar-178",
+      "observed": [
+        3,
+        178,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        179,
+        true
+      ],
+      "name": "Paillier-scalar-179",
+      "observed": [
+        3,
+        179,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        180,
+        true
+      ],
+      "name": "Paillier-scalar-180",
+      "observed": [
+        3,
+        180,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        181,
+        true
+      ],
+      "name": "Paillier-scalar-181",
+      "observed": [
+        3,
+        181,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        182,
+        true
+      ],
+      "name": "Paillier-scalar-182",
+      "observed": [
+        3,
+        182,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        183,
+        true
+      ],
+      "name": "Paillier-scalar-183",
+      "observed": [
+        3,
+        183,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        184,
+        true
+      ],
+      "name": "Paillier-scalar-184",
+      "observed": [
+        3,
+        184,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        185,
+        true
+      ],
+      "name": "Paillier-scalar-185",
+      "observed": [
+        3,
+        185,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        186,
+        true
+      ],
+      "name": "Paillier-scalar-186",
+      "observed": [
+        3,
+        186,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        187,
+        true
+      ],
+      "name": "Paillier-scalar-187",
+      "observed": [
+        3,
+        187,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        188,
+        true
+      ],
+      "name": "Paillier-scalar-188",
+      "observed": [
+        3,
+        188,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        189,
+        true
+      ],
+      "name": "Paillier-scalar-189",
+      "observed": [
+        3,
+        189,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        190,
+        true
+      ],
+      "name": "Paillier-scalar-190",
+      "observed": [
+        3,
+        190,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        191,
+        true
+      ],
+      "name": "Paillier-scalar-191",
+      "observed": [
+        3,
+        191,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        192,
+        true
+      ],
+      "name": "Paillier-scalar-192",
+      "observed": [
+        3,
+        192,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        193,
+        true
+      ],
+      "name": "Paillier-scalar-193",
+      "observed": [
+        3,
+        193,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        194,
+        true
+      ],
+      "name": "Paillier-scalar-194",
+      "observed": [
+        3,
+        194,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        195,
+        true
+      ],
+      "name": "Paillier-scalar-195",
+      "observed": [
+        3,
+        195,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        196,
+        true
+      ],
+      "name": "Paillier-scalar-196",
+      "observed": [
+        3,
+        196,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        197,
+        true
+      ],
+      "name": "Paillier-scalar-197",
+      "observed": [
+        3,
+        197,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        198,
+        true
+      ],
+      "name": "Paillier-scalar-198",
+      "observed": [
+        3,
+        198,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        199,
+        true
+      ],
+      "name": "Paillier-scalar-199",
+      "observed": [
+        3,
+        199,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        200,
+        true
+      ],
+      "name": "Paillier-scalar-200",
+      "observed": [
+        3,
+        200,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        201,
+        true
+      ],
+      "name": "Paillier-scalar-201",
+      "observed": [
+        3,
+        201,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        202,
+        true
+      ],
+      "name": "Paillier-scalar-202",
+      "observed": [
+        3,
+        202,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        203,
+        true
+      ],
+      "name": "Paillier-scalar-203",
+      "observed": [
+        3,
+        203,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        204,
+        true
+      ],
+      "name": "Paillier-scalar-204",
+      "observed": [
+        3,
+        204,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        205,
+        true
+      ],
+      "name": "Paillier-scalar-205",
+      "observed": [
+        3,
+        205,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        206,
+        true
+      ],
+      "name": "Paillier-scalar-206",
+      "observed": [
+        3,
+        206,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        207,
+        true
+      ],
+      "name": "Paillier-scalar-207",
+      "observed": [
+        3,
+        207,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        208,
+        true
+      ],
+      "name": "Paillier-scalar-208",
+      "observed": [
+        3,
+        208,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        209,
+        true
+      ],
+      "name": "Paillier-scalar-209",
+      "observed": [
+        3,
+        209,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        210,
+        true
+      ],
+      "name": "Paillier-scalar-210",
+      "observed": [
+        3,
+        210,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        211,
+        true
+      ],
+      "name": "Paillier-scalar-211",
+      "observed": [
+        3,
+        211,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        212,
+        true
+      ],
+      "name": "Paillier-scalar-212",
+      "observed": [
+        3,
+        212,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        213,
+        true
+      ],
+      "name": "Paillier-scalar-213",
+      "observed": [
+        3,
+        213,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        214,
+        true
+      ],
+      "name": "Paillier-scalar-214",
+      "observed": [
+        3,
+        214,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        215,
+        true
+      ],
+      "name": "Paillier-scalar-215",
+      "observed": [
+        3,
+        215,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        216,
+        true
+      ],
+      "name": "Paillier-scalar-216",
+      "observed": [
+        3,
+        216,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        217,
+        true
+      ],
+      "name": "Paillier-scalar-217",
+      "observed": [
+        3,
+        217,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        218,
+        true
+      ],
+      "name": "Paillier-scalar-218",
+      "observed": [
+        3,
+        218,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        219,
+        true
+      ],
+      "name": "Paillier-scalar-219",
+      "observed": [
+        3,
+        219,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        220,
+        true
+      ],
+      "name": "Paillier-scalar-220",
+      "observed": [
+        3,
+        220,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        221,
+        true
+      ],
+      "name": "Paillier-scalar-221",
+      "observed": [
+        3,
+        221,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        222,
+        true
+      ],
+      "name": "Paillier-scalar-222",
+      "observed": [
+        3,
+        222,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        223,
+        true
+      ],
+      "name": "Paillier-scalar-223",
+      "observed": [
+        3,
+        223,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        224,
+        true
+      ],
+      "name": "Paillier-scalar-224",
+      "observed": [
+        3,
+        224,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        225,
+        true
+      ],
+      "name": "Paillier-scalar-225",
+      "observed": [
+        3,
+        225,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        226,
+        true
+      ],
+      "name": "Paillier-scalar-226",
+      "observed": [
+        3,
+        226,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        227,
+        true
+      ],
+      "name": "Paillier-scalar-227",
+      "observed": [
+        3,
+        227,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        228,
+        true
+      ],
+      "name": "Paillier-scalar-228",
+      "observed": [
+        3,
+        228,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        229,
+        true
+      ],
+      "name": "Paillier-scalar-229",
+      "observed": [
+        3,
+        229,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        230,
+        true
+      ],
+      "name": "Paillier-scalar-230",
+      "observed": [
+        3,
+        230,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        231,
+        true
+      ],
+      "name": "Paillier-scalar-231",
+      "observed": [
+        3,
+        231,
+        true
+      ]
+    },
+    {
+      "expected": [
+        3,
+        232,
+        true
+      ],
+      "name": "Paillier-scalar-232",
+      "observed": [
+        3,
+        232,
+        true
+      ]
+    },
+    {
+      "expected": true,
+      "name": "scalar-refusal-bool",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "scalar-refusal-negative",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "scalar-refusal-upper-bound",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "scalar-refusal-float",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "short-scalar",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "long-scalar",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "out-of-range-scalar",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "bool-modulus",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "response-order-encode-boundary",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "response-order-decode-boundary",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "response-order-exceeds-modulus",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "response-order-bool",
+      "observed": true
+    },
+    {
+      "expected": true,
+      "name": "response-order-zero",
+      "observed": true
+    },
+    {
+      "expected": 0,
+      "name": "response-zero-dummy-in-narrow-domain",
+      "observed": 0
+    }
+  ],
+  "counted_elementary_obligations": 319,
+  "failures": [],
+  "length_unit": "bytes of the complete encoded encryption input, after framing/padding",
+  "model": "finite length-contract and encoding checks; no encryption security experiment",
+  "paillier_ciphertext_width": 5,
+  "paillier_modulus": 1022117,
+  "paillier_plaintext_width": 3,
+  "proof_obligation": "non-feedback semantic leakage; publicly computable lengths or explicit per-occurrence length leakage; valid efficient dummy; joint base simulation with retained authentication state and initial corrupt state",
+  "scalar_values_checked": 233
+}

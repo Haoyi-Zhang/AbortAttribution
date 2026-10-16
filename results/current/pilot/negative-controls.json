@@ -1,0 +1,132 @@
+[
+  {
+    "cases": [
+      "case-011",
+      "case-012"
+    ],
+    "pair": "after_accept-1",
+    "public_equal": true,
+    "second_history_honest": true,
+    "weak_judge_accuses": [
+      true,
+      true
+    ]
+  },
+  {
+    "cases": [
+      "case-027",
+      "case-028"
+    ],
+    "pair": "after_accept-2",
+    "public_equal": true,
+    "second_history_honest": true,
+    "weak_judge_accuses": [
+      true,
+      true
+    ]
+  },
+  {
+    "cases": [
+      "case-043",
+      "case-044"
+    ],
+    "pair": "after_accept-3",
+    "public_equal": true,
+    "second_history_honest": true,
+    "weak_judge_accuses": [
+      true,
+      true
+    ]
+  },
+  {
+    "cases": [
+      "case-059",
+      "case-060"
+    ],
+    "pair": "after_accept-4",
+    "public_equal": true,
+    "second_history_honest": true,
+    "weak_judge_accuses": [
+      true,
+      true
+    ]
+  },
+  {
+    "cases": [
+      "case-075",
+      "case-076"
+    ],
+    "pair": "after_accept-5",
+    "public_equal": true,
+    "second_history_honest": true,
+    "weak_judge_accuses": [
+      true,
+      true
+    ]
+  },
+  {
+    "cases": [
+      "case-013",
+      "case-014"
+    ],
+    "pair": "before_accept-1",
+    "public_equal": true,
+    "second_history_honest": true,
+    "weak_judge_accuses": [
+      true,
+      true
+    ]
+  },
+  {
+    "cases": [
+      "case-029",
+      "case-030"
+    ],
+    "pair": "before_accept-2",
+    "public_equal": true,
+    "second_history_honest": true,
+    "weak_judge_accuses": [
+      true,
+      true
+    ]
+  },
+  {
+    "cases": [
+      "case-045",
+      "case-046"
+    ],
+    "pair": "before_accept-3",
+    "public_equal": true,
+    "second_history_honest": true,
+    "weak_judge_accuses": [
+      true,
+      true
+    ]
+  },
+  {
+    "cases": [
+      "case-061",
+      "case-062"
+    ],
+    "pair": "before_accept-4",
+    "public_equal": true,
+    "second_history_honest": true,
+    "weak_judge_accuses": [
+      true,
+      true
+    ]
+  },
+  {
+    "cases": [
+      "case-077",
+      "case-078"
+    ],
+    "pair": "before_accept-5",
+    "public_equal": true,
+    "second_history_honest": true,
+    "weak_judge_accuses": [
+      true,
+      true
+    ]
+  }
+]

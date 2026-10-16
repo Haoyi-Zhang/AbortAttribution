@@ -1,0 +1,55 @@
+{
+  "all_scalars_recovered": true,
+  "distinct_tags": 11,
+  "g": 2,
+  "group_order_checked": true,
+  "interpretation": "Finite discrete-log lookup is a negative control, not an eVRF security experiment.",
+  "p": 23,
+  "q": 11,
+  "table": [
+    {
+      "scalar": 0,
+      "tag": 1
+    },
+    {
+      "scalar": 1,
+      "tag": 2
+    },
+    {
+      "scalar": 2,
+      "tag": 4
+    },
+    {
+      "scalar": 3,
+      "tag": 8
+    },
+    {
+      "scalar": 4,
+      "tag": 16
+    },
+    {
+      "scalar": 5,
+      "tag": 9
+    },
+    {
+      "scalar": 6,
+      "tag": 18
+    },
+    {
+      "scalar": 7,
+      "tag": 13
+    },
+    {
+      "scalar": 8,
+      "tag": 3
+    },
+    {
+      "scalar": 9,
+      "tag": 6
+    },
+    {
+      "scalar": 10,
+      "tag": 12
+    }
+  ]
+}

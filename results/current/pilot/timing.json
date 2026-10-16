@@ -1,0 +1,143 @@
+{
+  "compute_bound": 2,
+  "deadline": 20,
+  "delivery_bound": 3,
+  "enumerated_histories": 1008,
+  "failures": [],
+  "latest_safe_ready": 12,
+  "one_tick_late_control": {
+    "computed": 18,
+    "observed": 16,
+    "ready": 13,
+    "received": 21
+  },
+  "read_bound": 3,
+  "rows": [
+    {
+      "all_on_time": true,
+      "histories": 48,
+      "latest_receipt": 8,
+      "ready_publication": 0
+    },
+    {
+      "all_on_time": true,
+      "histories": 48,
+      "latest_receipt": 9,
+      "ready_publication": 1
+    },
+    {
+      "all_on_time": true,
+      "histories": 48,
+      "latest_receipt": 10,
+      "ready_publication": 2
+    },
+    {
+      "all_on_time": true,
+      "histories": 48,
+      "latest_receipt": 11,
+      "ready_publication": 3
+    },
+    {
+      "all_on_time": true,
+      "histories": 48,
+      "latest_receipt": 12,
+      "ready_publication": 4
+    },
+    {
+      "all_on_time": true,
+      "histories": 48,
+      "latest_receipt": 13,
+      "ready_publication": 5
+    },
+    {
+      "all_on_time": true,
+      "histories": 48,
+      "latest_receipt": 14,
+      "ready_publication": 6
+    },
+    {
+      "all_on_time": true,
+      "histories": 48,
+      "latest_receipt": 15,
+      "ready_publication": 7
+    },
+    {
+      "all_on_time": true,
+      "histories": 48,
+      "latest_receipt": 16,
+      "ready_publication": 8
+    },
+    {
+      "all_on_time": true,
+      "histories": 48,
+      "latest_receipt": 17,
+      "ready_publication": 9
+    },
+    {
+      "all_on_time": true,
+      "histories": 48,
+      "latest_receipt": 18,
+      "ready_publication": 10
+    },
+    {
+      "all_on_time": true,
+      "histories": 48,
+      "latest_receipt": 19,
+      "ready_publication": 11
+    },
+    {
+      "all_on_time": true,
+      "histories": 48,
+      "latest_receipt": 20,
+      "ready_publication": 12
+    },
+    {
+      "all_on_time": false,
+      "histories": 48,
+      "latest_receipt": 21,
+      "ready_publication": 13
+    },
+    {
+      "all_on_time": false,
+      "histories": 48,
+      "latest_receipt": 22,
+      "ready_publication": 14
+    },
+    {
+      "all_on_time": false,
+      "histories": 48,
+      "latest_receipt": 23,
+      "ready_publication": 15
+    },
+    {
+      "all_on_time": false,
+      "histories": 48,
+      "latest_receipt": 24,
+      "ready_publication": 16
+    },
+    {
+      "all_on_time": false,
+      "histories": 48,
+      "latest_receipt": 25,
+      "ready_publication": 17
+    },
+    {
+      "all_on_time": false,
+      "histories": 48,
+      "latest_receipt": 26,
+      "ready_publication": 18
+    },
+    {
+      "all_on_time": false,
+      "histories": 48,
+      "latest_receipt": 27,
+      "ready_publication": 19
+    },
+    {
+      "all_on_time": false,
+      "histories": 48,
+      "latest_receipt": 28,
+      "ready_publication": 20
+    }
+  ]
+}

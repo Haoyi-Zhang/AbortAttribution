@@ -1,0 +1,97 @@
+{
+  "counted_elementary_obligations": 31,
+  "failures": [],
+  "invalid_vectors": [
+    {
+      "name": "float",
+      "producer_rejects": true,
+      "replay_rejects": true
+    },
+    {
+      "name": "nan",
+      "producer_rejects": true,
+      "replay_rejects": true
+    },
+    {
+      "name": "non-string-key",
+      "producer_rejects": true,
+      "replay_rejects": true
+    },
+    {
+      "name": "tuple",
+      "producer_rejects": true,
+      "replay_rejects": true
+    },
+    {
+      "name": "bytes",
+      "producer_rejects": true,
+      "replay_rejects": true
+    },
+    {
+      "name": "surrogate-value",
+      "producer_rejects": true,
+      "replay_rejects": true
+    },
+    {
+      "name": "surrogate-key",
+      "producer_rejects": true,
+      "replay_rejects": true
+    }
+  ],
+  "known_digest": {
+    "matches_frozen_value": true,
+    "sha256": "b55af27c4bd5f02ebeca8f901b84d2940b22e7bea7230e4d06f275d903bfdd72",
+    "wire_ascii": "{\"a\":1,\"z\":0}"
+  },
+  "model": "strict canonical JSON bytes for signed and hashed toy transcript fields",
+  "valid_vectors": [
+    {
+      "expected_ascii": "null",
+      "name": "null",
+      "producer_matches": true,
+      "replay_matches": true
+    },
+    {
+      "expected_ascii": "[true,false]",
+      "name": "booleans",
+      "producer_matches": true,
+      "replay_matches": true
+    },
+    {
+      "expected_ascii": "[0,-1,233]",
+      "name": "integers",
+      "producer_matches": true,
+      "replay_matches": true
+    },
+    {
+      "expected_ascii": "{\"a\":1,\"z\":0}",
+      "name": "key-order",
+      "producer_matches": true,
+      "replay_matches": true
+    },
+    {
+      "expected_ascii": "{\"x\":[1,{\"a\":null,\"b\":false}]}",
+      "name": "nested",
+      "producer_matches": true,
+      "replay_matches": true
+    },
+    {
+      "expected_ascii": "{\"s\":\"line\\nquote\\\"slash\\\\\"}",
+      "name": "escaped",
+      "producer_matches": true,
+      "replay_matches": true
+    },
+    {
+      "expected_ascii": "{\"s\":\"lambda-\\u03bb\"}",
+      "name": "unicode",
+      "producer_matches": true,
+      "replay_matches": true
+    },
+    {
+      "expected_ascii": "{\"a\":[],\"b\":{}}",
+      "name": "empty",
+      "producer_matches": true,
+      "replay_matches": true
+    }
+  ]
+}
