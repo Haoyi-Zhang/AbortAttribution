@@ -30,7 +30,7 @@ Expected results:
 - All **25** deterministic scientific output files match the retained pilot byte-for-byte.
 - `measurements.json` contains process metadata and is deliberately excluded from byte comparison.
 
-The runner refuses nonempty output directories and enforces one worker, 180 seconds wall/CPU, 3 GiB address space, and a 300,000-obligation cap. The retained run has 214,915 obligations plus separately recorded length/composition assertions. New host timings do not replace the retained measurements.
+The runner refuses nonempty output directories and enforces one worker, 180 seconds wall/CPU, 3 GiB address space, and a 300,000-obligation cap. The retained run has 214,915 obligations including the separately recorded length/composition assertions. New host timings do not replace the retained measurements.
 
 The extraction regression checks literal certificates and independent replay, canonical reference choice, exact closures, and content versus `D`/`D+1` timing. Extraction prepares record references and complaint candidates once per validated call; selected certificates still pass the standalone judge. No measured cryptographic or protocol speedup is claimed.
 
